@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       return User.scope("currentUser").findByPk(id);
     }
     static async login({ credential, password}) {
-      const { Op } = reqiore('sequelize');
+      const { Op } = require('sequelize');
       const user = await User.scope('loginUser').findOne({
         where: {
           [Op.or]: {
