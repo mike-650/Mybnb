@@ -41,7 +41,11 @@ module.exports = (sequelize, DataTypes) => {
       return await User.scope('currentUser').findByPk(user.id);
     }
     static associate(models) {
-      // define association here
+      User.hasMany(models.Spot, {foreignKey: 'ownerId'});
+      User.hasMany(models.Booking, {foreignKey: 'userId'});
+      User.hasMany(models.Review, {foreignKey: 'userId'});
+      User.belongsToMany(models.Spot, {through: models.Booking});
+      User.belongsToMany(models.Spot, {through: models.Review});
     }
   }
   User.init({
@@ -84,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
       defaultScope: {
         attributes: {
-          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"]
+          include: ["id", "firstName", "lastName", "email", "username", "hashedPassword"],
         }
       },
       scopes: {
