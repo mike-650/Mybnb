@@ -4,6 +4,8 @@ const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
 const { restoreUser } = require('../../utils/auth.js');
 
+// allows all route handlers connected to this router to retrieve the
+// current user on the Request object as req.user.
 router.use(restoreUser);
 
 router.use('/session', sessionRouter);

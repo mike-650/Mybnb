@@ -48,25 +48,27 @@ module.exports = {
         price: 400
       },
       {
-        address: "111 Bayshore Ave",
-        city: "Omaha",
-        state: "Nebraska",
-        country: "United States",
+        ownerId: 2,
+        address: "111 Slum Slums",
+        city: "Midgar",
+        state: "Sector 7",
+        country: "Gaia",
         lat: 41.2565,
         lng: 95.9345,
-        name: "Tree House",
-        description: "A tree house with bright lights, cozy decor, and a wonderful view",
+        name: "Seventh Heaven",
+        description: "A bar in the Sector 7 Slums of Midgar, spacious and cozy with arcade machines",
         price: 1000
       },
       {
-        address: "222 Hillcrest Dr",
-        city: "Sante Fe",
-        state: "New Mexico",
-        country: "United States",
+        ownerId: 1,
+        address: "222 Mushroom Ave",
+        city: "Mario City",
+        state: "Mariofornia",
+        country: "United Marios",
         lat: 35.6870,
         lng: 105.9378,
-        name: "Beach House",
-        description: "A large beach house with modern decor and plentiful amenities",
+        name: "Mario's Castle",
+        description: "A large castle filled with antique decor, monsters may roam about",
         price: 12345
       }
 
