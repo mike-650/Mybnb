@@ -6,17 +6,17 @@ const { User } = require('../../db/models');
 
 const router = express.Router();
 
-
 const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username.'),
+    .withMessage('Email or username is required'),
   check('password')
     .exists({ checkFalsy: true })
-    .withMessage('Please provide a password.'),
+    .withMessage('Password is required'),
   handleValidationErrors
 ];
+
 
 router.post(
   '/',
@@ -27,14 +27,15 @@ router.post(
     const user = await User.login({ credential, password });
 
     if (!user) {
-      const err = new Error('Login failed');
-      err.status = 401;
-      err.title = 'Login failed';
-      err.errors = { credential: 'The provided credentials were invalid.' };
-      return next(err);
+      // If user returns undefined (no user found/wrong username/email/password)
+      return res.status(401).json({message: 'Invalid credentials', statusCode: 401})
     }
 
-    await setTokenCookie(res, user);
+    // capture the return token value from setting the token
+    const token = await setTokenCookie(res, user);
+
+    // assign the token property the token that was generated
+    user.dataValues.token = token;
 
     return res.json({
       user: user
