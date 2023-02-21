@@ -17,12 +17,12 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: "trueImage.lol/image2",
+        url: "https://static.wikia.nocookie.net/supermarioglitchy4/images/c/ca/7D5C7CB2-76B4-4FD5-8D47-59B4BCD688D4.jpeg/revision/latest?cb=20200307170201",
         preview: true
       },
       {
         spotId: 2,
-        url: "googa.lol/randomImg",
+        url: "https://static.wikia.nocookie.net/finalfantasy/images/b/b7/Nibelheim-SiblingsHouse1f-ffvii.png/revision/latest?cb=20140818063523",
         preview: true
       },
       {

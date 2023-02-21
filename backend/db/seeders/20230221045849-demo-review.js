@@ -13,13 +13,13 @@ module.exports = {
     const reviews = [
       {
         spotId: 1,
-        userId: 1,
+        userId: 2,
         review: 'The house looks exactly like the star from Mario',
         stars: 4
       },
       {
         spotId: 1,
-        userId: 2,
+        userId: 3,
         review: 'It was extremely cozy and more spacious than I expected',
         stars: 5
       },     {
@@ -29,7 +29,7 @@ module.exports = {
         stars: 3
       },     {
         spotId: 2,
-        userId: 2,
+        userId: 1,
         review: 'The lodge style is definitely there, could use more amenities',
         stars: 4
       },
@@ -41,7 +41,7 @@ module.exports = {
       },
       {
         spotId: 3,
-        userId: 3,
+        userId: 2,
         review: 'Stay away from this AirBnb',
         stars: 1
       }

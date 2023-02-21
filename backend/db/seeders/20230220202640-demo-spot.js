@@ -12,6 +12,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const spots = [
       {
+        ownerId: 1,
         address: "123 Rainbow Road",
         city: "San Francisco",
         state: "California",
@@ -23,7 +24,8 @@ module.exports = {
         price: 150
       },
       {
-        address: "456 Flying Saucer",
+        ownerId: 2,
+        address: "456 Golden Saucer",
         city: "Seattle",
         state: "Washington",
         country: "United States",
@@ -34,9 +36,10 @@ module.exports = {
         price: 30
       },
       {
+        ownerId: 3,
         address: "789 Random",
-        city: "Boise",
-        state: "Idaho",
+        city: "Los Angeles",
+        state: "California",
         country: "United States",
         lat: 43.6150,
         lng: 116.2023,
