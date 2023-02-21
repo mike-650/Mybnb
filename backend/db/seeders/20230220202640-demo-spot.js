@@ -19,8 +19,8 @@ module.exports = {
         country: "United States",
         lat: 37.7645358,
         lng: -122.4730327,
-        name: "Star House",
-        description: "A house that resembles a star from Mario, with relevant theme decor",
+        name: "Mario's House",
+        description: "A small house, that belongs to the famous Mario from the gaming franchise",
         price: 150
       },
       {
