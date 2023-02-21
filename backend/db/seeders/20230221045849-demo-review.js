@@ -12,36 +12,36 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     const reviews = [
       {
-        spotId: 16,
-        userId: 11,
+        spotId: 1,
+        userId: 1,
         review: 'The house looks exactly like the star from Mario',
         stars: 4
       },
       {
-        spotId: 16,
-        userId: 12,
+        spotId: 1,
+        userId: 2,
         review: 'It was extremely cozy and more spacious than I expected',
         stars: 5
       },     {
-        spotId: 17,
-        userId: 10,
+        spotId: 2,
+        userId: 3,
         review: 'The place is rather small and gets cold at night',
         stars: 3
       },     {
-        spotId: 17,
-        userId: 12,
+        spotId: 2,
+        userId: 2,
         review: 'The lodge style is definitely there, could use more amenities',
         stars: 4
       },
       {
-        spotId: 18,
-        userId: 11,
+        spotId: 3,
+        userId: 1,
         review: 'Considering that the description was vague, the place itself is quite nice',
         stars: 5
       },
       {
-        spotId: 18,
-        userId: 12,
+        spotId: 3,
+        userId: 3,
         review: 'Stay away from this AirBnb',
         stars: 1
       }
