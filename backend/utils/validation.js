@@ -17,7 +17,7 @@ const handleValidationErrors = (req, res, next) => {
     return res.status(400).json({
       message: 'Validation Error',
       statusCode: '400',
-      'errors': [errors.credential, errors.password].filter(err => err !== undefined)
+      errors
     })
   }
   next();

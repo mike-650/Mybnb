@@ -28,14 +28,10 @@ router.post(
 
     if (!user) {
       // If user returns undefined (no user found/wrong username/email/password)
-      return res.status(401).json({message: 'Invalid credentials', statusCode: 401})
+      return res.status(401).json({ message: 'Invalid credentials', statusCode: 401 })
     }
 
-    // capture the return token value from setting the token
-    const token = await setTokenCookie(res, user);
-
-    // assign the token property the token that was generated
-    user.dataValues.token = token;
+    setTokenCookie(res, user);
 
     return res.json({
       user: user
@@ -60,8 +56,7 @@ router.get(
       return res.json({
         user: user.toSafeObject()
       });
-    } else return res.json({ user: null });
-  }
-);
+    };
+  });
 
 module.exports = router;

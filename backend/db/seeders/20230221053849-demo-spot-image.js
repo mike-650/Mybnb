@@ -8,27 +8,42 @@ if (process.env.NODE_ENV === 'production') {
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert(options, [
       {
         spotId: 1,
-        url: "exampleImage.com/image",
+        url: "falseImage.lol/image",
+        preview: false
+      },
+      {
+        spotId: 1,
+        url: "trueImage.lol/image2",
         preview: true
       },
       {
         spotId: 2,
-        url: "googa.com/randomImg",
+        url: "googa.lol/randomImg",
         preview: true
       },
       {
+        spotId: 2,
+        url: "googalia.lol/randomImg3",
+        preview: false
+      },
+      {
         spotId: 3,
-        url: "yawhoo.com/arbitraryImage",
-        preview: true
+        url: "yawhooha.lol/randomImg5",
+        preview: false
+      },
+      {
+        spotId: 3,
+        url: "yawhoo.lol/arbitraryImage",
+        preview: false
       },
     ], {})
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete(options, {}, {});
   }
 };
