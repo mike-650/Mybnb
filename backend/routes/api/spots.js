@@ -1,10 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const sequelize = require('sequelize');
+const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { Spot, SpotImage, Review } = require('../../db/models');
+const { User, Spot, SpotImage, Review } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
+const { runInContext } = require('vm');
 
 const validateSpotInput = [
   check('address')
@@ -45,7 +46,7 @@ router.get('/', async (req, res) => {
   const spots = await Spot.findAll({
     attributes: {
       // find average rating and alias it as 'avgRating'
-      include: [[sequelize.fn('AVG', sequelize.col('reviews.stars')), 'avgRating']]
+      include: [[Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgRating']]
     },
     include: [
       {
@@ -88,7 +89,7 @@ router.get('/', async (req, res) => {
     delete spot.SpotImages;
   });
 
-  res.status(200).json({ 'Spots': spotsList });
+  return res.status(200).json({ 'Spots': spotsList });
 });
 
 // Get All Spots by Current User *Authentication Required*
@@ -101,7 +102,7 @@ router.get('/current', requireAuth, async (req, res) => {
     },
     attributes: {
       // find average rating and alias it as 'avgRating'
-      include: [[sequelize.fn('AVG', sequelize.col('reviews.stars')), 'avgRating']]
+      include: [[Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgRating']]
     },
     include: [
       {
@@ -144,8 +145,49 @@ router.get('/current', requireAuth, async (req, res) => {
     delete spot.SpotImages;
   });
 
-  res.status(200).json({ 'Spots': spotsList });
+  return res.status(200).json({ 'Spots': spotsList });
 });
+
+// Get a spot by Id
+router.get('/:spotId', async (req, res) => {
+  const { spotId } = req.params;
+
+  const spot = await Spot.findOne({
+    where: { id: spotId },
+    include: [
+      {
+        model: SpotImage,
+        attributes: ['id', 'url', 'preview'],
+      },
+      {
+        model: User,
+        as: 'Owner',
+        attributes: ['id', 'firstName', 'lastName']
+      },
+      {
+        model: Review,
+        attributes: [],
+      }
+    ],
+    attributes: {
+      include: [
+        // Find all the reviews and calc the avg rating associated with this Spot Model
+        [Sequelize.fn('COUNT', Sequelize.col('reviews.id')), 'numReviews'],
+        [Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgStarRating']
+      ]
+    },
+    //
+    group: ['Spot.id', 'SpotImages.id', 'Owner.id']
+  });
+
+  if (spot === null) {
+    return res.status(404).json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    });
+  };
+  return res.json(spot);
+})
 
 // Create a Spot
 router.post('/', [requireAuth, validateSpotInput], async (req, res) => {
@@ -158,13 +200,13 @@ router.post('/', [requireAuth, validateSpotInput], async (req, res) => {
   const ownerId = req.user.dataValues.id;
 
   let spot = await Spot.createSpot(
-  {
-   ownerId, address, city,
-   state,country, lat, lng,
-   name, description, price
-  })
-  console.log(spot)
-  res.status(201).json(spot)
+    {
+      ownerId, address, city,
+      state, country, lat, lng,
+      name, description, price
+    });
+
+  return res.status(201).json(spot);
 })
 
 
