@@ -30,7 +30,7 @@ module.exports = {
         state: "Washington",
         country: "United States",
         lat: 50.543823,
-        lng: -245.538539,
+        lng: -102.538539,
         name: "Cloud's House",
         description: "Cloud Strife's home; minimal decor, lodge style home",
         price: 30
