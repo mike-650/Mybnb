@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review } = require('../../db/models');
-const { requireAuth } = require('../../utils/auth');
+const { requireAuthentication, requireAuthorization } = require('../../utils/auth');
 const { runInContext } = require('vm');
 
 const validateSpotInput = [
@@ -93,8 +93,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get All Spots by Current User *Authentication Required*
-router.get('/current', requireAuth, async (req, res) => {
-
+router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
   const spots = await Spot.findAll({
     where: {
@@ -190,7 +189,7 @@ router.get('/:spotId', async (req, res) => {
 })
 
 // Create a Spot
-router.post('/', [requireAuth, validateSpotInput], async (req, res) => {
+router.post('/', [requireAuthentication, validateSpotInput], async (req, res) => {
   const {
     address, city, state,
     country, lat, lng,
@@ -209,5 +208,9 @@ router.post('/', [requireAuth, validateSpotInput], async (req, res) => {
   return res.status(201).json(spot);
 })
 
+// Add an Image to a Spot based on Spot's id
+router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res)=> {
+  
+})
 
 module.exports = router;
