@@ -57,12 +57,12 @@ router.get('/', async (_req, res) => {
       },
       {
         model: SpotImage,
-        separate: true
+        separate: true,
+        required: true
       }
     ],
     // group by spot id to get the average for each unique spot
-    group: ['spot.id'],
-    logging: console.log
+    group: ['spot.id']
   });
 
   let spotsList = [];
