@@ -139,8 +139,10 @@ router.get('/current', requireAuthentication, async (req, res) => {
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
 
-  const spot = await Spot.findOne({
-    where: { id: spotId },
+  const spots = await Spot.findAll({
+    where: {
+      id: spotId
+    },
     include: [
       {
         model: SpotImage,
@@ -153,32 +155,19 @@ router.get('/:spotId', async (req, res) => {
       },
       {
         model: Review,
-        attributes: [],
+        attributes: []
       }
     ],
     attributes: {
       include: [
-        // Find all the reviews and calc the avg rating associated with this Spot Model
         [Sequelize.fn('COUNT', Sequelize.col('reviews.id')), 'numReviews'],
         [Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgStarRating']
       ]
     },
-    group: ['Spot.id', 'SpotImages.id', 'Owner.id', 'Reviews.id']
+    group: ['Spot.id', 'SpotImages.id', 'Owner.id']
   });
 
-  if (spot === null) {
-    return res.status(404).json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    });
-  };
-
-  const jsonSpot = spot.toJSON()
-
-  if (jsonSpot.SpotImages.length === 0) {
-    jsonSpot.SpotImages = "no images for this spot"
-  }
-  return res.json(jsonSpot);
+  return res.json(spots[0]);
 })
 
 // Create a Spot
