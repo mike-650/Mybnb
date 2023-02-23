@@ -61,7 +61,8 @@ router.get('/', async (_req, res) => {
       }
     ],
     // group by spot id to get the average for each unique spot
-    group: ['spot.id']
+    group: ['spot.id'],
+    logging: console.log
   });
 
   let spotsList = [];
