@@ -42,7 +42,6 @@ const validateSpotInput = [
   handleValidationErrors
 ];
 
-// NEED TO FIX
 // Get All Spots
 router.get('/', async (_req, res) => {
   const spots = await Spot.findAll({
@@ -84,10 +83,9 @@ router.get('/', async (_req, res) => {
     delete spot.SpotImages;
   });
 
-  return res.json({'Spots': spotsList});
+  return res.json({ 'Spots': spotsList });
 });
 
-// NEED TO FIX
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -95,53 +93,45 @@ router.get('/current', requireAuthentication, async (req, res) => {
     where: {
       ownerId: req.user.dataValues.id
     },
-    attributes: {
-      // find average rating and alias it as 'avgRating'
-      include: [[Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgRating']]
-    },
     include: [
       {
-        model: Review,
-        // don't include any attributes from the Review model in the output
-        attributes: [],
-        required: true
+        model: Review
       },
       {
-        model: SpotImage,
-        separate: true
+        model: SpotImage
       }
-    ],
-    // group by spot id to get the average for each unique spot
-    group: ['Spot.id']
+    ]
   });
 
   let spotsList = [];
-
-  // allows us to manipulate each POJO
   spots.forEach(spot => {
     spotsList.push(spot.toJSON());
+  });
+
+  spotsList.forEach(spot => {
+    let starTotal = 0;
+    let reviewsTotal = 0;
+    spot.Reviews.forEach(review => {
+      reviewsTotal++
+      starTotal += review.stars
+    });
+    spot.avgRating = starTotal / reviewsTotal;
+    delete spot.Reviews;
   })
 
-  // Iterate through the SpotImages array to find the preview image
-  // if there is one, and set previewImage to the url
   spotsList.forEach(spot => {
     spot.SpotImages.forEach(image => {
       if (image.preview === true) {
-        spot.previewImage = image.url
-      };
+        spot.previewImage = image.url;
+      }
     });
     if (!spot.previewImage) {
-      spot.previewImage = 'null';
-    };
-
-    // set the avgRating to 0 if the eager load from earlier returned null
-    if (spot.avgRating === null) {
-      spot.avgRating = 0.0;
-    };
+      spot.previewImage = 'no preview image found'
+    }
     delete spot.SpotImages;
   });
 
-  return res.status(200).json({ 'Spots': spotsList });
+  return res.json({ 'Spots': spotsList });
 });
 
 // NEED TO FIX
