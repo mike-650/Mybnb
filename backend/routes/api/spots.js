@@ -46,7 +46,8 @@ router.get('/', async (req, res) => {
   const spots = await Spot.findAll({
     include: [
       {
-        model: Review
+        model: Review,
+        foreignKey: 'spotId'
       },
       {
         model: User,
@@ -55,8 +56,12 @@ router.get('/', async (req, res) => {
     ]
   })
 
+  let spotsList = [];
+  spots.forEach(spot => {
+   spotsList.push(spot.toJSON());
+  });
 
-  res.json(spots)
+  res.json(spotsList)
 });
 
 // Get All Spots by Current User *Authentication Required*
