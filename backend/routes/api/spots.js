@@ -205,17 +205,23 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
   }
 
   // create the new image (is the new preview image; preview: 'true')
-  await SpotImage.create({
+  let newImage = await SpotImage.create({
     spotId, url, preview
   });
 
-  let newImage = await SpotImage.findOne({
-    where: { preview: true },
-    attributes: {
-      exclude: ['spotId', 'createdAt', 'updatedAt']
-    }
-  });
-  return res.json(newImage)
+  // let newImage = await SpotImage.findOne({
+  //   where: { preview: true },
+  //   attributes: {
+  //     exclude: ['spotId', 'createdAt', 'updatedAt']
+  //   }
+  // });
+  const imageJSON = newImage.toJSON();
+
+  delete imageJSON.id;
+  delete imageJSON.createdAt;
+  delete imageJSON.updatedAt;
+
+  return res.json(imageJSON)
 })
 
 
