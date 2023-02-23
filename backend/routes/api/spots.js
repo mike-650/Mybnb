@@ -43,7 +43,10 @@ const validateSpotInput = [
 
 // Get All Spots
 router.get('/', async (req, res) => {
-  res.json('here')
+  const spots = await Spot.findAll()
+
+
+  res.json(spots)
 });
 
 // Get All Spots by Current User *Authentication Required*
