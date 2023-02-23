@@ -44,25 +44,47 @@ const validateSpotInput = [
 
 // NEED TO FIX
 // Get All Spots
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   const spots = await Spot.findAll({
     include: [
       {
-        model: Review,
-        foreignKey: 'spotId'
+        model: Review
       },
       {
-        model: User,
-        as: "Owner"
+        model: SpotImage
       }
     ]
-  })
-  let spotList = [];
+  });
+
+  let spotsList = [];
   spots.forEach(spot => {
-    spotList.push(spot.toJSON());
+    spotsList.push(spot.toJSON());
+  });
+
+  spotsList.forEach(spot => {
+    let starTotal = 0;
+    let reviewsTotal = 0;
+    spot.Reviews.forEach(review => {
+      reviewsTotal++
+      starTotal += review.stars
+    });
+    spot.avgRating = starTotal / reviewsTotal;
+    delete spot.Reviews;
   })
 
-  return res.json(spotList)
+  spotsList.forEach(spot => {
+    spot.SpotImages.forEach(image => {
+      if (image.preview === true) {
+        spot.previewImage = image.url;
+      }
+    });
+    if (!spot.previewImage) {
+      spot.previewImage = 'no preview image found'
+    }
+    delete spot.SpotImages;
+  });
+
+  return res.json(spotsList);
 });
 
 // NEED TO FIX

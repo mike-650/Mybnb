@@ -22,12 +22,14 @@ module.exports = {
         userId: 3,
         review: 'It was extremely cozy and more spacious than I expected',
         stars: 5
-      },     {
+      },
+      {
         spotId: 2,
         userId: 3,
         review: 'The place is rather small and gets cold at night',
         stars: 3
-      },     {
+      },
+      {
         spotId: 2,
         userId: 1,
         review: 'The lodge style is definitely there, could use more amenities',
