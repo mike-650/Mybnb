@@ -43,7 +43,16 @@ const validateSpotInput = [
 
 // Get All Spots
 router.get('/', async (req, res) => {
-  const spots = await Spot.findAll()
+  const spots = await Spot.findAll({
+    include: [
+      {
+        model: Review
+      },
+      {
+        model: User
+      }
+    ]
+  })
 
   let spotsList = [];
   spots.forEach(spot => {
