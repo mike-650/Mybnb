@@ -42,7 +42,7 @@ const validateSpotInput = [
 ];
 
 // Get All Spots
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
   const spots = await Spot.findAll({
     attributes: {
       // find average rating and alias it as 'avgRating'
@@ -51,14 +51,14 @@ router.get('/', async (_req, res) => {
     include: [
       {
         model: Review,
+        as: 'Reviews',
         // don't include any attributes from the Review model in the output
-        attributes: ['stars'],
-        required: true
+        attributes: []
       },
       {
         model: SpotImage,
-        separate: true,
-        required: true
+        as: 'SpotImages',
+        separate: true
       }
     ],
     // group by spot id to get the average for each unique spot
