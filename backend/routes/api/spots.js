@@ -45,67 +45,24 @@ const validateSpotInput = [
 // NEED TO FIX
 // Get All Spots
 router.get('/', async (req, res) => {
-  // const spots = await Spot.findAll({
-  //   include: [
-  //     {
-  //       model: Review,
-  //       foreignKey: 'spotId'
-  //     },
-  //     {
-  //       model: User,
-  //       as: "Owner"
-  //     }
-  //   ]
-  // })
-  // let spotList = [];
-  // spots.forEach(spot => {
-  //   spotList.push(spot.toJSON());
-  // })
-  // console.log(spotList)
-  // return res.json(spotList)
   const spots = await Spot.findAll({
-    attributes: {
-      // find average rating and alias it as 'avgRating'
-      include: [[Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgRating']]
-    },
     include: [
       {
         model: Review,
-        // don't include any attributes from the Review model in the output
-        attributes: [],
-        required: true
+        foreignKey: 'spotId'
       },
       {
-        model: SpotImage,
-        separate: true
+        model: User,
+        as: "Owner"
       }
-    ],
-    // group by spot id to get the average for each unique spot
-    group: ['spot.id']
-  });
-  let spotsList = [];
-  // allows us to manipulate each POJO
-  spots.forEach(spot => {
-    spotsList.push(spot.toJSON());
+    ]
   })
-  // Iterate through the SpotImages array to find the preview image
-  // if there is one, and set previewImage to the url
-  spotsList.forEach(spot => {
-    spot.SpotImages.forEach(image => {
-      if (image.preview === true) {
-        spot.previewImage = image.url
-      };
-    });
-    if (!spot.previewImage) {
-      spot.previewImage = 'null';
-    };
-    // set the avgRating to 0 if the eager load from earlier returned null
-    if (spot.avgRating === null) {
-      spot.avgRating = 0.0;
-    };
-    delete spot.SpotImages;
-  });
-  return res.status(200).json({ 'Spots': spotsList });
+  let spotList = [];
+  spots.forEach(spot => {
+    spotList.push(spot.toJSON());
+  })
+
+  return res.json(spotList)
 });
 
 // NEED TO FIX
@@ -124,7 +81,8 @@ router.get('/current', requireAuthentication, async (req, res) => {
       {
         model: Review,
         // don't include any attributes from the Review model in the output
-        attributes: []
+        attributes: [],
+        required: true
       },
       {
         model: SpotImage,
