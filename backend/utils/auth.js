@@ -64,7 +64,10 @@ const requireAuthorization = async function (req, res, next) {
   });
 
   if (req.user.id !== spotOwnerId.dataValues.ownerId) {
-    return res.json('its not your spot :c')
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403
+    })
   } else {
     return next();
   }
