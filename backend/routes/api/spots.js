@@ -43,12 +43,8 @@ const validateSpotInput = [
 
 // Get All Spots
 router.get('/', async (req, res) => {
-  const spots = await Spot.findAll({
-    include: [
-      {
-        model: Review
-      }
-    ]
+  const spots = await Review.findAll({
+
   })
 
   return res.json(spots)
@@ -174,5 +170,12 @@ router.post('/', [requireAuthentication, validateSpotInput], async (req, res) =>
 router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res)=> {
 
 })
+
+
+// Edit a Spot
+router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
+
+})
+
 
 module.exports = router;
