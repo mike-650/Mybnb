@@ -47,19 +47,11 @@ router.get('/', async (req, res) => {
     include: [
       {
         model: Review
-      },
-      {
-        model: User
       }
     ]
   })
 
-  let spotsList = [];
-  spots.forEach(spot => {
-   spotsList.push(spot.toJSON());
-  });
-
-  res.json(spotsList)
+  return res.json(spots)
 });
 
 // Get All Spots by Current User *Authentication Required*
