@@ -163,8 +163,7 @@ router.get('/:spotId', async (req, res) => {
         [Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgStarRating']
       ]
     },
-    //
-    group: ['Spot.id', 'SpotImages.id', 'Owner.id']
+    group: ['Spot.id', 'SpotImages.id', 'Owner.id', 'Reviews.id']
   });
 
   if (spot === null) {
@@ -173,7 +172,13 @@ router.get('/:spotId', async (req, res) => {
       "statusCode": 404
     });
   };
-  return res.json(spot);
+
+  const jsonSpot = spot.toJSON()
+
+  if (jsonSpot.SpotImages.length === 0) {
+    jsonSpot.SpotImages = "no images for this spot"
+  }
+  return res.json(jsonSpot);
 })
 
 // Create a Spot
