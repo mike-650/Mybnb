@@ -209,19 +209,14 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
     spotId, url, preview
   });
 
-  // let newImage = await SpotImage.findOne({
-  //   where: { preview: true },
-  //   attributes: {
-  //     exclude: ['spotId', 'createdAt', 'updatedAt']
-  //   }
-  // });
   const imageJSON = newImage.toJSON();
 
-  delete imageJSON.id;
+  // delete unnecessary properties
+  delete imageJSON.spotId;
   delete imageJSON.createdAt;
   delete imageJSON.updatedAt;
 
-  return res.json(imageJSON)
+  return res.json(imageJSON);
 })
 
 
