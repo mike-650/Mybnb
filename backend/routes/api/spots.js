@@ -52,7 +52,7 @@ router.get('/', async (_req, res) => {
       {
         model: Review,
         // don't include any attributes from the Review model in the output
-        attributes: [],
+        attributes: ['stars'],
         required: true
       },
       {
