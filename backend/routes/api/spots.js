@@ -89,7 +89,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
       }
     ],
     // group by spot id to get the average for each unique spot
-    group: ['spot.id']
+    group: ['Spot.id']
   });
 
   let spotsList = [];
@@ -246,10 +246,32 @@ router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpo
       description,
       price
     }
-  )
+  );
   // return the specified response
-  res.json(updatedSpot)
-})
+  return res.json(updatedSpot);
+});
 
+// Delete a Spot
+router.delete('/:spotId', [requireAuthentication, requireAuthorization], async (req, res) => {
+  // deconstruct the spotId
+  const { spotId } = req.params;
+  // query the spot to be deleted
+  const spot = await Spot.findByPk(spotId);
+
+  // delete the spot
+  try {
+    await spot.destroy();
+    // return success response
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200
+    });
+  } catch (error) {
+    // handle any errors that occur during deletion
+    console.error(error);
+    return res.status(500).send('Error deleting spot');
+  }
+
+})
 
 module.exports = router;
