@@ -42,7 +42,7 @@ const validateSpotInput = [
 ];
 
 // Get All Spots
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   const spots = await Spot.findAll({
     attributes: {
       // find average rating and alias it as 'avgRating'
@@ -52,7 +52,8 @@ router.get('/', async (req, res) => {
       {
         model: Review,
         // don't include any attributes from the Review model in the output
-        attributes: []
+        attributes: [],
+        required: true
       },
       {
         model: SpotImage,
@@ -210,7 +211,7 @@ router.post('/', [requireAuthentication, validateSpotInput], async (req, res) =>
 
 // Add an Image to a Spot based on Spot's id
 router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res)=> {
-  
+
 })
 
 module.exports = router;
