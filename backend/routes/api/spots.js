@@ -42,6 +42,7 @@ const validateSpotInput = [
   handleValidationErrors
 ];
 
+// FINISHED
 // Get All Spots
 router.get('/', async (_req, res) => {
   const spots = await Spot.findAll({
@@ -86,6 +87,7 @@ router.get('/', async (_req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
+// FINISHED
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -134,7 +136,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
-// NEED TO FIX
+// NEED TO FIX SAVE FOR LATER
 // Get a spot by Id
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
@@ -167,9 +169,17 @@ router.get('/:spotId', async (req, res) => {
     group: ['Spot.id', 'SpotImages.id', 'Owner.id']
   });
 
+  if (spots.length === 0) {
+    res.status(404).json({
+      "message": "Spot couldn't be found",
+      "statusCode": 404
+    })
+  }
+
   return res.json(spots[0]);
 })
 
+// FINISHED
 // Create a Spot
 router.post('/', [requireAuthentication, validateSpotInput], async (req, res) => {
   const {
@@ -227,6 +237,7 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
 })
 
 
+// FINISHED
 // Edit a Spot
 router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
   // deconstruct the spotId and req.body args
@@ -258,27 +269,13 @@ router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpo
   return res.json(updatedSpot);
 });
 
+// WIP
 // Delete a Spot
 router.delete('/:spotId', [requireAuthentication, requireAuthorization], async (req, res) => {
   // deconstruct the spotId
   const { spotId } = req.params;
   // query the spot to be deleted
   const spot = await Spot.findByPk(spotId);
-
-  // delete the spot
-  try {
-    await spot.destroy();
-    // return success response
-    return res.json({
-      message: "Successfully deleted",
-      statusCode: 200
-    });
-  } catch (error) {
-    // handle any errors that occur during deletion
-    console.error(error);
-    return res.status(500).send('Error deleting spot');
-  }
-
 })
 
 module.exports = router;

@@ -4,7 +4,7 @@ let options = {};
 options.tableName = 'SpotImages'
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
-}
+};
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -38,7 +38,7 @@ module.exports = {
       {
         spotId: 3,
         url: "yawhoo.lol/arbitraryImage",
-        preview: false
+        preview: true
       },
     ], {})
   },
