@@ -84,7 +84,7 @@ router.get('/', async (_req, res) => {
     delete spot.SpotImages;
   });
 
-  return res.json(spotsList);
+  return res.json({'Spots': spotsList});
 });
 
 // NEED TO FIX
