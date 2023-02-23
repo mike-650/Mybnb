@@ -222,7 +222,33 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
 
 // Edit a Spot
 router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
+  // deconstruct the spotId and req.body args
+  const { spotId } = req.params
+  const {
+    address, city, state,
+    country, lat, lng,
+    name, description, price
+  } = req.body
 
+  // query the spot to be updated
+  const spot = await Spot.findByPk(spotId)
+
+  // then updated that record
+  const updatedSpot = await spot.update(
+    {
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price
+    }
+  )
+  // return the specified response
+  res.json(updatedSpot)
 })
 
 
