@@ -43,11 +43,23 @@ const validateSpotInput = [
 
 // Get All Spots
 router.get('/', async (req, res) => {
-  const spots = await Review.findAll({
-
+  const spots = await Spot.findAll({
+    include: [
+      {
+        model: Review
+      },
+      {
+        model: User,
+        as: "Owner"
+      }
+    ]
   })
-
-  return res.json(spots)
+  let spotList = [];
+  spots.forEach(spot => {
+    spotList.push(spot.toJSON());
+  })
+  console.log(spotList)
+  return res.json(spotList)
 });
 
 // Get All Spots by Current User *Authentication Required*

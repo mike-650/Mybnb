@@ -44,6 +44,30 @@ module.exports = {
         userId: 2,
         review: 'Stay away from this AirBnb',
         stars: 1
+      },
+      {
+        spotId: 4,
+        userId: 1,
+        review: 'The area is not that pleasent but the bar was nice',
+        stars: 4
+      },
+      {
+        spotId: 4,
+        userId: 3,
+        review: 'The pinball machines werent working but everything else was ok',
+        stars: 3
+      },
+      {
+        spotId: 5,
+        userId: 2,
+        review: 'Castle is very big and has lots of amenities',
+        stars: 5
+      },
+      {
+        spotId: 5,
+        userId: 3,
+        review: 'Overall the castle is nice but I think there are ghosts wandering around',
+        stars: 3
       }
     ]
 
