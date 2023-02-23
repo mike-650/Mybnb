@@ -36,7 +36,7 @@ const restoreUser = (req, res, next) => {
     try {
       const { id } = jwtPayload.data;
       req.user = await User.scope('currentUser').findByPk(id);
-    } catch(e) {
+    } catch (e) {
       res.clearCookie('token');
       return next();
     }
@@ -63,7 +63,14 @@ const requireAuthorization = async function (req, res, next) {
     attributes: ['ownerId']
   });
 
-  if (req.user.id !== spotOwnerId.dataValues.ownerId) {
+  // possibly turn this if condition to a try catch block on the spotOwnerId
+  // -- works for now though;
+  if (!spotOwnerId) {
+    res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404
+    })
+  } else if (req.user.id !== spotOwnerId.dataValues.ownerId) {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403

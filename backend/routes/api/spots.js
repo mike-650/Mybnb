@@ -6,6 +6,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review } = require('../../db/models');
 const { requireAuthentication, requireAuthorization } = require('../../utils/auth');
 const { runInContext } = require('vm');
+const { truncate } = require('fs');
 
 const validateSpotInput = [
   check('address')
@@ -41,6 +42,7 @@ const validateSpotInput = [
   handleValidationErrors
 ];
 
+// NEED TO FIX
 // Get All Spots
 router.get('/', async (req, res) => {
   const spots = await Spot.findAll({
@@ -63,6 +65,7 @@ router.get('/', async (req, res) => {
   return res.json(spotList)
 });
 
+// NEED TO FIX
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -118,6 +121,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.status(200).json({ 'Spots': spotsList });
 });
 
+// NEED TO FIX
 // Get a spot by Id
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
@@ -180,8 +184,38 @@ router.post('/', [requireAuthentication, validateSpotInput], async (req, res) =>
 })
 
 // Add an Image to a Spot based on Spot's id
-router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res)=> {
+router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res) => {
+  const { spotId } = req.params
+  const { url, preview } = req.body
 
+  // find the current preview that is set the true
+  let currentPreview = await SpotImage.findOne({
+    where: {
+      preview: true
+    }
+  });
+
+  // check if this returned null or not
+  if (currentPreview) {
+    // if yes; update that preview to false
+    await currentPreview.update(
+      { preview: false },
+      { where: { id: currentPreview.id } }
+    );
+  }
+
+  // create the new image (is the new preview image; preview: 'true')
+  await SpotImage.create({
+    spotId, url, preview
+  });
+
+  let newImage = await SpotImage.findOne({
+    where: { preview: true },
+    attributes: {
+      exclude: ['spotId', 'createdAt', 'updatedAt']
+    }
+  });
+  return res.json(newImage)
 })
 
 
