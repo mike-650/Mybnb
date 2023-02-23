@@ -46,7 +46,8 @@ router.get('/', async (req, res) => {
   const spots = await Spot.findAll({
     include: [
       {
-        model: Review
+        model: Review,
+        foreignKey: 'spotId'
       },
       {
         model: User,
