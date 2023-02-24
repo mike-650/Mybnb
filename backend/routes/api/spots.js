@@ -3,7 +3,7 @@ const router = express.Router();
 const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User, Spot, SpotImage, Review } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
 const { requireAuthentication, requireAuthorization } = require('../../utils/auth');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
@@ -41,6 +41,17 @@ const validateSpotInput = [
     .withMessage('Price per day is required'),
   handleValidationErrors
 ];
+
+const validateReviewInput = [
+  check('review')
+  .exists({ checkFalsy: true })
+  .withMessage('Review text is required'),
+  check('stars')
+  .exists({ checkFalsy: true })
+  .isFloat({ min: 1, max: 5})
+  .withMessage('Star must be an integer from 1 to 5'),
+  handleValidationErrors
+]
 
 // FINISHED
 // Get All Spots
@@ -179,6 +190,55 @@ router.get('/:spotId', async (req, res) => {
   return res.json(spots[0]);
 })
 
+// NEED TO TEST
+// Get all reviews by a spot id
+router.get('/:spotId/reviews', async (req, res) => {
+  const { spotId } = req.params;
+
+  // grab all reviews that are associated with the spot
+  const reviews = await Review.findAll({
+    where: {
+      spotId: spotId
+    },
+    include: [
+      {
+        model: User,
+        attributes: {
+          exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+        }
+      },
+      {
+        model: ReviewImage,
+        attributes: {
+          exclude: ['reviewId', 'createdAt', 'updatedAt']
+        }
+      }
+    ]
+  })
+
+  // if the spot isnt found check
+  if (!reviews.length) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404
+    })
+  }
+
+  let reviewList = [];
+  reviews.forEach(review => {
+    reviewList.push(review.toJSON())
+  });
+
+  // replace empty array with message
+  reviewList.forEach(review => {
+    if (review.ReviewImages.length === 0) {
+      review.ReviewImages = 'no review images available'
+    }
+  })
+
+  return res.json({ 'Reviews': reviewList });
+})
+
 // FINISHED
 // Create a Spot
 router.post('/', [requireAuthentication, validateSpotInput], async (req, res) => {
@@ -236,6 +296,21 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
   return res.json(imageJSON);
 })
 
+// NEED TO TEST
+// Create a Review for a Spot by id
+router.post('/:spotId/reviews', [requireAuthentication, requireAuthorization, validateReviewInput], async (req, res) => {
+  const { spotId } = req.params;
+  const { review, stars } = req.body;
+
+  const newReview = await Review.create({
+    spotId,
+    userId: req.user.dataValues.id,
+    review,
+    stars
+  });
+
+  return res.json(newReview)
+})
 
 // FINISHED
 // Edit a Spot

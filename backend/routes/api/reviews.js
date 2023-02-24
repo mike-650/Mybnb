@@ -6,6 +6,7 @@ const { requireAuthentication, requireAuthorization } = require('../../utils/aut
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
 
+// FINISHED
 // Get all current user's reviews
 router.get('/current', requireAuthentication, async (req, res) =>{
   const userId = req.user.dataValues.id
