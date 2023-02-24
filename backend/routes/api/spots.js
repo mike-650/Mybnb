@@ -3,10 +3,12 @@ const router = express.Router();
 const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
-const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
+const { BOOLEAN } = require('sequelize');
+const booking = require('../../db/models/booking');
 
 const validateSpotInput = [
   check('address')
@@ -236,6 +238,49 @@ router.get('/:spotId/reviews', async (req, res) => {
   })
 
   return res.json({ 'Reviews': reviewList });
+})
+
+// NEED TO TEST
+// Get All Bookings for a Spot by ID
+router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
+  const { spotId } = req.params
+  const spot = await Spot.findByPk(spotId)
+
+  if (spot === null) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      status: 404
+    });
+  };
+  // If the current user DOES NOT own the spot
+  if (req.user.dataValues.id !== spot.dataValues.ownerId) {
+    const bookings = await Booking.findAll({
+      where: {
+        userId: req.user.dataValues.id
+      },
+      attributes: {
+        exclude: ['id', 'userId', 'createdAt', 'updatedAt']
+      }
+    })
+    return res.json({ "Bookings": bookings });
+    // If the current user OWNS the spot
+  } else {
+    const bookings = await Booking.findAll({
+      include: [
+        {
+          model: User,
+          attributes: {
+            include: ['id', 'firstName', 'lastName'],
+            exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+          }
+        }
+      ],
+      where: {
+        spotId
+      }
+    })
+    return res.json({ "Bookings": bookings });
+  };
 })
 
 // FINISHED
