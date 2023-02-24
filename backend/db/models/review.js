@@ -16,6 +16,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
+    // note: any model that has more than one foreignKey, hardcode the id
+    // property
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
     spotId: {
       type: DataTypes.INTEGER
     },

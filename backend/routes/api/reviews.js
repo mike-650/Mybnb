@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Sequelize = require('sequelize');
-const { User, Spot, Review, ReviewImage } = require('../../db/models');
+const { User, Spot, Review, ReviewImage, SpotImage } = require('../../db/models');
 const { requireAuthentication, requireAuthorization } = require('../../utils/auth');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
@@ -25,15 +25,20 @@ router.get('/current', requireAuthentication, async (req, res) =>{
       {
         model: Spot,
         attributes:  {
-          exclude: ['createdAt', 'updatedAt']
+          exclude: ['description', 'createdAt', 'updatedAt']
         }
       },
       {
-        model: ReviewImage
+        model: ReviewImage,
+        attributes: {
+          exclude: ['reviewId', 'createdAt', 'updatedAt']
+        }
       }
     ]
-  })
-  return res.json({ 'Reviews': reviews })
+  });
+
+
+  return res.json({ reviews })
 })
 
 
