@@ -55,7 +55,27 @@ router.get('/current', requireAuthentication, async (req, res) => {
  return res.json({ "Bookings": bookingsList });
 });
 
+// WIP
+// Edit a Booking
+router.put('/:bookingId', requireAuthentication, async (req, res) => {
+  const { bookingId } = req.params;
 
+  const booking = await Booking.findByPk(bookingId);
+  if (booking === null) {
+    return res.status(404).json({
+      message: "Booking couldn't be found",
+      statusCode: 404
+    })
+  } else if (req.user.dataValues.id !== booking.dataValues.userId) {
+    return res.status(403).json({
+      message: "Forbidden",
+      status: 403
+    })
+  }
+
+
+  res.json("test")
+})
 
 
 

@@ -5,10 +5,12 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { Op } = require('sequelize');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
 const { BOOLEAN } = require('sequelize');
 const booking = require('../../db/models/booking');
+const { start } = require('repl');
 
 const validateSpotInput = [
   check('address')
@@ -47,6 +49,17 @@ const validateSpotInput = [
   handleValidationErrors
 ];
 
+const validateBookingDate = [
+  check('endDate')
+    .custom((endDate, { req }) => {
+      if (new Date(endDate) <= new Date(req.body.startDate)) {
+        throw new Error();
+      };
+      return true;
+    })
+    .withMessage('endDate cannot be on or before startDate'),
+  handleValidationErrors
+];
 
 // SUCCESFUL ON RENDER
 // Get All Spots
@@ -343,25 +356,51 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
 // NEED TO TEST
 // Create a Review for a Spot by id
 router.post('/:spotId/reviews',
-[requireAuthentication, validateReviewInput],
- async (req, res) => {
-  const { spotId } = req.params;
-  const { review, stars } = req.body;
+  [requireAuthentication, validateReviewInput],
+  async (req, res) => {
+    const { spotId } = req.params;
+    const { review, stars } = req.body;
 
-  // check if the spot exists
+    // check if the spot exists
+    const spot = await Spot.findByPk(spotId);
+    if (!spot) {
+      return res.status(404).json({ message: "Spot couldn't be found", statusCode: 404 })
+    };
+
+    const newReview = await Review.create({
+      spotId,
+      userId: req.user.dataValues.id,
+      review,
+      stars
+    });
+
+    return res.json(newReview)
+  })
+
+// WIP
+// Create a Booking based on Spot ID
+router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], async (req, res) => {
+  const { spotId } = req.params;
+  const { startDate, endDate } = req.body;
+
+  // check if spot exists
   const spot = await Spot.findByPk(spotId);
-  if (!spot) {
-    return res.status(404).json({ message: "Spot couldn't be found", statusCode: 404 })
+  if (spot === null) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      status: 404
+    });
+    // check if the current user owns the spot
+  } else if (req.user.dataValues.id === spot.dataValues.ownerId) {
+    return res.status(403).json({
+      message: 'Forbidden',
+      status: 403
+    });
   };
 
-  const newReview = await Review.create({
-    spotId,
-    userId: req.user.dataValues.id,
-    review,
-    stars
-  });
 
-  return res.json(newReview)
+
+  return res.json('lol');
 })
 
 // FINISHED ** ADDED NAME REQ MSG IN VALIDSPOTINPUT NEED TO TEST
