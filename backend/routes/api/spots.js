@@ -298,9 +298,15 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
 
 // NEED TO TEST
 // Create a Review for a Spot by id
-router.post('/:spotId/reviews', [requireAuthentication, requireAuthorization, validateReviewInput], async (req, res) => {
+router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], async (req, res) => {
   const { spotId } = req.params;
   const { review, stars } = req.body;
+
+  // check if the spot exists
+  const spot = await Spot.findByPk(spotId);
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found", statusCode: 404 })
+  };
 
   const newReview = await Review.create({
     spotId,
