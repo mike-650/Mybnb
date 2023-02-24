@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage } = require('../../db/models');
-const { requireAuthentication, requireAuthorization } = require('../../utils/auth');
+const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
 
@@ -31,6 +31,7 @@ const validateSpotInput = [
     .withMessage('Longitude is not valid'),
   check('name')
     .exists({ checkFalsy: true })
+    .withMessage('Name is required')
     .isLength({ max: 50 })
     .withMessage('Name must be less than 50 characters'),
   check('description')
@@ -38,22 +39,14 @@ const validateSpotInput = [
     .withMessage('Description is required'),
   check('price')
     .exists({ checkFalsy: true })
-    .withMessage('Price per day is required'),
+    .withMessage('Price per day is required')
+    .isNumeric()
+    .withMessage('Price must be a valid numeric value'),
   handleValidationErrors
 ];
 
-const validateReviewInput = [
-  check('review')
-  .exists({ checkFalsy: true })
-  .withMessage('Review text is required'),
-  check('stars')
-  .exists({ checkFalsy: true })
-  .isFloat({ min: 1, max: 5})
-  .withMessage('Star must be an integer from 1 to 5'),
-  handleValidationErrors
-]
 
-// FINISHED
+// SUCCESFUL ON RENDER
 // Get All Spots
 router.get('/', async (_req, res) => {
   const spots = await Spot.findAll({
@@ -98,7 +91,7 @@ router.get('/', async (_req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
-// FINISHED
+// SUCCESFUL ON RENDER ** ADDED LINE 121-123, NEEDS TESTING
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -115,6 +108,12 @@ router.get('/current', requireAuthentication, async (req, res) => {
       }
     ]
   });
+
+  // NEED TO TEST
+  // If user has no spots
+  if (!spots.length) {
+    return res.status(404).json({ message: "No spots were found for the current user." });
+  };
 
   let spotsList = [];
   spots.forEach(spot => {
@@ -190,7 +189,7 @@ router.get('/:spotId', async (req, res) => {
   return res.json(spots[0]);
 })
 
-// NEED TO TEST
+// SUCCESFUL ON RENDER
 // Get all reviews by a spot id
 router.get('/:spotId/reviews', async (req, res) => {
   const { spotId } = req.params;
@@ -298,7 +297,9 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
 
 // NEED TO TEST
 // Create a Review for a Spot by id
-router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], async (req, res) => {
+router.post('/:spotId/reviews',
+[requireAuthentication, validateReviewInput],
+ async (req, res) => {
   const { spotId } = req.params;
   const { review, stars } = req.body;
 
@@ -318,7 +319,7 @@ router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], as
   return res.json(newReview)
 })
 
-// FINISHED
+// FINISHED ** ADDED NAME REQ MSG IN VALIDSPOTINPUT NEED TO TEST
 // Edit a Spot
 router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
   // deconstruct the spotId and req.body args

@@ -40,6 +40,11 @@ module.exports = {
         url: "yawhoo.lol/arbitraryImage",
         preview: true
       },
+      {
+        spotId: 7,
+        url: "https://wehco.media.clients.ellingtoncms.com/imports/adg/photos/102548280_1711d3bca3cce53a95a43d5f3bca2f65-o_a_t800.jpg?90232451fbcadccc64a17de7521d859a8f88077d",
+        preview: true
+      }
     ], {})
   },
 

@@ -31,6 +31,7 @@ const validateSignup = [
   handleValidationErrors
 ];
 
+// SUCCESFUL ON RENDER
 router.post(
   '/',
   validateSignup,

@@ -14,9 +14,9 @@ module.exports = {
       {
         ownerId: 1,
         address: "123 Rainbow Road",
-        city: "San Francisco",
-        state: "California",
-        country: "United States",
+        city: "Yoshi York City",
+        state: "New Yoshi",
+        country: "Mushroom Kingdom",
         lat: 37.7645358,
         lng: -122.4730327,
         name: "Mario's House",
@@ -25,10 +25,10 @@ module.exports = {
       },
       {
         ownerId: 2,
-        address: "456 Golden Saucer",
-        city: "Seattle",
-        state: "Washington",
-        country: "United States",
+        address: "456 Mt. Nibel",
+        city: "Nibelheim",
+        state: "Nibel Area",
+        country: "Gaia",
         lat: 50.543823,
         lng: -102.538539,
         name: "Cloud's House",
@@ -44,7 +44,7 @@ module.exports = {
         lat: 43.6150,
         lng: 116.2023,
         name: "Random house",
-        description: "A random house, in Boise, Idaho",
+        description: "A random house, in a random place",
         price: 400
       },
       {
@@ -70,7 +70,43 @@ module.exports = {
         name: "Mario's Castle",
         description: "A large castle filled with antique decor, monsters may roam about",
         price: 12345
-      }
+      },
+      {
+        ownerId: 4,
+        address: "*Disclosed*",
+        city: "Fox Archipelago",
+        state: "Alaska",
+        country: "United States",
+        lat: 55.2321,
+        lng: 120.3574,
+        name: "Shadow Moses Island",
+        description: "Shadow Moses is an island that is part of the Fox Archipelago lying southwest of mainland Alaska in the Bering Sea. A nuclear weapons disposal facility located on Shadow Moses secretly doubled as a massive weapons development complex.",
+        price: 1000000
+      },
+      {
+        ownerId: 3,
+        address: "13 Odell Ave",
+        city: "Los Angeles",
+        state: "California",
+        country: "United States",
+        lat: 15.5484,
+        lng: 123.2819,
+        name: "Odell' House",
+        description: "Large mansion with a large outdoor infinity pool",
+        price: 13000
+      },
+      {
+        ownerId: 4,
+        address: "1738 Solid Ave",
+        city: "Stone Town",
+        state: "Zanzibar",
+        country: "Tanzia",
+        lat: 65.2632,
+        lng: -110.2468,
+        name: "Snake's House",
+        description: "Solid Snake's private home, tiny and compact",
+        price: 10
+      },
 
     ]
 

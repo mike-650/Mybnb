@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
 const { User, Spot } = require('../db/models');
+const { check } = require('express-validator');
 const spot = require('../db/models/spot');
+const { handleValidationErrors } = require('./validation');
 
 const { secret, expiresIn } = jwtConfig
 
@@ -81,5 +83,15 @@ const requireAuthorization = async function (req, res, next) {
 
 }
 
+const validateReviewInput = [
+  check('review')
+  .exists({ checkFalsy: true })
+  .withMessage('Review text is required'),
+  check('stars')
+  .exists({ checkFalsy: true })
+  .isFloat({ min: 1, max: 5})
+  .withMessage('Star must be an integer from 1 to 5'),
+  handleValidationErrors
+]
 
-module.exports = { setTokenCookie, restoreUser, requireAuthentication, requireAuthorization };
+module.exports = { setTokenCookie, restoreUser, requireAuthentication, requireAuthorization, validateReviewInput };

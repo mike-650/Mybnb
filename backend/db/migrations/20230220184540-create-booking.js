@@ -2,6 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
+options.tableName = 'Bookings';
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
@@ -31,10 +32,10 @@ module.exports = {
         }
       },
       startDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       endDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY
       },
       createdAt: {
         allowNull: false,
@@ -49,7 +50,6 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'Bookings'
     await queryInterface.dropTable(options);
   }
 };
