@@ -435,13 +435,20 @@ router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpo
   return res.json(updatedSpot);
 });
 
-// WIP
+// NEED TO TEST
 // Delete a Spot
 router.delete('/:spotId', [requireAuthentication, requireAuthorization], async (req, res) => {
   // deconstruct the spotId
   const { spotId } = req.params;
   // query the spot to be deleted
   const spot = await Spot.findByPk(spotId);
-})
+
+  await spot.destroy()
+
+  return res.json({
+    message: 'Sucessfully deleted',
+    statusCode: 200
+  });
+});
 
 module.exports = router;
