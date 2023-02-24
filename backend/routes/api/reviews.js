@@ -132,31 +132,36 @@ router.post('/:reviewId/images', [requireAuthentication], async (req, res) => {
   res.json(filterImage);
 });
 
+// NEED TO TEST
 // Edit a Review
-// Question : Should we check for authorization before we enter the main handler function?
-// or is it fine to check that inside?
-router.put('/:reviewId',
-[requireAuthentication,
-  validateReviewInput],
+router.put('/:reviewId',[requireAuthentication, validateReviewInput],
  async (req, res) => {
   const { reviewId } = req.params;
+  const { review, stars } = req.body;
 
   // check if the review exists
-  const review = await Review.findByPk(reviewId);
-  if (!review) {
+  const oldReview = await Review.findByPk(reviewId);
+  if (!oldReview) {
     return res.status(404).json({
       message: "Review couldn't be found",
       statusCode: 404
     })
     // check if it's not their review
-  } else if (req.user.dataValues.id !== review.dataValues.userId) {
+  } else if (req.user.dataValues.id !== oldReview.dataValues.userId) {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403
     })
-  }
+  };
 
-  return res.json('looks good to me')
+  const updatedReview = await oldReview.update(
+    {
+      review,
+      stars
+    }
+  );
+
+  return res.json(updatedReview);
 });
 
 
