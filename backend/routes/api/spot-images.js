@@ -7,27 +7,27 @@ const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../d
 const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
 
 // NEED TO TEST
-// Delete a Review Image
+// Delete a Spot Image
 router.delete('/:imageId', requireAuthentication, async (req, res) => {
   const { imageId } = req.params;
 
-  const reviewImage = await ReviewImage.findByPk(imageId);
-  if (reviewImage === null) {
+  const spotImage = await SpotImage.findByPk(imageId);
+  if (spotImage === null) {
     return res.status(404).json({
-      message: "Review Image couldn't be found",
+      message: "Spot Image couldn't be found",
       statusCode: 404
     });
   };
 
-  const review = await Review.findByPk(reviewImage.dataValues.reviewId);
-  if (req.user.dataValues.id !== review.dataValues.userId) {
+  const spot = await Spot.findByPk(spotImage.dataValues.spotId);
+  if (req.user.dataValues.id !== spot.dataValues.id) {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403
     })
   };
 
-  await reviewImage.destroy();
+  await spotImage.destroy();
   return res.json({
     message: "Successfully deleted",
     statusCode: 200
