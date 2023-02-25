@@ -40,6 +40,34 @@ module.exports = {
         email: 'solid@test.com',
         username: 'solid1',
         hashedPassword: bcrypt.hashSync('password4')
+      },
+      {
+        firstName: 'Crash',
+        lastName: 'Bandicoot',
+        email: 'crash@test.com',
+        username: 'crash5',
+        hashedPassword: bcrypt.hashSync('password5')
+      },
+      {
+        firstName: 'Spongebob',
+        lastName: 'Squarepants',
+        email: 'spongebob@test.com',
+        username: 'spongebob6',
+        hashedPassword: bcrypt.hashSync('password6')
+      },
+      {
+        firstName: 'Patrick',
+        lastName: 'Star',
+        email: 'patrick@test.com',
+        username: 'patrick7',
+        hashedPassword: bcrypt.hashSync('password7')
+      },
+      {
+        firstName: 'Squidward',
+        lastName: 'Tentacles',
+        email: 'squidward@test.com',
+        username: 'squidward8',
+        hashedPassword: bcrypt.hashSync('password8')
       }
     ], {});
   },
