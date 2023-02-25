@@ -58,9 +58,57 @@ const validateBookingDate = [
   handleValidationErrors
 ];
 
+const validatePagination = [
+  check('page')
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage('Page must be greater than or equal to 1'),
+  check('size')
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage('Size must be greater than or equal to 1'),
+  check('maxLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage('Maximum latitude is invalid'),
+  check('minLat')
+    .optional()
+    .isFloat({ min: -90, max: 90 })
+    .withMessage('Minimum latitude is invalid'),
+  check('maxLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage('Maximum longitude is invalid'),
+  check('minLng')
+    .optional()
+    .isFloat({ min: -180, max: 180 })
+    .withMessage('Minimum longitude is invalid'),
+  check('minPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Minimum price must be greater than or equal to 0'),
+  check('maxPrice')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Maximum price must be greater than or equal to 0'),
+  handleValidationErrors
+]
+
 // SUCCESFUL ON RENDER
 // Get All Spots
-router.get('/', async (_req, res) => {
+router.get('/', validatePagination, async (req, res) => {
+  const {
+    page, size, minLat,
+    maxLat, minLng, maxLng,
+    minPrice, maxPrice
+  } = req.params;
+
+  let pagination = {};
+
+  page = page === undefined || page > 10 ? 1 : parseInt(page);
+  size = size === undefined || size > 20 ? 20 : parseInt(size);
+
+
   const spots = await Spot.findAll({
     include: [
       {
