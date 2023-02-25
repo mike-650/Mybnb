@@ -158,47 +158,67 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
-// NEED TO FIX SAVE FOR LATER
+
 // Get a spot by Id
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
 
-  const spots = await Spot.findAll({
+  const spot = await Spot.findByPk(spotId);
+
+  if (spot === null) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404
+    });
+  };
+
+  // Set numReviews property
+  const formatSpot = spot.toJSON();
+  const totalReviews = await spot.countReviews();
+
+  formatSpot.numReviews = totalReviews;
+
+  // Find average of stars and set avgStarRating property
+  const reviewAvg = await Review.findAll({
     where: {
-      id: spotId
+      spotId
     },
-    include: [
-      {
-        model: SpotImage,
-        attributes: ['id', 'url', 'preview'],
-      },
-      {
-        model: User,
-        as: 'Owner',
-        attributes: ['id', 'firstName', 'lastName']
-      },
-      {
-        model: Review,
-        attributes: []
-      }
-    ],
-    attributes: {
-      include: [
-        [Sequelize.fn('COUNT', Sequelize.col('reviews.id')), 'numReviews'],
-        [Sequelize.fn('AVG', Sequelize.col('reviews.stars')), 'avgStarRating']
-      ]
-    },
-    group: ['Spot.id', 'SpotImages.id', 'Owner.id']
+    attributes: [[Sequelize.fn('AVG', Sequelize.col('stars')), 'avg_rating']]
+  })
+
+  formatSpot.avgStarRating = reviewAvg[0].dataValues.avg_rating;
+
+  const spotImages = await SpotImage.findAll({
+    where: {
+      spotId: spotId
+    }
   });
 
-  if (spots.length === 0) {
-    res.status(404).json({
-      "message": "Spot couldn't be found",
-      "statusCode": 404
-    })
-  }
+  formatSpot.SpotImages = new Array();
 
-  return res.json(spots[0]);
+  // set our SpotImages property
+  spotImages.forEach(image => {
+    const toJSON = image.toJSON()
+    delete toJSON.spotId;
+    delete toJSON.createdAt;
+    delete toJSON.updatedAt;
+    formatSpot.SpotImages.push(toJSON);
+  });
+
+  if (!formatSpot.SpotImages.length) {
+    formatSpot.SpotImages = "No Spot Images available"
+  };
+
+  // set our Owner property
+  const owner = await User.findByPk(formatSpot.ownerId, {
+    attributes: {
+      exclude: ['username', 'email', 'hashedPassword', 'createdAt', 'updatedAt']
+    }
+  });
+
+  formatSpot.Owner = owner.dataValues;
+
+  res.json(formatSpot);
 })
 
 // SUCCESFUL ON RENDER
