@@ -5,6 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { Op } = require('sequelize');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
 
@@ -94,19 +95,45 @@ const validatePagination = [
   handleValidationErrors
 ]
 
-// SUCCESFUL ON RENDER
+// SUCCESFUL ON RENDER ** ADDED PAGINATION / QUERY FILTERS ** NEED TO TEST
 // Get All Spots
 router.get('/', validatePagination, async (req, res) => {
-  const {
+  let {
     page, size, minLat,
     maxLat, minLng, maxLng,
     minPrice, maxPrice
-  } = req.params;
+  } = req.query;
 
-  let pagination = {};
+  // Only populate the where object if the values
+  // are defined
+  let where = {};
+  if (minLat !== undefined) {
+    where.lat = {[Op.gte]: minLat};
+  };
+  if (maxLat !== undefined) {
+    where.lat = {...where.lat, [Op.lte]: maxLat};
+  };
+  if (minLng !== undefined) {
+    where.lng = {[Op.gte]: minLng};
+  };
+  if (maxLng !== undefined) {
+    where.lng = {...where.lng, [Op.lte]: maxLng};
+  };
+  if (minPrice !== undefined) {
+    where.price = {[Op.gte]: minPrice};
+  };
+  if (maxPrice !== undefined) {
+    where.price = {...where.price, [Op.lte]: maxPrice};
+  };
 
-  page = page === undefined || page > 10 ? 1 : parseInt(page);
+  let pagination = { where };
+
+  // set defaults if needed
   size = size === undefined || size > 20 ? 20 : parseInt(size);
+  page = page === undefined || page > 10 ? 1 : parseInt(page);
+
+  pagination.limit = size;
+  pagination.offset = size * (page - 1);
 
 
   const spots = await Spot.findAll({
@@ -117,15 +144,16 @@ router.get('/', validatePagination, async (req, res) => {
       {
         model: SpotImage
       }
-    ]
+    ],
+    ...pagination
   });
 
-  let spotsList = [];
+  let Spots = [];
   spots.forEach(spot => {
-    spotsList.push(spot.toJSON());
+    Spots.push(spot.toJSON());
   });
 
-  spotsList.forEach(spot => {
+  Spots.forEach(spot => {
     let starTotal = 0;
     let reviewsTotal = 0;
     spot.Reviews.forEach(review => {
@@ -133,10 +161,13 @@ router.get('/', validatePagination, async (req, res) => {
       starTotal += review.stars
     });
     spot.avgRating = starTotal / reviewsTotal;
+    if (!spot.avgRating) {
+      spot.avgRating = "no rating available"
+    }
     delete spot.Reviews;
   })
 
-  spotsList.forEach(spot => {
+  Spots.forEach(spot => {
     spot.SpotImages.forEach(image => {
       if (image.preview === true) {
         spot.previewImage = image.url;
@@ -148,7 +179,10 @@ router.get('/', validatePagination, async (req, res) => {
     delete spot.SpotImages;
   });
 
-  return res.json({ 'Spots': spotsList });
+  let data = {Spots}
+  data.page = page;
+  data.size = size;
+  return res.json(data);
 });
 
 // SUCCESFUL ON RENDER ** ADDED LINE 121-123, NEEDS TESTING
