@@ -37,14 +37,14 @@ module.exports = {
       {
         spotId: 3,
         userId: 1,
-        startDate: "2023-1-2",
-        endDate: "2023-1-10",
+        startDate: "2024-1-10",
+        endDate: "2024-1-14",
       },
       {
         spotId: 3,
         userId: 2,
-        startDate: "2022-12-19",
-        endDate: "2022-12-24",
+        startDate: "2025-5-17",
+        endDate: "2025-5-24",
       }
     ], {})
   },

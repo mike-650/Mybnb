@@ -173,12 +173,12 @@ router.delete('/:reviewId', requireAuthentication, async (req, res) => {
   if (review === null) {
     return res.status(404).json({
       message: "Review couldn't be found",
-      status: 404
+      statusCode: 404
     })
   } else if (req.user.dataValues.id !== review.dataValues.userId) {
     return res.status(403).json({
       message: "Forbidden",
-      status: 403
+      statusCode: 403
     });
   };
 
@@ -186,7 +186,7 @@ router.delete('/:reviewId', requireAuthentication, async (req, res) => {
 
   return res.json({
     message: "Successfully deleted",
-    status: 200
+    statusCode: 200
   })
 })
 

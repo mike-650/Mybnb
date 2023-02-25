@@ -31,7 +31,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   if (bookings.length === 0) {
     res.status(404).json({
       message: "There are currently no bookings for this User",
-      status: 404
+      statusCode: 404
     })
   };
 
@@ -69,14 +69,52 @@ router.put('/:bookingId', requireAuthentication, async (req, res) => {
   } else if (req.user.dataValues.id !== booking.dataValues.userId) {
     return res.status(403).json({
       message: "Forbidden",
-      status: 403
+      statusCode: 403
     })
   }
 
 
   res.json("test")
-})
+});
 
+// FINISHED? Don't know if we just delete bookings that are in the
+// future or do we not delete bookings that are between the start and end date?
+// Delete a Booking
+router.delete('/:bookingId', requireAuthentication, async (req, res) => {
+  const { bookingId } = req.params;
 
+  // check if the booking exists
+  const booking = await Booking.findByPk(bookingId);
+  if (booking === null) {
+    return res.status(404).json({
+      message: "Booking couldn't be found",
+      statusCode: 404
+    })
+    // check if the bookings belongs to the user
+  } else if (req.user.dataValues.id !== booking.dataValues.userId) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403
+    })
+  };
+
+  // format the dates to be compared
+  const currentDate = new Date().toISOString().substring(0, 10);
+  const bookingDate = booking.toJSON().endDate
+
+  if (currentDate < bookingDate) {
+    const deletedBooking = await booking.destroy();
+    console.log({deletedBooking});
+    return res.status(200).json({
+      message: "Successfully deleted",
+      statusCode: 200
+    });
+  } else {
+    return res.status(403).json({
+        message: "Bookings that have been started can't be deleted",
+        statusCode: 403
+    });
+  };
+});
 
 module.exports = router;

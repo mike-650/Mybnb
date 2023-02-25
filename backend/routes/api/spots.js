@@ -262,7 +262,7 @@ router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
   if (spot === null) {
     return res.status(404).json({
       message: "Spot couldn't be found",
-      status: 404
+      statusCode: 404
     });
   };
   // If the current user DOES NOT own the spot
@@ -388,13 +388,13 @@ router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], a
   if (spot === null) {
     return res.status(404).json({
       message: "Spot couldn't be found",
-      status: 404
+      statusCode: 404
     });
     // check if the current user owns the spot
   } else if (req.user.dataValues.id === spot.dataValues.ownerId) {
     return res.status(403).json({
       message: 'Forbidden',
-      status: 403
+      statusCode: 403
     });
   };
 
