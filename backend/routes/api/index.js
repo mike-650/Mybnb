@@ -4,6 +4,7 @@ const usersRouter = require('./users.js');
 const spotsRouter = require('./spots.js');
 const reviewRouter =  require('./reviews.js');
 const bookingsRouter = require('./bookings.js');
+const reviewImagesRouter = require('./review-images.js');
 const { restoreUser } = require('../../utils/auth.js');
 
 // allows all route handlers connected to this router to retrieve the
@@ -19,6 +20,8 @@ router.use('/spots', spotsRouter);
 router.use('/reviews', reviewRouter);
 
 router.use('/bookings', bookingsRouter);
+
+router.use('/review-images', reviewImagesRouter);
 
 router.post('/test', (req, res) => {
   res.json({ requestBody: req.body });

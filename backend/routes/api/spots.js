@@ -5,12 +5,9 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
 const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
-const { Op } = require('sequelize');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
-const { BOOLEAN } = require('sequelize');
-const booking = require('../../db/models/booking');
-const { start } = require('repl');
+
 
 const validateSpotInput = [
   check('address')
