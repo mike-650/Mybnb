@@ -4,7 +4,7 @@ const Sequelize = require('sequelize');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
-const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { requireAuthentication, requireAuthorization, validateReviewInput, validateBookingDate } = require('../../utils/auth');
 const { Op } = require('sequelize');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
@@ -44,18 +44,6 @@ const validateSpotInput = [
     .withMessage('Price per day is required')
     .isNumeric()
     .withMessage('Price must be a valid numeric value'),
-  handleValidationErrors
-];
-
-const validateBookingDate = [
-  check('endDate')
-    .custom((endDate, { req }) => {
-      if (new Date(endDate) <= new Date(req.body.startDate)) {
-        throw new Error();
-      };
-      return true;
-    })
-    .withMessage('endDate cannot be on or before startDate'),
   handleValidationErrors
 ];
 

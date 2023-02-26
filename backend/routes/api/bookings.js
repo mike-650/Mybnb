@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Sequelize = require('sequelize');
 const { check } = require('express-validator');
+const { Op } = require('sequelize');
 const { handleValidationErrors } = require('../../utils/validation');
 const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
-const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { requireAuthentication, requireAuthorization, validateReviewInput, validateBookingDate } = require('../../utils/auth');
 
 // NEED TO TEST
 // Get All Bookings for Current User
@@ -52,29 +53,84 @@ router.get('/current', requireAuthentication, async (req, res) => {
     delete booking.Spot.SpotImages;
   });
 
- return res.json({ "Bookings": bookingsList });
+  return res.json({ "Bookings": bookingsList });
 });
 
-// WIP
+// NEED TO TEST
 // Edit a Booking
-router.put('/:bookingId', requireAuthentication, async (req, res) => {
+router.put('/:bookingId', [requireAuthentication, validateBookingDate], async (req, res) => {
   const { bookingId } = req.params;
+  const { startDate, endDate } = req.body
 
+  // Check if booking exists
   const booking = await Booking.findByPk(bookingId);
   if (booking === null) {
     return res.status(404).json({
       message: "Booking couldn't be found",
       statusCode: 404
-    })
+    });
+    // Must be the current user's booking
   } else if (req.user.dataValues.id !== booking.dataValues.userId) {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403
-    })
-  }
+    });
+  };
 
+  const spotId = booking.dataValues.spotId;
+  const currentDate = new Date();
 
-  res.json("test")
+  // Check if the booking was in the past
+  if (currentDate > booking.dataValues.endDate) {
+    return res.status(403).json({
+      message: "Past bookings can't be modified",
+      statusCode: 403
+    });
+  };
+
+  // Verify any booking conflict
+  let bookingConflict = {
+    message: "Sorry this spot is already booked for the specified dates",
+    statusCode: 403,
+    errors: {}
+  };
+
+  const checkStartDate = await Booking.findOne({
+    where: {
+      spotId,
+      [Op.and]: {
+        startDate: { [Op.lte]: startDate },
+        endDate: { [Op.gte]: startDate }
+      }
+    }
+  });
+
+  const checkEndDate = await Booking.findOne({
+    where: {
+      spotId,
+      [Op.and]: {
+        startDate: { [Op.lte]: endDate },
+        endDate: { [Op.gte]: endDate }
+      }
+    }
+  });
+  // set properties on our bookingConflict object
+  // if there were any
+  if (checkStartDate) bookingConflict.errors.startDate = "Start date conflicts with an existing booking";
+  if (checkEndDate) bookingConflict.errors.endDate = "End date conflicts with an existing booking";
+
+  // if either of the queries found a bookingConflict
+  // return a response with the bookingConflict error message
+  if (checkStartDate || checkEndDate) {
+    return res.status(403).json(bookingConflict)
+  };
+
+  const validBooking = await booking.update({
+    startDate,
+    endDate
+  });
+
+  res.json(validBooking)
 });
 
 // FINISHED? Don't know if we just delete bookings that are in the
@@ -104,15 +160,15 @@ router.delete('/:bookingId', requireAuthentication, async (req, res) => {
 
   if (currentDate < bookingDate) {
     const deletedBooking = await booking.destroy();
-    console.log({deletedBooking});
+    console.log({ deletedBooking });
     return res.status(200).json({
       message: "Successfully deleted",
       statusCode: 200
     });
   } else {
     return res.status(403).json({
-        message: "Bookings that have been started can't be deleted",
-        statusCode: 403
+      message: "Bookings that have been started can't be deleted",
+      statusCode: 403
     });
   };
 });

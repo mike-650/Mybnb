@@ -76,22 +76,39 @@ const requireAuthorization = async function (req, res, next) {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403
-    })
+    });
   } else {
     return next();
-  }
-
-}
+  };
+};
 
 const validateReviewInput = [
   check('review')
-  .exists({ checkFalsy: true })
-  .withMessage('Review text is required'),
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
   check('stars')
-  .exists({ checkFalsy: true })
-  .isFloat({ min: 1, max: 5})
-  .withMessage('Star must be an integer from 1 to 5'),
+    .exists({ checkFalsy: true })
+    .isFloat({ min: 1, max: 5 })
+    .withMessage('Star must be an integer from 1 to 5'),
   handleValidationErrors
-]
+];
 
-module.exports = { setTokenCookie, restoreUser, requireAuthentication, requireAuthorization, validateReviewInput };
+const validateBookingDate = [
+  check('startDate')
+  .exists({ checkFalsy: true })
+  .withMessage('startDate is required'),
+  check('endDate')
+    .exists( { checkFalsy: true })
+    .withMessage('endDate is required')
+    .custom((endDate, { req }) => {
+      if (new Date(endDate) <= new Date(req.body.startDate)) {
+        throw new Error();
+      };
+      return true;
+    })
+    .withMessage('endDate cannot be on or before startDate'),
+  handleValidationErrors
+];
+
+
+module.exports = { setTokenCookie, restoreUser, requireAuthentication, requireAuthorization, validateReviewInput, validateBookingDate };
