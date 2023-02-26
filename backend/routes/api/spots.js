@@ -108,22 +108,22 @@ router.get('/', validatePagination, async (req, res) => {
   // are defined
   let where = {};
   if (minLat !== undefined) {
-    where.lat = {[Op.gte]: minLat};
+    where.lat = { [Op.gte]: minLat };
   };
   if (maxLat !== undefined) {
-    where.lat = {...where.lat, [Op.lte]: maxLat};
+    where.lat = { ...where.lat, [Op.lte]: maxLat };
   };
   if (minLng !== undefined) {
-    where.lng = {[Op.gte]: minLng};
+    where.lng = { [Op.gte]: minLng };
   };
   if (maxLng !== undefined) {
-    where.lng = {...where.lng, [Op.lte]: maxLng};
+    where.lng = { ...where.lng, [Op.lte]: maxLng };
   };
   if (minPrice !== undefined) {
-    where.price = {[Op.gte]: minPrice};
+    where.price = { [Op.gte]: minPrice };
   };
   if (maxPrice !== undefined) {
-    where.price = {...where.price, [Op.lte]: maxPrice};
+    where.price = { ...where.price, [Op.lte]: maxPrice };
   };
 
   let pagination = { where };
@@ -179,13 +179,13 @@ router.get('/', validatePagination, async (req, res) => {
     delete spot.SpotImages;
   });
 
-  let data = {Spots}
+  let data = { Spots }
   data.page = page;
   data.size = size;
   return res.json(data);
 });
 
-// SUCCESFUL ON RENDER ** ADDED LINE 121-123, NEEDS TESTING
+// SUCCESFUL ON RENDER
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -203,8 +203,6 @@ router.get('/current', requireAuthentication, async (req, res) => {
     ]
   });
 
-  // NEED TO TEST
-  // If user has no spots
   if (!spots.length) {
     return res.status(404).json({ message: "No spots were found for the current user." });
   };
@@ -240,7 +238,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
-
+// SUCCESSFUL ON RENDER
 // Get a spot by Id
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
@@ -300,7 +298,7 @@ router.get('/:spotId', async (req, res) => {
 
   formatSpot.Owner = owner.dataValues;
 
-  res.json(formatSpot);
+  return res.json(formatSpot);
 })
 
 // SUCCESFUL ON RENDER
@@ -395,7 +393,7 @@ router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
   };
 })
 
-// FINISHED
+// SUCCESSFUL ON RENDER
 // Create a Spot
 router.post('/', [requireAuthentication, validateSpotInput], async (req, res) => {
   const {
@@ -416,6 +414,7 @@ router.post('/', [requireAuthentication, validateSpotInput], async (req, res) =>
   return res.status(201).json(spot);
 })
 
+// SUCCESSFUL ON RENDER
 // Add an Image to a Spot based on Spot's id
 router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res) => {
   const { spotId } = req.params
@@ -452,31 +451,43 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
   return res.json(imageJSON);
 })
 
-// NEED TO TEST
+// SUCCESSFUL ON RENDER // Added 201 Status Code
 // Create a Review for a Spot by id
-router.post('/:spotId/reviews',
-  [requireAuthentication, validateReviewInput],
-  async (req, res) => {
-    const { spotId } = req.params;
-    const { review, stars } = req.body;
+router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], async (req, res) => {
+  const { spotId } = req.params;
+  const { review, stars } = req.body;
 
-    // check if the spot exists
-    const spot = await Spot.findByPk(spotId);
-    if (!spot) {
-      return res.status(404).json({ message: "Spot couldn't be found", statusCode: 404 })
-    };
+  // check if the spot exists
+  const spot = await Spot.findByPk(spotId);
+  if (!spot) {
+    return res.status(404).json({ message: "Spot couldn't be found", statusCode: 404 })
+  };
 
-    const newReview = await Review.create({
-      spotId,
-      userId: req.user.dataValues.id,
-      review,
-      stars
+  // check if the user has a review for the spot already
+  const userReview = await Review.findOne({
+    where: {
+      userId: req.user.dataValues.id
+    }
+  });
+
+  if (!userReview) {
+    return res.status(403).json({
+      message: "User already has a review for this spot",
+      statusCode: 403
     });
+  }
 
-    return res.json(newReview)
-  })
+  const newReview = await Review.create({
+    spotId,
+    userId: req.user.dataValues.id,
+    review,
+    stars
+  });
 
-// WIP
+  return res.status(201).json(newReview);
+})
+
+// NEED TO TEST
 // Create a Booking based on Spot ID
 router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], async (req, res) => {
   const { spotId } = req.params;
@@ -497,12 +508,53 @@ router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], a
     });
   };
 
+  let bookingConflict = {
+    message: "Sorry this spot is already booked for the specified dates",
+    statusCode: 403,
+    errors: {}
+  };
 
+  const checkStartDate = await Booking.findOne({
+    where: {
+      spotId,
+      [Op.and]: {
+        startDate: { [Op.lte]: startDate },
+        endDate: { [Op.gte]: startDate }
+      }
+    }
+  });
 
-  return res.json('lol');
+  const checkEndDate = await Booking.findOne({
+    where: {
+      spotId,
+      [Op.and]: {
+        startDate: { [Op.lte]: endDate },
+        endDate: { [Op.gte]: endDate }
+      }
+    }
+  });
+  // set properties on our bookingConflict object
+  // if there were any
+  if (checkStartDate) bookingConflict.errors.startDate = "Start date conflicts with an existing booking";
+  if (checkEndDate) bookingConflict.errors.endDate = "End date conflicts with an existing booking";
+
+  // if either of the queries found a bookingConflict
+  // return a response with the bookingConflict error message
+  if (checkStartDate || checkEndDate) {
+    return res.status(403).json(bookingConflict)
+  }
+
+  const validBooking = await Booking.create({
+    spotId,
+    userId: req.user.dataValues.id,
+    startDate,
+    endDate
+  });
+
+  return res.json(validBooking);
 })
 
-// FINISHED ** ADDED NAME REQ MSG IN VALIDSPOTINPUT NEED TO TEST
+// SUCCESSFUL ON RENDER
 // Edit a Spot
 router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
   // deconstruct the spotId and req.body args
@@ -534,7 +586,7 @@ router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpo
   return res.json(updatedSpot);
 });
 
-// NEED TO TEST
+// SUCCESSFUL ON RENDER
 // Delete a Spot
 router.delete('/:spotId', [requireAuthentication, requireAuthorization], async (req, res) => {
   // deconstruct the spotId

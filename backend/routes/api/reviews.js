@@ -11,7 +11,7 @@ const review = require('../../db/models/review');
 // SUCCESFUL ON RENDER
 // Get all current user's reviews
 router.get('/current', requireAuthentication, async (req, res) => {
-  const userId = req.user.dataValues.id
+  const userId = req.user.dataValues.id;
 
   const reviews = await Review.findAll({
     where: {
@@ -53,7 +53,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   let reviewsList = [];
   reviews.forEach(review => {
     reviewsList.push(review.toJSON())
-  })
+  });
 
   reviewsList.forEach(review => {
     if (review.Spot.SpotImages[0] !== undefined) {
@@ -62,21 +62,21 @@ router.get('/current', requireAuthentication, async (req, res) => {
     } else {
       review.Spot.previewImage = 'no preview image available'
       delete review.Spot.SpotImages;
-    }
+    };
 
     if (!review.ReviewImages.length) {
       review.ReviewImages = 'no review images available'
-    }
+    };
   });
-  return res.json({ 'Reviews': reviewsList })
+  return res.json({ 'Reviews': reviewsList });
 });
 
 // SUCCESSFUL ON RENDER ** ADDED AUTHORIZATION AND CHANGED LINE 81 FROM 403 TO 404
 // Add an Image to a Review based on Review's id
 router.post('/:reviewId/images', [requireAuthentication], async (req, res) => {
-  const { reviewId } = req.params
+  const { reviewId } = req.params;
   // If a review can't be found return a 404 response
-  const review = await Review.findByPk(reviewId)
+  const review = await Review.findByPk(reviewId);
   if (review === null) {
     res.status(404).json(
       {
