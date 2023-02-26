@@ -458,12 +458,12 @@ router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], as
     }
   });
 
-  if (!userReview) {
+  if (userReview) {
     return res.status(403).json({
       message: "User already has a review for this spot",
       statusCode: 403
     });
-  }
+  };
 
   const newReview = await Review.create({
     spotId,

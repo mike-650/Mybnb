@@ -151,7 +151,7 @@ router.delete('/:bookingId', requireAuthentication, async (req, res) => {
     return res.status(403).json({
       message: "Forbidden",
       statusCode: 403
-    })
+    });
   };
 
   // format the dates to be compared
