@@ -1,13 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Sequelize = require('sequelize');
-const { check } = require('express-validator');
 const { Op } = require('sequelize');
-const { handleValidationErrors } = require('../../utils/validation');
-const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
-const { requireAuthentication, requireAuthorization, validateReviewInput, validateBookingDate } = require('../../utils/auth');
+const { Spot, SpotImage, Booking } = require('../../db/models');
+const { requireAuthentication, validateBookingDate } = require('../../utils/auth');
 
-// NEED TO TEST
 // Get All Bookings for Current User
 router.get('/current', requireAuthentication, async (req, res) => {
   const bookings = await Booking.findAll({
@@ -56,7 +52,6 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ "Bookings": bookingsList });
 });
 
-// NEED TO TEST
 // Edit a Booking
 router.put('/:bookingId', [requireAuthentication, validateBookingDate], async (req, res) => {
   const { bookingId } = req.params;
@@ -133,8 +128,6 @@ router.put('/:bookingId', [requireAuthentication, validateBookingDate], async (r
   res.json(validBooking)
 });
 
-// FINISHED? Don't know if we just delete bookings that are in the
-// future or do we not delete bookings that are between the start and end date?
 // Delete a Booking
 router.delete('/:bookingId', requireAuthentication, async (req, res) => {
   const { bookingId } = req.params;
@@ -160,7 +153,6 @@ router.delete('/:bookingId', requireAuthentication, async (req, res) => {
 
   if (currentDate < bookingDate) {
     const deletedBooking = await booking.destroy();
-    console.log({ deletedBooking });
     return res.status(200).json({
       message: "Successfully deleted",
       statusCode: 200

@@ -1,14 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Sequelize = require('sequelize');
 const { User, Spot, Review, ReviewImage, SpotImage } = require('../../db/models');
-const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { requireAuthentication, validateReviewInput } = require('../../utils/auth');
 const { runInContext } = require('vm');
 const { truncate } = require('fs');
 
-const review = require('../../db/models/review');
-
-// SUCCESFUL ON RENDER
 // Get all current user's reviews
 router.get('/current', requireAuthentication, async (req, res) => {
   const userId = req.user.dataValues.id;
@@ -71,7 +67,6 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ 'Reviews': reviewsList });
 });
 
-// SUCCESSFUL ON RENDER ** ADDED AUTHORIZATION AND CHANGED LINE 81 FROM 403 TO 404
 // Add an Image to a Review based on Review's id
 router.post('/:reviewId/images', [requireAuthentication], async (req, res) => {
   const { reviewId } = req.params;
@@ -132,7 +127,6 @@ router.post('/:reviewId/images', [requireAuthentication], async (req, res) => {
   res.json(filterImage);
 });
 
-// NEED TO TEST
 // Edit a Review
 router.put('/:reviewId',[requireAuthentication, validateReviewInput],
  async (req, res) => {
@@ -164,7 +158,6 @@ router.put('/:reviewId',[requireAuthentication, validateReviewInput],
   return res.json(updatedReview);
 });
 
-// NEED TO TEST
 // Delete a Review
 router.delete('/:reviewId', requireAuthentication, async (req, res) => {
   const { reviewId } = req.params;

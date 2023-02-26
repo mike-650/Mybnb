@@ -83,7 +83,6 @@ const validatePagination = [
   handleValidationErrors
 ]
 
-// SUCCESFUL ON RENDER ** ADDED PAGINATION / QUERY FILTERS ** NEED TO TEST
 // Get All Spots
 router.get('/', validatePagination, async (req, res) => {
   let {
@@ -173,7 +172,6 @@ router.get('/', validatePagination, async (req, res) => {
   return res.json(data);
 });
 
-// SUCCESFUL ON RENDER
 // Get All Spots by Current User *Authentication Required*
 router.get('/current', requireAuthentication, async (req, res) => {
   // req.user.dataValues.id <-- current user's id
@@ -226,7 +224,6 @@ router.get('/current', requireAuthentication, async (req, res) => {
   return res.json({ 'Spots': spotsList });
 });
 
-// SUCCESSFUL ON RENDER
 // Get a spot by Id
 router.get('/:spotId', async (req, res) => {
   const { spotId } = req.params;
@@ -287,9 +284,8 @@ router.get('/:spotId', async (req, res) => {
   formatSpot.Owner = owner.dataValues;
 
   return res.json(formatSpot);
-})
+});
 
-// SUCCESFUL ON RENDER
 // Get all reviews by a spot id
 router.get('/:spotId/reviews', async (req, res) => {
   const { spotId } = req.params;
@@ -338,7 +334,6 @@ router.get('/:spotId/reviews', async (req, res) => {
   return res.json({ 'Reviews': reviewList });
 })
 
-// NEED TO TEST
 // Get All Bookings for a Spot by ID
 router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
   const { spotId } = req.params
@@ -394,7 +389,6 @@ router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
   };
 })
 
-// SUCCESSFUL ON RENDER
 // Create a Spot
 router.post('/', [requireAuthentication, validateSpotInput], async (req, res) => {
   const {
@@ -415,7 +409,6 @@ router.post('/', [requireAuthentication, validateSpotInput], async (req, res) =>
   return res.status(201).json(spot);
 })
 
-// SUCCESSFUL ON RENDER
 // Add an Image to a Spot based on Spot's id
 router.post('/:spotId/images', [requireAuthentication, requireAuthorization], async (req, res) => {
   const { spotId } = req.params
@@ -452,7 +445,6 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
   return res.json(imageJSON);
 })
 
-// SUCCESSFUL ON RENDER // Added 201 Status Code
 // Create a Review for a Spot by id
 router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], async (req, res) => {
   const { spotId } = req.params;
@@ -489,7 +481,6 @@ router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], as
   return res.status(201).json(newReview);
 })
 
-// NEED TO TEST
 // Create a Booking based on Spot ID
 router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], async (req, res) => {
   const { spotId } = req.params;
@@ -556,7 +547,6 @@ router.post('/:spotId/bookings', [requireAuthentication, validateBookingDate], a
   return res.json(validBooking);
 })
 
-// SUCCESSFUL ON RENDER
 // Edit a Spot
 router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpotInput], async (req, res) => {
   // deconstruct the spotId and req.body args
@@ -588,7 +578,6 @@ router.put('/:spotId', [requireAuthentication, requireAuthorization, validateSpo
   return res.json(updatedSpot);
 });
 
-// SUCCESSFUL ON RENDER
 // Delete a Spot
 router.delete('/:spotId', [requireAuthentication, requireAuthorization], async (req, res) => {
   // deconstruct the spotId

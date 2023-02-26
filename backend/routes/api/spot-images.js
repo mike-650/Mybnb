@@ -1,12 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const Sequelize = require('sequelize');
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-const { User, Spot, SpotImage, Review, ReviewImage, Booking } = require('../../db/models');
-const { requireAuthentication, requireAuthorization, validateReviewInput } = require('../../utils/auth');
+const { Spot, SpotImage } = require('../../db/models');
+const { requireAuthentication } = require('../../utils/auth');
 
-// NEED TO TEST
 // Delete a Spot Image
 router.delete('/:imageId', requireAuthentication, async (req, res) => {
   const { imageId } = req.params;

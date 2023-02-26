@@ -17,7 +17,6 @@ const validateLogin = [
   handleValidationErrors
 ];
 
-// SUCCESFUL ON RENDER
 router.post(
   '/',
   validateLogin,
@@ -47,7 +46,6 @@ router.delete(
   }
 );
 
-// SUCCESFUL ON RENDER
 router.get(
   '/',
   [requireAuthentication, restoreUser],
