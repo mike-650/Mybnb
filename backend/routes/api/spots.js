@@ -454,7 +454,8 @@ router.post('/:spotId/reviews', [requireAuthentication, validateReviewInput], as
   // check if the user has a review for the spot already
   const userReview = await Review.findOne({
     where: {
-      userId: req.user.dataValues.id
+      userId: req.user.dataValues.id,
+      spotId
     }
   });
 
