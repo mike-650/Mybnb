@@ -354,12 +354,19 @@ router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
   if (req.user.dataValues.id !== spot.dataValues.ownerId) {
     const bookings = await Booking.findAll({
       where: {
-        userId: req.user.dataValues.id
+        userId: req.user.dataValues.id,
+        spotId
       },
       attributes: {
         exclude: ['id', 'userId', 'createdAt', 'updatedAt']
       }
-    })
+    });
+    if (bookings.length === 0) {
+      return res.status(404).json({
+        message: "Sorry, we couldn't find any bookings for you at this spot",
+        statusCode: 404
+      });
+    };
     return res.json({ "Bookings": bookings });
     // If the current user OWNS the spot
   } else {
@@ -376,7 +383,13 @@ router.get('/:spotId/bookings', requireAuthentication, async (req, res) => {
       where: {
         spotId
       }
-    })
+    });
+    if (bookings.length === 0) {
+      return res.status(404).json({
+        message: "There are currently no bookings for your spot",
+        statusCode: 404
+      });
+    };
     return res.json({ "Bookings": bookings });
   };
 })
