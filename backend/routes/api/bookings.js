@@ -44,7 +44,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
   bookingsList.forEach(booking => {
     booking.Spot.SpotImages.forEach(image => {
       if (image.preview === true) {
-        booking.Spot.previewImage = image.preview;
+        booking.Spot.previewImage = image.url;
       };
     });
     if (!booking.Spot.previewImage) {
