@@ -14,7 +14,7 @@ router.get('/current', requireAuthentication, async (req, res) => {
       {
         model: Spot,
         attributes: {
-          exclude: ['createdAt', 'updatedAt']
+          exclude: ['description', 'createdAt', 'updatedAt']
         },
         include: [
           {
@@ -152,7 +152,7 @@ router.delete('/:bookingId', requireAuthentication, async (req, res) => {
   const bookingDate = booking.toJSON().endDate
 
   if (currentDate < bookingDate) {
-    const deletedBooking = await booking.destroy();
+    await booking.destroy();
     return res.status(200).json({
       message: "Successfully deleted",
       statusCode: 200
