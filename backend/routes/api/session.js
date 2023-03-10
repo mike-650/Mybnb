@@ -48,14 +48,18 @@ router.delete(
 
 router.get(
   '/',
-  [requireAuthentication, restoreUser],
+  restoreUser,
   (req, res) => {
     const { user } = req;
     if (user) {
       return res.json({
         user: user.toSafeObject()
       });
-    };
+    } else {
+      return res.json({
+        user: null
+      })
+    }
   });
 
 module.exports = router;
