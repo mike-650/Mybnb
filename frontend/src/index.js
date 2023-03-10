@@ -3,7 +3,7 @@ import React from 'react';
 import './index.css';
 
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { restoreCSRF, csrfFetch } from './store/csrf';
@@ -23,18 +23,18 @@ if (process.env.NODE_ENV !== 'production') {
 
 function Root() {
   return (
-    <Provider store={store}>
+    <ReduxProvider store={store}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </Provider>
+    </ReduxProvider>
   );
 }
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   document.getElementById('root')
 );

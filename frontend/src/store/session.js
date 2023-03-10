@@ -12,14 +12,14 @@ export const setUser = (user) => {
   };
 };
 
-export const removeUser = (user) => {
+export const removeUser = () => {
   return {
     type: REMOVE_USER
   };
 };
 
 // ! THUNK ACs'
-export const loginUser = (user) => async dispatch => {
+export const login = (user) => async dispatch => {
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
     method: 'POST',
@@ -35,6 +35,15 @@ export const loginUser = (user) => async dispatch => {
   return data;
 };
 
+export const logout = () => async dispatch => {
+  const response = await csrfFetch('/api/session', {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  dispatch(removeUser());
+}
+
 const initialState = { user: null };
 
 // ! REDUCER
@@ -47,7 +56,7 @@ const sessionReducer = (state = initialState, action) => {
       return newState;
     case REMOVE_USER:
       // TODO:
-      return {};
+      return initialState;
     default:
       return state;
   }
