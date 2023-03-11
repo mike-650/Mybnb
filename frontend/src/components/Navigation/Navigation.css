@@ -6,7 +6,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px solid lightgray;
+  /*possibly take off top border but fine for now?*/
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
   padding: 10px 20px;
 }
 
@@ -18,11 +20,21 @@
   height: 47px;
   font-size: 30px;
   color: inherit;
-  padding: 0px 50px;
+  padding-left: 50px;
   background-image: url('../../../public/images/totoro-114.png');
   background-repeat: no-repeat;
   background-position: left center;
   background-size: 50px;
+}
+
+#home-icon:hover {
+  animation: bounce 1.5s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0% { transform: translateX(0px);}
+  50% { transform: translateX(5px);}
+  100% { transform: translateX(0px);}
 }
 
 .profile-button {
@@ -50,7 +62,24 @@
   cursor: pointer;
 }
 
+.profile-btn-div {
+  position: relative;
+}
+
 
 .profile-dropdown {
-  
+  position: absolute;
+  margin-top: 9px;
+  list-style: none;
+  background-color: white;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
+  border-radius: 11px;
+  margin-left: -23px;
+  padding: 0px;
+  width: 100px;
+  font-family: 'Hind Madurai', sans-ser;
+}
+
+.lol:hover {
+  background-color: rgba(0, 0, 0, 0.05)
 }
