@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import './Navigation.css';
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -42,8 +43,9 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={openMenu} className='profile-button'>
+        <i class="fa-solid fa-bars" style={{color:'#454545'}}/>
+        <i className="fas fa-user-circle fa-2xl" style={{  color: '#999999'}} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
