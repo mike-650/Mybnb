@@ -13,13 +13,11 @@ function ProfileButton({ user }) {
 
   const openMenu = (e) => {
     e.stopPropagation();
-    if (showMenu) return;
-    setShowMenu(true);
+    // able to toggle profile btn between open and close
+    showMenu ? setShowMenu(false) : setShowMenu(true);
   };
 
   useEffect(() => {
-    if (!showMenu) return;
-
     const closeMenu = (e) => {
       if (!ulRef.current.contains(e.target)) {
         setShowMenu(false);
@@ -44,7 +42,7 @@ function ProfileButton({ user }) {
   return (
     <>
       <button onClick={openMenu} className='profile-button'>
-        <i class="fa-solid fa-bars" style={{color:'#454545'}}/>
+        <i className="fa-solid fa-bars" style={{color:'#454545'}}/>
         <i className="fas fa-user-circle fa-2xl" style={{  color: '#999999'}} />
       </button>
       <ul className={ulClassName} ref={ulRef}>
