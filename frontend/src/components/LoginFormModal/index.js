@@ -24,6 +24,13 @@ function LoginFormModal() {
       );
   };
 
+  const disableBtn = () => {
+    if (credential.length < 4 || password.length < 6) {
+      return true;
+    };
+    return false;
+  }
+
   return (
     <>
       <h1>Log In</h1>
@@ -33,21 +40,21 @@ function LoginFormModal() {
             <li key={idx}>{error}</li>
           ))}
         </ul>
-          <input
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-            placeholder="Username or Email"
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            placeholder="Password"
-          />
-        <button type="submit">Log In</button>
+        <input
+          type="text"
+          value={credential}
+          onChange={(e) => setCredential(e.target.value)}
+          required
+          placeholder="Username or Email"
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          placeholder="Password"
+        />
+        <button type="submit" disabled={disableBtn()}>Log In</button>
       </form>
     </>
   );

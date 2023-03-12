@@ -24,7 +24,7 @@ function Spots() {
           <img src={spot.previewImage} className='spot-images' />
           <div className="spot-label">
           <p>{spot.city}, {spot.state}</p>
-          <p><i class="fa-solid fa-star"></i> {spot.avgRating}</p>
+          <p>{spot.avgRating !== 'no rating available' ? <><i class="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating : `${spot.avgRating}.0`}</> : 'New'}</p>
           </div>
           <p>${spot.price} <span>night</span></p>
         </div>)}
