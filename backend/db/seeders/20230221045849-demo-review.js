@@ -14,61 +14,61 @@ module.exports = {
       {
         spotId: 1,
         userId: 2,
-        review: 'The house looks exactly like the star from Mario',
+        review: 'This spot was awesome!',
         stars: 4
       },
       {
         spotId: 1,
         userId: 3,
-        review: 'It was extremely cozy and more spacious than I expected',
+        review: 'Amazing!',
         stars: 5
       },
       {
         spotId: 2,
         userId: 3,
-        review: 'The place is rather small and gets cold at night',
+        review: 'It was alright.',
         stars: 3
       },
       {
         spotId: 2,
         userId: 1,
-        review: 'The lodge style is definitely there, could use more amenities',
+        review: 'Fuuuuun!',
         stars: 4
       },
       {
         spotId: 3,
         userId: 1,
-        review: 'Considering that the description was vague, the place itself is quite nice',
+        review: 'The house was very spacious and organized.',
         stars: 5
       },
       {
         spotId: 3,
         userId: 2,
-        review: 'Stay away from this AirBnb',
+        review: 'Stay away from this AirBnb.',
         stars: 1
       },
       {
         spotId: 4,
         userId: 1,
-        review: 'The area is not that pleasent but the bar was nice',
+        review: 'The house was actually quite nice',
         stars: 4
       },
       {
         spotId: 4,
         userId: 3,
-        review: 'The pinball machines werent working but everything else was ok',
+        review: 'Meh.',
         stars: 3
       },
       {
         spotId: 5,
         userId: 2,
-        review: 'Castle is very big and has lots of amenities',
+        review: 'AMAZING!',
         stars: 5
       },
       {
         spotId: 5,
         userId: 3,
-        review: 'Overall the castle is nice but I think there are ghosts wandering around',
+        review: 'Overall it was alright.',
         stars: 3
       }
     ]

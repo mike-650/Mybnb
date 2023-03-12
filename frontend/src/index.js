@@ -25,7 +25,7 @@ if (process.env.NODE_ENV !== 'production') {
 const root = ReactDOMClient.createRoot(document.getElementById("root"));
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <ModalProvider>
       <ReduxProvider store={store}>
         <BrowserRouter>
@@ -34,5 +34,5 @@ root.render(
         </BrowserRouter>
       </ReduxProvider>
     </ModalProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

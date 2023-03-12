@@ -17,12 +17,12 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: "https://static.wikia.nocookie.net/supermarioglitchy4/images/c/ca/7D5C7CB2-76B4-4FD5-8D47-59B4BCD688D4.jpeg/revision/latest?cb=20200307170201",
+        url: "https://images1.apartments.com/i2/Om8qArFMM4jl0rMwiu_o3DjsmWj6qNDUC6SZnLvl9i0/111/8500-burton-luxury-apartments-los-angeles-ca-primary-photo.jpg",
         preview: true
       },
       {
         spotId: 2,
-        url: "https://static.wikia.nocookie.net/finalfantasy/images/b/b7/Nibelheim-SiblingsHouse1f-ffvii.png/revision/latest?cb=20140818063523",
+        url: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1",
         preview: true
       },
       {
@@ -37,47 +37,22 @@ module.exports = {
       },
       {
         spotId: 3,
-        url: "yawhoo.lol/arbitraryImage",
+        url: "https://liveatlakeandwells.com/wp-content/uploads/2020/08/Lake_and_Wells_Apartments_Interior.jpg",
         preview: true
       },
       {
         spotId: 4,
-        url: "https://static.wikia.nocookie.net/finalfantasy/images/0/04/7h-heaven-prerelease.jpg/revision/latest/scale-to-width-down/250?cb=20120824232038",
+        url: "https://s.wsj.net/public/resources/images/B3-CC754_russia_M_20181022105812.jpg",
         preview: true
       },
       {
         spotId: 5,
-        url: "https://static.wikia.nocookie.net/mario/images/8/89/Peach%27s_Castle_-_Overview_-_Super_Mario_64.png/revision/latest?cb=20120512172600",
+        url: "https://res.cloudinary.com/apartmentlist/image/upload/f_auto,q_auto,t_web-base/e5a843ce91f3dcdacab9bd541ad1d107.jpg",
         preview: true
       },
       {
         spotId: 6,
-        url: "https://assets.reedpopcdn.com/-1405158078729.jpg/BROK/thumbnail/1200x630/-1405158078729.jpg",
-        preview: true
-      },
-      {
-        spotId: 7,
-        url: "https://wehco.media.clients.ellingtoncms.com/imports/adg/photos/102548280_1711d3bca3cce53a95a43d5f3bca2f65-o_a_t800.jpg?90232451fbcadccc64a17de7521d859a8f88077d",
-        preview: true
-      },
-      {
-        spotId: 9,
-        url: "https://static.wikia.nocookie.net/crashban/images/1/1a/N-sanity-island-2.jpg/revision/latest/scale-to-width-down/1200?cb=20161215213234",
-        preview: true
-      },
-      {
-        spotId: 10,
-        url: "https://static.wikia.nocookie.net/spongebob/images/7/7c/SpongeBobHouseStock.png/revision/latest?cb=20221031053603",
-        preview: true
-      },
-      {
-        spotId: 11,
-        url: "https://static.wikia.nocookie.net/spongebob/images/5/5d/PatrickHouseStock.png/revision/latest?cb=20221031054015",
-        preview: true
-      },
-      {
-        spotId: 12,
-        url: "https://cdn.spongebobwiki.org/thumb/3/32/Squidward%27s_house_Scavenger_Pants.png/1200px-Squidward%27s_house_Scavenger_Pants.png",
+        url: "https://assets.site-static.com/userFiles/654/image/blog_images/boston_brownstones_for_sale.jpg",
         preview: true
       }
     ], {})
