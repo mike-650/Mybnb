@@ -4,8 +4,10 @@ import { getAllSpots } from "../../store/spots";
 
 function Spots() {
   const dispatch = useDispatch();
-  const spots = useSelector(state => state.spots.allSpots)
+  // * Grab allSpots state slice and convert into an array
+  const spots = Object.values(useSelector(state => state.spots.allSpots));
 
+  // * Runs on mount
   useEffect(() => {
     dispatch(getAllSpots());
   }, [dispatch])
@@ -13,7 +15,7 @@ function Spots() {
 
   return (
     <div>
-
+      {spots.map(spot => <div key={spot.id}>{`${spot.state}, ${spot.city}`}</div>)}
     </div>
   );
 }

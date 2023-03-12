@@ -24,17 +24,19 @@ const normalizeAllSpots = (data) => {
 
 // ! THUNK ACs'
 export const getAllSpots = () => async dispatch => {
-  const response = await csrfFetch('/api/spots')
+  const response = await csrfFetch('/api/spots');
 
   if (response.ok) {
     const spots = await response.json();
     const normalized = normalizeAllSpots(spots.Spots);
-    console.log({normalized})
-    // TODO:
     dispatch(allSpots(normalized));
     return normalized;
-  }
-}
+  };
+};
+
+export const getOneSpot = () => async dispatch => {
+  // TODO:
+};
 
 
 // ! INITIAL SLICE STATE
