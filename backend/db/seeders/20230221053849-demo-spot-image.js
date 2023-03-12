@@ -49,36 +49,6 @@ module.exports = {
         spotId: 5,
         url: "https://static.wikia.nocookie.net/mario/images/8/89/Peach%27s_Castle_-_Overview_-_Super_Mario_64.png/revision/latest?cb=20120512172600",
         preview: true
-      },
-      {
-        spotId: 6,
-        url: "https://assets.reedpopcdn.com/-1405158078729.jpg/BROK/thumbnail/1200x630/-1405158078729.jpg",
-        preview: true
-      },
-      {
-        spotId: 7,
-        url: "https://wehco.media.clients.ellingtoncms.com/imports/adg/photos/102548280_1711d3bca3cce53a95a43d5f3bca2f65-o_a_t800.jpg?90232451fbcadccc64a17de7521d859a8f88077d",
-        preview: true
-      },
-      {
-        spotId: 9,
-        url: "https://static.wikia.nocookie.net/crashban/images/1/1a/N-sanity-island-2.jpg/revision/latest/scale-to-width-down/1200?cb=20161215213234",
-        preview: true
-      },
-      {
-        spotId: 10,
-        url: "https://static.wikia.nocookie.net/spongebob/images/7/7c/SpongeBobHouseStock.png/revision/latest?cb=20221031053603",
-        preview: true
-      },
-      {
-        spotId: 11,
-        url: "https://static.wikia.nocookie.net/spongebob/images/5/5d/PatrickHouseStock.png/revision/latest?cb=20221031054015",
-        preview: true
-      },
-      {
-        spotId: 12,
-        url: "https://cdn.spongebobwiki.org/thumb/3/32/Squidward%27s_house_Scavenger_Pants.png/1200px-Squidward%27s_house_Scavenger_Pants.png",
-        preview: true
       }
     ], {})
   },

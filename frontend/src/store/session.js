@@ -23,9 +23,6 @@ export const login = (user) => async dispatch => {
   const { credential, password } = user;
   const response = await csrfFetch('/api/session', {
     method: 'POST',
-    // ! Setting headers here isnt necessary as csrfFetch already sets
-    // ! that by default, but it's fine
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       credential,
       password
@@ -39,10 +36,7 @@ export const login = (user) => async dispatch => {
 
 export const logout = () => async dispatch => {
   const response = await csrfFetch('/api/session', {
-    method: 'DELETE',
-    // ! Setting headers here isnt necessary as csrfFetch already sets
-    // ! that by default
-    headers: { 'Content-Type': 'application/json' },
+    method: 'DELETE'
   });
 
   dispatch(removeUser());
@@ -64,9 +58,6 @@ export const signup = (user) => async dispatch => {
 
   const response = await csrfFetch('/api/users', {
     method: 'POST',
-    // ! Setting headers here isnt necessary as csrfFetch already sets
-    // ! that by default
-    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, firstName, lastName, email, password })
   });
 
@@ -87,7 +78,6 @@ const sessionReducer = (state = initialState, action) => {
       newState.user = action.user;
       return newState;
     case REMOVE_USER:
-      // TODO:
       return { user: null };
     default:
       return state;

@@ -72,18 +72,6 @@ module.exports = {
         price: 12345
       },
       {
-        ownerId: 4,
-        address: "*Disclosed*",
-        city: "Fox Archipelago",
-        state: "Alaska",
-        country: "United States",
-        lat: 55.2321,
-        lng: 120.3574,
-        name: "Shadow Moses Island",
-        description: "Shadow Moses is an island that is part of the Fox Archipelago lying southwest of mainland Alaska in the Bering Sea. A nuclear weapons disposal facility located on Shadow Moses secretly doubled as a massive weapons development complex.",
-        price: 1000000
-      },
-      {
         ownerId: 3,
         address: "13 Odell Ave",
         city: "Los Angeles",
@@ -94,66 +82,6 @@ module.exports = {
         name: "Odell' House",
         description: "Large mansion with a large outdoor infinity pool",
         price: 13000
-      },
-      {
-        ownerId: 4,
-        address: "1738 Solid Ave",
-        city: "Stone Town",
-        state: "Zanzibar",
-        country: "Tanzia",
-        lat: 65.2632,
-        lng: -110.2468,
-        name: "Snake's House",
-        description: "Solid Snake's private home, tiny and compact",
-        price: 10
-      },
-      {
-        ownerId: 5,
-        address: "101 Aku Aku Dr.",
-        city: "Wumpa City",
-        state: "Wumpa Island",
-        country: "Australia",
-        lat: 23.2145,
-        lng: 120.6812,
-        name: "Crash's House",
-        description: "A small cottage house surrounded by trees",
-        price: 55
-      },
-      {
-        ownerId: 6,
-        address: "123 Conch St.",
-        city: "Bikini Bottom City",
-        state: "Bikini Bottom",
-        country: "United States",
-        lat: 27.2356,
-        lng: -155.9210,
-        name: "Spongebob's House",
-        description: "A pineapple shaped house with 2 bedrooms and full sized kitchen",
-        price: 30
-      },
-      {
-        ownerId: 7,
-        address: "120 Conch St.",
-        city: "Bikini Bottom City",
-        state: "Bikini Bottom",
-        country: "United States",
-        lat: 27.2356,
-        lng: -155.9300,
-        name: "Patrick's House",
-        description: "A bolder with furniture made of sand",
-        price: 1
-      },
-      {
-        ownerId: 8,
-        address: "122 Conch St.",
-        city: "Bikini Bottom City",
-        state: "Bikini Bottom",
-        country: "United States",
-        lat: 27.2356,
-        lng: -155.9265,
-        name: "Squidward's House",
-        description: "A house that is based on the Easter Island heads called Moai, well furnished",
-        price: 50
       }
     ]
 
