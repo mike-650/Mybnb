@@ -1,0 +1,30 @@
+.all-spots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+  margin: 10px 10px;
+}
+
+.spot-container {
+  padding-bottom: 10px;
+}
+
+.spot-images {
+  border-radius: 15px;
+  width: 18rem;
+  height: 18rem;
+  margin: 10px;
+}
+
+p {
+  padding-left: 12px;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 14px;
+  font-weight: bolder;
+}
+
+.spot-city-avgrating {
+  display: flex;
+  justify-content: space-between;
+}
