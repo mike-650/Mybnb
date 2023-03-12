@@ -1,1 +1,29 @@
+h1 {
+  text-align: center;
+  font-family: 'Hind Madurai', sans-ser;
+  font-size: 25px;
+  font-weight: bold;
+  padding: 0px;
+  margin: 0px;
+}
 
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  text-align: center;
+  width: 20rem;
+  margin-bottom: 5px;
+}
+
+button {
+  margin-top: 5px;
+  height: 40px;
+}
+
+#modal-content {
+  padding: 10px;
+  border-radius: 15px;
+}

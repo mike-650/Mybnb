@@ -9,7 +9,7 @@ function Navigation({ isLoaded }){
 
   return (
     <ul className='nav-bar'>
-        <NavLink exact to="/" id='home-icon'>MyBnb</NavLink>
+        <NavLink exact to="/" id='home-icon'>mybnb</NavLink>
       {isLoaded && (
           <ProfileButton user={sessionUser} />
       )}

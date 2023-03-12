@@ -60,7 +60,7 @@ function ProfileButton({ user }) {
             ) : (
               <>
                 <OpenModalMenuItem
-                  itemText="Log In"
+                  itemText="Log in"
                   onItemClick={closeMenu}
                   modalComponent={<LoginFormModal />}
                 />
