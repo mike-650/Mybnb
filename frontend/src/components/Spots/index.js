@@ -22,9 +22,9 @@ function Spots() {
       {spots.map(spot =>
         <div key={spot.id} className='spot-container'>
           <img src={spot.previewImage} className='spot-images' />
-          <div className="spot-state-avg">
+          <div className="spot-label">
           <p>{spot.city}, {spot.state}</p>
-          <p>{spot.avgRating}</p>
+          <p><i class="fa-solid fa-star"></i> {spot.avgRating}</p>
           </div>
           <p>${spot.price} <span>night</span></p>
         </div>)}
