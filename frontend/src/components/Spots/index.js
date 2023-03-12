@@ -1,22 +1,19 @@
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllSpots } from "../../store/spots";
 
 function Spots() {
   const dispatch = useDispatch();
+  const spots = useSelector(state => state.spots.allSpots)
 
-  async function lol() {
-    const spots = getAllSpots();
-    const data = await spots();
-
-    console.log(data);
-  }
-
-  lol();
+  useEffect(() => {
+    dispatch(getAllSpots());
+  }, [dispatch])
 
 
   return (
     <div>
-      Test
+
     </div>
   );
 }

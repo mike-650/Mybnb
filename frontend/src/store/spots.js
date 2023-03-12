@@ -5,8 +5,8 @@ const ALL_SPOTS = 'ALL_SPOTS';
 const ONE_SPOT = 'ONE_SPOT';
 
 // ! ACTION CREATORS
-export const allSpots = () => {
-  return { type: ALL_SPOTS };
+export const allSpots = (spots) => {
+  return { type: ALL_SPOTS, spots };
 }
 
 export const oneSpot = (spotId) => {
@@ -15,11 +15,11 @@ export const oneSpot = (spotId) => {
 
 // ! NORMALIZE DATA
 const normalizeAllSpots = (data) => {
-  console.log({data})
-  return data.reduce((acc, spot) => {
-    acc[spot.id] = spot;
-    return acc;
+  let normalize = {};
+  data.forEach(spot => {
+    normalize[spot.id] = spot;
   })
+  return normalize;
 };
 
 // ! THUNK ACs'
@@ -28,11 +28,10 @@ export const getAllSpots = () => async dispatch => {
 
   if (response.ok) {
     const spots = await response.json();
-    console.log('BEFORE :  ',spots);
     const normalized = normalizeAllSpots(spots.Spots);
     console.log({normalized})
     // TODO:
-    // dispatch(allSpots(normalized));
+    dispatch(allSpots(normalized));
     return normalized;
   }
 }
@@ -50,7 +49,7 @@ const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_SPOTS:
       // ? NEED TO TEST
-      return { ...state, allSpots: action.normalized}
+      return { ...state, allSpots: action.spots}
     default: return state
   }
 };
