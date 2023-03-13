@@ -1,12 +1,14 @@
 .all-spots {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 320px);
   padding: 20px;
   margin: 10px 10px;
+  justify-content: center;
 }
 
 .spot-container {
   padding-bottom: 10px;
+  padding-right: 10px;
 }
 
 .spot-images {
