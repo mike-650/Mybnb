@@ -1,7 +1,6 @@
 .all-spots {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
   padding: 20px;
   margin: 10px 10px;
 }
@@ -12,8 +11,8 @@
 
 .spot-images {
   border-radius: 15px;
-  width: 20rem;
-  height: 18rem;
+  width: 18.5rem;
+  height: 18.5rem;
   margin: 10px;
 }
 
