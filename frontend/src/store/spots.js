@@ -34,8 +34,14 @@ export const getAllSpots = () => async dispatch => {
   };
 };
 
-export const getOneSpot = () => async dispatch => {
-  // TODO:
+export const getOneSpot = (spot) => async dispatch => {
+  const response = await csrfFetch(`/api/spots/2`);
+  console.log('HERE', {response});
+  if (response.ok) {
+    const spotData = await response.json();
+    // TODO:
+    console.log({spotData})
+  }
 };
 
 

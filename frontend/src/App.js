@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Switch } from "react-router-dom";
-import SignupFormPage from "./components/SignupFormModal";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import Spots from "./components/Spots";
+import SpotDetails from "./components/SpotDetails";
 
 function App() {
   const dispatch = useDispatch();
@@ -20,7 +20,12 @@ function App() {
         <Switch>
         </Switch>
       )}
-      <Spots></Spots>
+        <Route exact path='/'>
+          <Spots />
+        </Route>
+        <Route exact path='/spot/:spotId'>
+          <SpotDetails />
+        </Route>
     </>
   );
 }
