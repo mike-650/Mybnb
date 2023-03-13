@@ -22,6 +22,13 @@ const normalizeAllSpots = (data) => {
   return normalize;
 };
 
+const normalizeOneSpot = (data) => {
+  let normalize = { ...data };
+  normalize.SpotImages = [...data.SpotImages]
+  normalize.Owner = { ...data.Owner }
+  return normalize;
+};
+
 // ! THUNK ACs'
 export const getAllSpots = () => async dispatch => {
   const response = await csrfFetch('/api/spots');
@@ -36,11 +43,12 @@ export const getAllSpots = () => async dispatch => {
 
 export const getOneSpot = (spot) => async dispatch => {
   const response = await csrfFetch(`/api/spots/2`);
-  console.log('HERE', {response});
   if (response.ok) {
     const spotData = await response.json();
     // TODO:
-    console.log({spotData})
+    const normalize = normalizeOneSpot(spotData);
+    dispatch(oneSpot(normalize));
+    return normalize;
   }
 };
 
@@ -57,7 +65,12 @@ const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_SPOTS:
       // ? NEED TO TEST
-      return { ...state, allSpots: action.spots}
+      return { ...state, allSpots: action.spots };
+    case ONE_SPOT:
+      console.log(action.spotId);
+      return { ...state, singleSpot: { ...action.spotId,
+        SpotImages: [ ...action.spotId.SpotImages ],
+        Owner: { ...action.spotId.Owner }}}
     default: return state
   }
 };

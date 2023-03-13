@@ -9,7 +9,9 @@ function SpotDetails() {
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
-  }, [])
+  }, [dispatch, spotId])
+
+  
   return (
     <h1>Spot details</h1>
   );
