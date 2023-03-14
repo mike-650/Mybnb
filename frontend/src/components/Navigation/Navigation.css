@@ -6,10 +6,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /*possibly take off top border but fine for now?*/
-  border-top: 1px solid lightgray;
-  border-bottom: 1px solid lightgray;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid grey;
   padding: 10px 34px;
+  background-color: white;
+  position: sticky;
+  top: 0px;
 }
 
 
