@@ -24,14 +24,18 @@
   margin: 0px;
 }
 
-p {
-  padding: 1px 12px;
+.all-spots-desc {
+
   font-family: 'Noto Sans JP', sans-serif;
   font-size: 14px;
-  font-weight: bolder;
+  margin-top: 4px;
+  margin-bottom: 2px;
+  margin-left: 0px;
+  padding-left: 0px;
 }
 
 .spot-label {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
