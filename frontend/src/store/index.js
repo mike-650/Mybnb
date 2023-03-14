@@ -2,6 +2,7 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware, co
 import thunk from 'redux-thunk';
 import sessionReducer from './session';
 import spotsReducer from './spots';
+import reviewReducer from './reviews';
 
 
 let enhancer;
@@ -22,7 +23,8 @@ const configureStore = (preloadedState) => {
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  spots: spotsReducer
+  spots: spotsReducer,
+  reviews: reviewReducer
 });
 
 

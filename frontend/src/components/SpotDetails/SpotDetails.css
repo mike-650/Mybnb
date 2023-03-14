@@ -16,7 +16,7 @@ p {
 
 .spot-details {
   max-width: 1000px;
-  border-bottom: 1px solid grey;
+  /* border-bottom: 1px solid grey; */
   margin-top: 5px;
 }
 
@@ -46,13 +46,14 @@ p {
 
 .spot-description-area {
   width: 100%;
+  border-bottom: 1px solid grey;
+
 }
 
 .spot-reserve-feature {
   border: 1px solid black;
   border-radius: 25px;
   background-color: white;
-
 }
 
 .spot-reserve-info {
