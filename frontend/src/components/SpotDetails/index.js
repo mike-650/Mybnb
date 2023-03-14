@@ -24,12 +24,12 @@ function SpotDetails() {
   }
 
   return (
-    <>
+    <div className="spot-container">
       <div className="spot-details">
         <h3>{spot.name}</h3>
         <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
         <div className="spot-images-div">
-          {spot.SpotImages.map(image => <img src={image.url} key={image.id} className='spot-images' />)}
+          {spot.SpotImages.map(image => <img src={image.url} alt='Spot' key={image.id} className='spot-images' />)}
         </div>
         <div className="spot-descrip-reserve-grid">
           <div className="spot-description-area">
@@ -47,7 +47,7 @@ function SpotDetails() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -49,6 +49,7 @@
 .profile-button {
   height: 40px;
   width: 77px;
+  margin: 0px;
   background-color: white;
   border: 1px solid #CCCC;
   border-radius: 20px;

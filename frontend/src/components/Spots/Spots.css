@@ -1,5 +1,3 @@
-/* TODO: FIX SPACING BETWEEN PRICE AND CITY/STATE / FIX CURSOR IN BETWEEN IMAGES */
-
 .all-spots {
   display: grid;
   grid-template-columns: repeat(auto-fill, 320px);
@@ -14,16 +12,16 @@
   color: #000;
 }
 
-.spot-container {
+.all-spots-container {
   padding-bottom: 10px;
   padding-right: 24px;
 }
 
-.spot-images {
+.all-spots-images {
   border-radius: 15px;
   width: 18.5rem;
   height: 18.5rem;
-  margin: 10px;
+  margin: 0px;
 }
 
 p {
