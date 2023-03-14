@@ -33,7 +33,7 @@ function SignupFormModal() {
   const disabled = () => {
     if (!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
       return true;
-    } else if (username.length < 4 || password.length < 6 || password !== confirmPassword) {
+    } else if (username.length < 4 || password.length < 6 ) {
       return true;
     }
     return false;
