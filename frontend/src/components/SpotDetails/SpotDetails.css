@@ -1,20 +1,69 @@
+h3 {
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+p {
+  padding: 0px;
+}
+
 .spot-details {
   max-width: 1000px;
-  
+  border-bottom: 1px solid grey;
+  margin-top: 5px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .spot-images-div {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
+  grid-gap: 4px;
 }
 
 .spot-images-div img:first-child {
-  width: 600px;
-  height: 490px;
+  width: 475px;
+  height: 365px;
   grid-row: span 2;
 }
 
 .spot-images-div > *:not(:first-child) {
-  height: 230px
+  height: 180px;
+  width: 225px;
+}
+
+.spot-images {
+  margin: 0px;
+}
+
+.spot-descrip-reserve-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 7px;
+  margin-bottom: 10px;
+}
+
+.spot-description-area {
+  width: 100%;
+}
+
+.spot-reserve-feature {
+  border: 1px solid black;
+  border-radius: 25px;
+  background-color: white;
+
+}
+
+.spot-reserve-info {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+.spot-reserve-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
 }

@@ -21,7 +21,7 @@ function Spots() {
     <div className="all-spots">
       {/* STEP 3 Do whatever you need with the data! */}
       {spots.map(spot =>
-        <NavLink to={`/spot/${spot.id}`} className='nav-link' key={spot.id}>
+        <NavLink to={`/spots/${spot.id}`} className='nav-link' key={spot.id}>
           <div className='spot-container'>
             <img title={`${spot.name}`} src={spot.previewImage} alt='https://www.beauflor.us/en/crafted-plank-and-tile/parkway-pro-click/-/media/sites/ideal/general/nophoto.ashx?as=1&rev=d7c55585b143492bb40a105c8a3554f2&hash=E3318B97D01C0BC7F91476129330E4C4&hash=E3318B97D01C0BC7F91476129330E4C4' className='spot-images' />
             <div className="spot-label">
