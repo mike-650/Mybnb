@@ -42,10 +42,9 @@ export const getAllSpots = () => async dispatch => {
 };
 
 export const getOneSpot = (spot) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/2`);
+  const response = await csrfFetch(`/api/spots/${spot}`);
   if (response.ok) {
     const spotData = await response.json();
-    // TODO:
     const normalize = normalizeOneSpot(spotData);
     dispatch(oneSpot(normalize));
     return normalize;
@@ -60,15 +59,13 @@ const initialState = {
 };
 
 // ! REDUCER
-
 const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_SPOTS:
-      // ? NEED TO TEST
       return { ...state, allSpots: action.spots };
     case ONE_SPOT:
-      console.log(action.spotId);
-      return { ...state, singleSpot: { ...action.spotId,
+      return { ...state,
+        singleSpot: { ...action.spotId,
         SpotImages: [ ...action.spotId.SpotImages ],
         Owner: { ...action.spotId.Owner }}}
     default: return state

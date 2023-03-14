@@ -240,7 +240,6 @@ router.get('/:spotId', async (req, res) => {
   // Set numReviews property
   const formatSpot = spot.toJSON();
   const totalReviews = await spot.countReviews();
-  console.log({formatSpot})
   formatSpot.numReviews = totalReviews;
 
   // Find average of stars and set avgStarRating property

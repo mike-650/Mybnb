@@ -5,12 +5,12 @@ import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
 import './Navigation.css';
+import { Link } from "react-router-dom";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
   const openMenu = (e) => {
     e.stopPropagation();
     // able to toggle profile btn between open and close
@@ -50,11 +50,12 @@ function ProfileButton({ user }) {
           <ul className={ulClassName} ref={ulRef}>
             {user ? (
               <>
-                <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
+                <li>Hello, {user.firstName}</li>
                 <li>{user.email}</li>
+                {/* TODO: */}
+                <Link to='/' className="manage-spot">Manage Spot</Link>
                 <li>
-                  <button onClick={logout}>Log Out</button>
+                  <button onClick={logout} className='logout-button'>Log Out</button>
                 </li>
               </>
             ) : (

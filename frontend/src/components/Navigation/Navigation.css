@@ -79,16 +79,28 @@
 
 .profile-dropdown {
   position: absolute;
-  margin-top: 9px;
+  top: 52px;
+  right: 3px;
   list-style: none;
   background-color: white;
   box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.3);
   border-radius: 11px;
   margin-left: -23px;
-  padding: 0px;
-  width: 100px;
+  width: 150px;
   font-family: 'Hind Madurai', sans-ser;
   font-size: 14px;
+  padding-left: 0px;
+  text-align: center;
+
+}
+
+.logout-button {
+  border-radius: 25px;
+  border: 1px solid grey;
+  height: 30px;
+  margin-bottom: 7px;
+  text-align: center;
+  line-height: 0px;
 }
 
 .dropdown-li {
@@ -98,4 +110,10 @@
 .dropdown-li:hover {
   background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
+}
+
+.manage-spot {
+  text-decoration: none;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }
