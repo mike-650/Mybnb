@@ -39,7 +39,10 @@ function SpotDetails() {
           <div className="spot-reserve-feature">
             <div className="spot-reserve-info">
               <p>${spot.price} night</p>
-              <p><i className="fa-solid fa-star"></i> {spot.avgStarRating} · {spot.numReviews} reviews</p>
+              <p>
+                <i className="fa-solid fa-star"></i>
+                {spot.numReviews ? ` ${spot.avgStarRating.toFixed(1)} · ${spot.numReviews} reviews` : " New"}
+              </p>
             </div>
             <div className="spot-reserve-button">
               <button onClick={handleClick}>Reserve</button>
