@@ -83,19 +83,18 @@ module.exports = {
         description: "This charming and characterful brownstone is located in the heart of Boston's historic Beacon Hill neighborhood, just a stone's throw from the city's most famous landmarks.",
         price: 220.90
       },
-      {
-        ownerId: 1,
-        address: "987 Maple Avenue",
-        city: "New York",
-        state: "NY",
-        country: "United States",
-        lat: 40.7128,
-        lng: -74.0060,
-        name: "Sleek Modern Condo",
-        description: "Located in the heart of Manhattan, this sleek and modern condo features stunning city views, high-end finishes, and convenient access to all of New York's top attractions.",
-        price: 350.75
-      }
-
+      // {
+      //   ownerId: 1,
+      //   address: "987 Maple Avenue",
+      //   city: "New York",
+      //   state: "NY",
+      //   country: "United States",
+      //   lat: 40.7128,
+      //   lng: -74.0060,
+      //   name: "Sleek Modern Condo",
+      //   description: "Located in the heart of Manhattan, this sleek and modern condo features stunning city views, high-end finishes, and convenient access to all of New York's top attractions.",
+      //   price: 350.75
+      // }
     ]
 
     await queryInterface.bulkInsert(options, spots, {});
