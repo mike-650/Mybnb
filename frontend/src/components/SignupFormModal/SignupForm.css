@@ -1,0 +1,4 @@
+.errors > li {
+  color: red;
+  text-decoration: none;
+}

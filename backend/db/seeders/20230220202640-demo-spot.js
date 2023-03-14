@@ -12,9 +12,10 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const spots = [
       {
+        ownerId: 1,
         address: "123 Main Street",
         city: "Los Angeles",
-        state: "California",
+        state: "CA",
         country: "United States",
         lat: 34.0522,
         lng: -118.2437,
@@ -23,9 +24,10 @@ module.exports = {
         price: 2500
       },
       {
+        ownerId: 2,
         address: "789 Oak Street",
         city: "New York",
-        state: "New York",
+        state: "NY",
         country: "United States",
         lat: 40.7128,
         lng: -74.006,
@@ -34,9 +36,10 @@ module.exports = {
         price: 1500
       },
       {
+        ownerId: 3,
         address: "456 Maple Avenue",
         city: "Chicago",
-        state: "Illinois",
+        state: "IL",
         country: "United States",
         lat: 41.8781,
         lng: -87.6298,
@@ -45,9 +48,10 @@ module.exports = {
         price: 3000
       },
       {
+        ownerId: 1,
         address: "321 Elm Street",
         city: "San Francisco",
-        state: "California",
+        state: "CA",
         country: "United States",
         lat: 37.7749,
         lng: -122.4194,
@@ -56,9 +60,10 @@ module.exports = {
         price: 2000
       },
       {
+        ownerId: 2,
         address: "987 Pine Street",
         city: "Miami",
-        state: "Florida",
+        state: "FL",
         country: "United States",
         lat: 25.7617,
         lng: -80.1918,
@@ -67,9 +72,10 @@ module.exports = {
         price: 2800
       },
       {
+        ownerId: 3,
         address: "654 Cedar Street",
         city: "Boston",
-        state: "Massachusetts",
+        state: "MA",
         country: "United States",
         lat: 42.3601,
         lng: -71.0589,
