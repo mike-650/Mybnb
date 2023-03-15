@@ -23,31 +23,6 @@ export const getAllReviews = (spotId) => async dispatch => {
 
   if (response.ok) {
     const reviews = await response.json();
-    // console.log(reviews)
-    /*{
-  "Reviews": [
-    {
-      "id": 1,
-      "userId": 1,
-      "spotId": 1,
-      "review": "This was an awesome spot!",
-      "stars": 5,
-      "createdAt": "2021-11-19 20:39:36",
-      "updatedAt": "2021-11-19 20:39:36" ,
-      "User": {
-        "id": 1,
-        "firstName": "John",
-        "lastName": "Smith"
-      },
-      "ReviewImages": [
-        {
-          "id": 1,
-          "url": "image url"
-        }
-      ],
-    }
-  ]
-} */
     const normalized = normalizeAllReviews(reviews.Reviews);
     dispatch(allReviews(normalized));
     return normalized;

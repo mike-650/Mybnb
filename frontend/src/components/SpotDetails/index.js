@@ -30,7 +30,7 @@ function SpotDetails() {
 
   function handleClick() {
     alert('Feature Coming Soon...');
-  }
+  };
 
   return (
     <div className="spot-container">
@@ -60,7 +60,7 @@ function SpotDetails() {
         </div>
         <p><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}</p>
         {reviews.map(review =>
-        <div>
+        <div key={review.id}>
         <p>{review.User.firstName}</p>
         <p>{months[review.createdAt.substring(5,7) - 1]} {review.createdAt.substr(0,4)}</p>
         <p>{review.review}</p>
