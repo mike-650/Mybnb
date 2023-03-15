@@ -16,7 +16,7 @@ function Spots() {
     dispatch(getAllSpots());
   }, [dispatch]);
 
-
+  
   return (
     <div className="all-spots">
       {/* STEP 3 Do whatever you need with the data! */}

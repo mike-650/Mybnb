@@ -9,10 +9,12 @@ function Navigation({ isLoaded }){
   return (
     <ul className='nav-bar'>
         <NavLink exact to="/" id='home-icon'>mybnb</NavLink>
+      <div className='profile-create-spot'>
         { sessionUser ? <NavLink to='/spots/new' id='create-spot'>Create a New Spot</NavLink> : null }
       {isLoaded && (
-          <ProfileButton user={sessionUser} />
-      )}
+        <ProfileButton user={sessionUser} />
+        )}
+      </div>
     </ul>
   );
 }

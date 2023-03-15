@@ -14,6 +14,21 @@
   top: 0px;
 }
 
+.profile-create-spot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#create-spot {
+  text-decoration: none;
+  color: black;
+}
+
+#create-spot:hover {
+  color: cornflowerblue;
+}
+
 
 #home-icon,
 #home-icon:visited {
