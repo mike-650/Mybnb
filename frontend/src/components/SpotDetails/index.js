@@ -1,5 +1,5 @@
 import { getOneSpot } from "../../store/spots";
-import { getAllReviews } from "../../store/reviews";
+import { getAllReviews, getSessionUserReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -12,15 +12,17 @@ const months = [
 
 function SpotDetails() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector(state => state.session.user);
+  const spot = useSelector(state => state.spots.singleSpot);
+  const reviews = Object.values(useSelector(state => state.reviews.spot))
   const { spotId } = useParams();
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
     dispatch(getAllReviews(spotId));
+    dispatch(getSessionUserReviews());
   }, [dispatch, spotId]);
 
-  const spot = useSelector(state => state.spots.singleSpot);
-  const reviews = Object.values(useSelector(state => state.reviews.spot))
 
 
   // * Conditionally render this until the data is loaded from the redux store
@@ -59,6 +61,7 @@ function SpotDetails() {
           </div>
         </div>
         <p><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}</p>
+        { sessionUser && spot.Owner.id !== sessionUser.id ? <button>Post Your Review</button> : null }
         {reviews.map(review =>
         <div key={review.id}>
         <p>{review.User.firstName}</p>

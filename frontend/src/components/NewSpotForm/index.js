@@ -1,9 +1,12 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { csrfFetch } from '../../store/csrf';
+import { createNewSpot } from '../../store/spots';
 import './NewSpot.css';
 
 function NewSpotForm() {
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const [country, setCountry] = useState('');
@@ -20,7 +23,7 @@ function NewSpotForm() {
   const [img4, setImg4] = useState('');
   const [errors, setErrors] = useState([]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let validations = [];
     if (!country.length) validations.push('Country');
@@ -64,37 +67,12 @@ function NewSpotForm() {
       { url: img2, preview: false },
       { url: img3, preview: false },
       { url: img4, preview: false }
-    ]
+    ];
 
 
-    // ! Make the request to create the spot
-    csrfFetch('/api/spots', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newSpot)
-    }).then(res => {
-      // ! We created the spot and now make
-      // ! a request to add an image
-      res.json().then(data => {
-        csrfFetch(`/api/spots/${data.id}/images`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newPreviewImage)
-        });
-        // ! ?
-        ImgArray.forEach(image => {
-          if (image.url.length !== 0 || image.url !== undefined) {
-            csrfFetch(`/api/spots/${data.id}/images`, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(image)
-            })
-          }
-        })
-        history.push(`/spots/${data.id}`)
-      })
-    })
-  }
+    const spot = await dispatch(createNewSpot(newSpot, newPreviewImage, ImgArray));
+    history.push(`/spots/${spot.id}`);
+  };
 
 
   return (

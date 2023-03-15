@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 // ! CONSTANTS
 const ALL_SPOTS = 'ALL_SPOTS';
 const ONE_SPOT = 'ONE_SPOT';
+const CREATE_SPOT = 'CREATE_SPOT';
 
 // ! ACTION CREATORS
 export const allSpots = (spots) => {
@@ -11,6 +12,10 @@ export const allSpots = (spots) => {
 
 export const oneSpot = (spotId) => {
   return { type: ONE_SPOT, spotId };
+}
+
+export const createSpot = (spot) => {
+  return { type: CREATE_SPOT, spot };
 }
 
 // ! NORMALIZE DATA
@@ -51,6 +56,34 @@ export const getOneSpot = (spot) => async dispatch => {
   }
 };
 
+export const createNewSpot = (spot, previewImage, imgArray) => async dispatch => {
+  const response = await csrfFetch('/api/spots',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(spot)
+    });
+
+  if (response.ok) {
+    const spot = await response.json();
+    await csrfFetch(`/api/spots/${spot.id}/images`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(previewImage)
+    })
+    for (const img of imgArray) {
+      if (img.url) {
+        await csrfFetch(`/api/spots/${spot.id}/images`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(img)
+        });
+      };
+    };
+    return spot;
+  };
+};
+
 
 // ! INITIAL SLICE STATE
 const initialState = {
@@ -64,10 +97,14 @@ const spotsReducer = (state = initialState, action) => {
     case ALL_SPOTS:
       return { ...state, allSpots: action.spots };
     case ONE_SPOT:
-      return { ...state,
-        singleSpot: { ...action.spotId,
-        SpotImages: [ ...action.spotId.SpotImages ],
-        Owner: { ...action.spotId.Owner }}}
+      return {
+        ...state,
+        singleSpot: {
+          ...action.spotId,
+          SpotImages: [...action.spotId.SpotImages],
+          Owner: { ...action.spotId.Owner }
+        }
+      }
     default: return state
   }
 };
