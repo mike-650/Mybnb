@@ -1,8 +1,8 @@
 .all-spots {
   display: grid;
   grid-template-columns: repeat(auto-fill, 320px);
-  gap: 1px;
-  padding: 0px;
+  gap: 4px;
+  padding: 4px;
   margin-top: 25px;
   justify-content: center;
 }
@@ -13,7 +13,7 @@
 }
 
 .all-spots-container {
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   padding-right: 24px;
 }
 
