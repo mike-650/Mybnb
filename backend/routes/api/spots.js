@@ -24,11 +24,11 @@ const validateSpotInput = [
     .exists({ checkFalsy: true })
     .withMessage('Country is required'),
   check('lat')
-    .exists({ checkFalsy: true })
+    .optional()
     .isFloat({ min: -90, max: 90 })
     .withMessage('Latitude is not valid'),
   check('lng')
-    .exists({ checkFalsy: true })
+    .optional()
     .isFloat({ min: -180, max: 180 })
     .withMessage('Longitude is not valid'),
   check('name')
@@ -269,9 +269,9 @@ router.get('/:spotId', async (req, res) => {
     formatSpot.SpotImages.push(toJSON);
   });
 
-  if (!formatSpot.SpotImages.length) {
-    formatSpot.SpotImages = "No Spot Images available"
-  };
+  // if (!formatSpot.SpotImages.length) {
+  //   formatSpot.SpotImages = "No Spot Images available"
+  // };
 
   // set our Owner property
   const owner = await User.findByPk(formatSpot.ownerId, {
@@ -420,14 +420,14 @@ router.post('/:spotId/images', [requireAuthentication, requireAuthorization], as
     }
   });
 
-  // check if this returned null or not
-  if (currentPreview) {
-    // if yes; update that preview to false
-    await currentPreview.update(
-      { preview: false },
-      { where: { id: currentPreview.id } }
-    );
-  }
+  // // check if this returned null or not
+  // if (currentPreview) {
+  //   // if yes; update that preview to false
+  //   await currentPreview.update(
+  //     { preview: false },
+  //     { where: { id: currentPreview.id } }
+  //   );
+  // }
 
   // create the new image (is the new preview image; preview: 'true')
   let newImage = await SpotImage.create({
