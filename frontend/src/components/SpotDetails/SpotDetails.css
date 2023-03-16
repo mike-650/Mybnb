@@ -10,6 +10,7 @@ p {
 .spot-container {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   margin: 0px;
   padding: 0px;
 }
@@ -18,6 +19,7 @@ p {
   max-width: 1000px;
   /* border-bottom: 1px solid grey; */
   margin-top: 5px;
+
 }
 
 .spot-images-div {
@@ -66,4 +68,11 @@ p {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
+}
+
+@media (max-width: 999px) {
+  .spot-images-div {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

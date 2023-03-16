@@ -1,8 +1,11 @@
 import { getOneSpot } from "../../store/spots";
-import { getAllReviews } from "../../store/reviews";
+import { getAllReviews, getSessionUserReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState, useRef } from "react";
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import ReviewFormModal from "../ReviewFormModal"
+import { useModal } from '../../context/Modal';
 import './SpotDetails.css';
 
 const months = [
@@ -12,16 +15,29 @@ const months = [
 
 function SpotDetails() {
   const dispatch = useDispatch();
+  const spot = useSelector(state => state.spots.singleSpot);
+  const sessionUser = useSelector(state => state.session.user);
+  const spotReviews = useSelector(state => state.reviews.spot);
+  const userReviews = useSelector(state => Object.values(state.reviews.user).map(review => review.spotId));
+  const [showMenu, setShowMenu] = useState(false);
+  const { setModalContent, setOnModalClose } = useModal();
   const { spotId } = useParams();
+  const ulRef = useRef();
+
+  const openMenu = (e) => {
+    e.stopPropagation();
+    // able to toggle profile btn between open and close
+    console.log(showMenu)
+    showMenu ? setShowMenu(false) : setShowMenu(true);
+  };
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
     dispatch(getAllReviews(spotId));
+    dispatch(getSessionUserReviews());
   }, [dispatch, spotId]);
 
-  const spot = useSelector(state => state.spots.singleSpot);
-  const reviews = Object.values(useSelector(state => state.reviews.spot))
-
+  const closeMenu = () => setShowMenu(false);
 
   // * Conditionally render this until the data is loaded from the redux store
   if (Object.keys(spot).length === 0) {
@@ -59,12 +75,22 @@ function SpotDetails() {
           </div>
         </div>
         <p><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}</p>
-        {reviews.map(review =>
-        <div key={review.id}>
-        <p>{review.User.firstName}</p>
-        <p>{months[review.createdAt.substring(5,7) - 1]} {review.createdAt.substr(0,4)}</p>
-        <p>{review.review}</p>
-        </div>
+        {/* POST YOUR REVIEW CONDITIONAL RENDER */}
+        {sessionUser && spot.Owner.id !== sessionUser.id && !userReviews.includes(spotId) ?
+          <OpenModalMenuItem
+            itemText="Post Your Review"
+            onItemClick={closeMenu}
+            modalComponent={<ReviewFormModal />}
+          /> :
+          null
+        }
+
+        {Object.values(spotReviews).map(review =>
+          <div key={review.id}>
+            <p>{review.User.firstName}</p>
+            <p>{months[review.createdAt.substring(5, 7) - 1]} {review.createdAt.substr(0, 4)}</p>
+            <p>{review.review}</p>
+          </div>
         )}
       </div>
     </div>

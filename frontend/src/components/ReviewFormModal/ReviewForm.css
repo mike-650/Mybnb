@@ -1,0 +1,32 @@
+#modal-content {
+  width: 60%;
+}
+
+.review {
+  resize: none;
+}
+
+.stars-component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.star-input {
+  width: 12px;
+  display: none;
+}
+
+.filled {
+  color: gold;
+}
+
+.empty {
+  color:gray;
+}
