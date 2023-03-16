@@ -60,7 +60,6 @@ export const createNewSpot = (spot, previewImage, imgArray) => async dispatch =>
   const response = await csrfFetch('/api/spots',
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(spot)
     });
 
@@ -68,14 +67,12 @@ export const createNewSpot = (spot, previewImage, imgArray) => async dispatch =>
     const spot = await response.json();
     await csrfFetch(`/api/spots/${spot.id}/images`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(previewImage)
     })
     for (const img of imgArray) {
       if (img.url) {
         await csrfFetch(`/api/spots/${spot.id}/images`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(img)
         });
       };

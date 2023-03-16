@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { csrfFetch } from '../../store/csrf';
 import { createNewSpot } from '../../store/spots';
 import './NewSpot.css';
 

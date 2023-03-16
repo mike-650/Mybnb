@@ -19,6 +19,6 @@ function OpenModalMenuItem({
   return (
       <li onClick={onClick} className='dropdown-li'>{itemText}</li>
     );
-}
+};
 
 export default OpenModalMenuItem;

@@ -46,30 +46,6 @@ module.exports = {
         userId: 2,
         review: 'Stay away from this AirBnb.',
         stars: 1
-      },
-      {
-        spotId: 4,
-        userId: 1,
-        review: 'The house was actually quite nice',
-        stars: 4
-      },
-      {
-        spotId: 4,
-        userId: 3,
-        review: 'Meh.',
-        stars: 3
-      },
-      {
-        spotId: 5,
-        userId: 2,
-        review: 'AMAZING!',
-        stars: 5
-      },
-      {
-        spotId: 5,
-        userId: 3,
-        review: 'Overall it was alright.',
-        stars: 3
       }
     ]
 
