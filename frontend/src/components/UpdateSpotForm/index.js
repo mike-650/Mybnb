@@ -79,41 +79,52 @@ function UpdateSpotForm() {
           <h2>Update your Spot</h2>
           <h3>Where's your place located?</h3>
           <p>Guests will only get your exact address once they booked a reservation.</p>
-          <div>
+          <div className='errors'>
             <label htmlFor='country'>Country</label>
-            {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
-            <input
-              type='text'
-              placeholder="Country"
-              id='country'
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            />
+          {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
           </div>
-          <div>
+          <input
+            className='input-fields'
+            type='text'
+            placeholder="Country"
+            id='country'
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+          <div className='errors'>
             <label htmlFor='street-address'>Steet Address </label>
             {errors.includes('Address') ? <p style={{ color: 'red' }}>Address is required</p> : null}
-            <input
-              type='text'
-              placeholder='Address'
-              id='street-address'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
           </div>
+          <input
+            className='input-fields'
+            type='text'
+            placeholder='Address'
+            id='street-address'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
           <div>
-            <label htmlFor='city'>City </label>
+            <div className='errors'>
+              <label htmlFor='city'>City </label>
             {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
+            </div>
+            <div>
+
+            </div>
             <input
+              className='input-fields'
               type='text'
               placeholder='City'
               id='city'
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
-            <label htmlFor='state'>State </label>
+            <div className='errors'>
+              <label htmlFor='state'>State </label>
             {errors.includes('State') ? <p style={{ color: 'red' }}>State is required</p> : null}
+            </div>
             <input
+              className='input-fields'
               type='text'
               placeholder='STATE'
               id='state'
@@ -128,6 +139,7 @@ function UpdateSpotForm() {
             or parking, and what you love about the neighborhood.
           </p>
           <textarea
+            id='update-text-area'
             placeholder='Please write at least 30 characters'
             minLength='30'
             value={description}
@@ -139,6 +151,7 @@ function UpdateSpotForm() {
           <h3>Create a title for your spot</h3>
           <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
           <input
+            className='input-fields'
             type='text'
             placeholder='Name of your spot'
             value={name}
@@ -151,6 +164,7 @@ function UpdateSpotForm() {
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
           <label htmlFor='price'>$ </label>
           <input
+            className='input-fields'
             type='number'
             placeholder='Price per night (USD)'
             value={price}
@@ -162,6 +176,7 @@ function UpdateSpotForm() {
           <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p>
           <input
+          className='input-fields'
             type='text'
             placeholder='Preview Image URL'
             value={previewImg}
@@ -171,6 +186,7 @@ function UpdateSpotForm() {
           {errors.includes('previewImgInvalid') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img1}
@@ -180,6 +196,7 @@ function UpdateSpotForm() {
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img2}
@@ -189,6 +206,7 @@ function UpdateSpotForm() {
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img3}
@@ -198,6 +216,7 @@ function UpdateSpotForm() {
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img4}
@@ -206,7 +225,9 @@ function UpdateSpotForm() {
             {errors.includes('img4') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
         </div>
-        <button type="submit">Create Spot</button>
+        <div className='update-button'>
+        <button type="submit" className='submit-button'>Create Spot</button>
+        </div>
       </form>
     </div>
   )
