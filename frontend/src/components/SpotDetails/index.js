@@ -45,7 +45,17 @@ function SpotDetails() {
         <h3>{spot.name}</h3>
         <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
         <div className="spot-images-div">
-          {spot.SpotImages.map(image => <img src={image.url} alt='Spot' key={image.id} className='spot-images' />)}
+          {spot.SpotImages.map(image =>
+            <img
+            src={image.url}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://www.clipartmax.com/png/middle/155-1550474_image-is-not-available-home-button-transparent-background.png';
+            }}
+            key={image.id}
+            className='spot-images'
+            alt='Unavaiable'
+            />)}
         </div>
         <div className="spot-descrip-reserve-grid">
           <div className="spot-description-area">
@@ -72,7 +82,7 @@ function SpotDetails() {
             itemText="Post Your Review"
             // onItemClick={closeMenu}
             modalComponent={<ReviewFormModal spotId={spotId}
-             />}
+            />}
           /> :
           null
         }

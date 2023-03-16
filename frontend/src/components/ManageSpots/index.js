@@ -14,8 +14,6 @@ function ManageSpots() {
     dispatch(getUserSpots());
   }, [dispatch]);
 
-  console.log({ spots })
-
   return (
     <div>
       <div style={{ paddingLeft: '75px' }}>
