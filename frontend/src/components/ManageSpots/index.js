@@ -2,8 +2,8 @@ import { getUserSpots } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import DeleteFormModal from "../DeleteFormModal";
+// import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+// import DeleteFormModal from "../DeleteFormModal";
 import "../Spots/Spots.css";
 
 function ManageSpots() {
@@ -18,11 +18,11 @@ function ManageSpots() {
 
   return (
     <div>
-      <div style={{paddingLeft:'75px'}}>
-      <h2>Mange Your Spots</h2>
-      <NavLink to='/spots/new'>
-      <button>Create a New Spot</button>
-      </NavLink>
+      <div style={{ paddingLeft: '75px' }}>
+        <h2>Mange Your Spots</h2>
+        <NavLink to='/spots/new'>
+          <button>Create a New Spot</button>
+        </NavLink>
       </div>
       <div className="all-spots">
         {spots.map(spot =>
@@ -36,9 +36,9 @@ function ManageSpots() {
               <p className='all-spots-desc'><strong>${spot.price}</strong> night</p>
               <div>
                 <NavLink to={`/spots/${spot.id}/edit`}>
-                <button>Update</button>
+                  <button>Update</button>
                 </NavLink>
-                
+
                 <button>Delete</button>
 
               </div>

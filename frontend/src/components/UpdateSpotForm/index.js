@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { createNewSpot } from '../../store/spots';
+import { useHistory, useParams } from 'react-router-dom';
+import { updateSpot } from '../../store/spots';
 import './UpdateSpot.css';
 
 function UpdateSpotForm() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { spotId } = useParams();
+
   const [country, setCountry] = useState('');
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
@@ -59,17 +61,17 @@ function UpdateSpotForm() {
       name, description, price
     };
 
-    const newPreviewImage = { url: previewImg, preview: true };
+
     const ImgArray = [
+      { url: previewImg, preview: true },
       { url: img1, preview: false },
       { url: img2, preview: false },
       { url: img3, preview: false },
       { url: img4, preview: false }
     ];
 
-
-    const spot = await dispatch(createNewSpot(newSpot, newPreviewImage, ImgArray));
-    history.push(`/spots/${spot.id}`);
+    await dispatch(updateSpot(newSpot, spotId, ImgArray));
+    history.push(`/spots/${spotId}`);
   };
 
   return (
@@ -81,7 +83,7 @@ function UpdateSpotForm() {
           <p>Guests will only get your exact address once they booked a reservation.</p>
           <div className='errors'>
             <label htmlFor='country'>Country</label>
-          {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
+            {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
           </div>
           <input
             className='input-fields'
@@ -106,7 +108,7 @@ function UpdateSpotForm() {
           <div>
             <div className='errors'>
               <label htmlFor='city'>City </label>
-            {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
+              {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
             </div>
             <div>
 
@@ -121,7 +123,7 @@ function UpdateSpotForm() {
             />
             <div className='errors'>
               <label htmlFor='state'>State </label>
-            {errors.includes('State') ? <p style={{ color: 'red' }}>State is required</p> : null}
+              {errors.includes('State') ? <p style={{ color: 'red' }}>State is required</p> : null}
             </div>
             <input
               className='input-fields'
@@ -176,7 +178,7 @@ function UpdateSpotForm() {
           <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p>
           <input
-          className='input-fields'
+            className='input-fields'
             type='text'
             placeholder='Preview Image URL'
             value={previewImg}
@@ -226,7 +228,7 @@ function UpdateSpotForm() {
           </div>
         </div>
         <div className='update-button'>
-        <button type="submit" className='submit-button'>Create Spot</button>
+          <button type="submit" className='submit-button'>Create Spot</button>
         </div>
       </form>
     </div>

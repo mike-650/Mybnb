@@ -1,7 +1,7 @@
 function DeleteFormModal() {
 
   return (
-    <h1></h1>
+    <h1>lol</h1>
   )
 }
 

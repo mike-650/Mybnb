@@ -5,6 +5,7 @@ const ALL_SPOTS = 'ALL_SPOTS';
 const ALL_USER_SPOTS = 'ALL_USER_SPOTS';
 const ONE_SPOT = 'ONE_SPOT';
 const CREATE_SPOT = 'CREATE_SPOT';
+const UPDATE_SPOT = 'UPDATE_SPOT';
 
 // ! ACTION CREATORS
 export const allSpots = (spots) => {
@@ -21,6 +22,10 @@ export const createSpot = (spot) => {
 
 export const userSpots = (data) => {
   return { type: ALL_USER_SPOTS, data }
+}
+
+export const editSpot = (data) => {
+  return { type: UPDATE_SPOT, data }
 }
 
 // ! NORMALIZE DATA
@@ -69,6 +74,29 @@ export const getUserSpots = () => async dispatch => {
     const normalize = normalizeAllSpots(data.Spots)
     dispatch(allSpots(normalize));
     return normalize
+  }
+}
+
+export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: 'PUT',
+    header: {'Content-Type': 'application/json'},
+    body: JSON.stringify(updatedSpot)
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    // console.log('HERE   :    ', data)
+    for (let image of imageArray) {
+      await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        header: {'Content-Type': 'application/json'},
+        body: JSON.stringify(image)
+      });
+    };
+
+    return data;
+    // TODO: NORMALIZE DATA
   }
 }
 
