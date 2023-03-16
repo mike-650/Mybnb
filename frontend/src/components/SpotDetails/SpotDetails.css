@@ -70,6 +70,10 @@ p {
   margin-bottom: 10px;
 }
 
+li::marker {
+  content: ''
+}
+
 @media (max-width: 999px) {
   .spot-images-div {
     display: flex;

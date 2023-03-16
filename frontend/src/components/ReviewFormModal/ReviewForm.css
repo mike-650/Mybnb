@@ -30,3 +30,7 @@
 .empty {
   color:gray;
 }
+
+.error {
+  color: red;
+}

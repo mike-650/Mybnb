@@ -1,9 +1,5 @@
-import { useState } from "react";
 
-
-function StarRating() {
-  const [ rating, setRating ] = useState(null);
-  const [ hover, setHover] = useState(null);
+function StarRating({rating, setRating, hover, setHover}) {
 
   return (
     <div className="stars">

@@ -1,0 +1,40 @@
+.update-spot-container {
+  display: flex;
+  justify-content: center;
+  padding-left: 300px;
+  padding-right: 300px;
+  margin-left: 200px;
+  margin-right: 200px;
+}
+
+.input-fields {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.errors {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.city-state {
+  display: flex;
+}
+
+.update-button {
+  display: flex;
+  justify-content: center;
+}
+.submit-button {
+  width: 200px;
+}
+
+
+#update-text-area {
+  resize: none;
+  width: 500px;
+  height: 150px
+}

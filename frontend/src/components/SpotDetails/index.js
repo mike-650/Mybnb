@@ -2,10 +2,9 @@ import { getOneSpot } from "../../store/spots";
 import { getAllReviews, getSessionUserReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-import ReviewFormModal from "../ReviewFormModal"
-import { useModal } from '../../context/Modal';
+import ReviewFormModal from "../ReviewFormModal";
 import './SpotDetails.css';
 
 const months = [
@@ -19,17 +18,9 @@ function SpotDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const spotReviews = useSelector(state => state.reviews.spot);
   const userReviews = useSelector(state => Object.values(state.reviews.user).map(review => review.spotId));
-  const [showMenu, setShowMenu] = useState(false);
-  const { setModalContent, setOnModalClose } = useModal();
+  // const [showMenu, setShowMenu] = useState(false);
   const { spotId } = useParams();
-  const ulRef = useRef();
 
-  const openMenu = (e) => {
-    e.stopPropagation();
-    // able to toggle profile btn between open and close
-    console.log(showMenu)
-    showMenu ? setShowMenu(false) : setShowMenu(true);
-  };
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
@@ -37,7 +28,7 @@ function SpotDetails() {
     dispatch(getSessionUserReviews());
   }, [dispatch, spotId]);
 
-  const closeMenu = () => setShowMenu(false);
+  // const closeMenu = () => setShowMenu(false);
 
   // * Conditionally render this until the data is loaded from the redux store
   if (Object.keys(spot).length === 0) {
@@ -54,7 +45,17 @@ function SpotDetails() {
         <h3>{spot.name}</h3>
         <p>{`${spot.city}, ${spot.state}, ${spot.country}`}</p>
         <div className="spot-images-div">
-          {spot.SpotImages.map(image => <img src={image.url} alt='Spot' key={image.id} className='spot-images' />)}
+          {spot.SpotImages.map(image =>
+            <img
+            src={image.url}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = 'https://www.clipartmax.com/png/middle/155-1550474_image-is-not-available-home-button-transparent-background.png';
+            }}
+            key={image.id}
+            className='spot-images'
+            alt='Unavaiable'
+            />)}
         </div>
         <div className="spot-descrip-reserve-grid">
           <div className="spot-description-area">
@@ -79,8 +80,9 @@ function SpotDetails() {
         {sessionUser && spot.Owner.id !== sessionUser.id && !userReviews.includes(spotId) ?
           <OpenModalMenuItem
             itemText="Post Your Review"
-            onItemClick={closeMenu}
-            modalComponent={<ReviewFormModal />}
+            // onItemClick={closeMenu}
+            modalComponent={<ReviewFormModal spotId={spotId}
+            />}
           /> :
           null
         }

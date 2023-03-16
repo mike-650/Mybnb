@@ -80,7 +80,7 @@ const sessionReducer = (state = initialState, action) => {
     case REMOVE_USER:
       return { user: null };
     default:
-      return state;
+      return { ...state };
   }
 };
 
