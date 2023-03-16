@@ -1,0 +1,9 @@
+.update-spot-container {
+  display: block;
+  text-align: center;
+}
+
+textarea {
+  resize: none;
+
+}

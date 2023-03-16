@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 // ! CONSTANTS
 const ALL_SPOTS = 'ALL_SPOTS';
+const ALL_USER_SPOTS = 'ALL_USER_SPOTS';
 const ONE_SPOT = 'ONE_SPOT';
 const CREATE_SPOT = 'CREATE_SPOT';
 
@@ -16,6 +17,10 @@ export const oneSpot = (spotId) => {
 
 export const createSpot = (spot) => {
   return { type: CREATE_SPOT, spot };
+}
+
+export const userSpots = (data) => {
+  return { type: ALL_USER_SPOTS, data }
 }
 
 // ! NORMALIZE DATA
@@ -56,6 +61,17 @@ export const getOneSpot = (spot) => async dispatch => {
   }
 };
 
+export const getUserSpots = () => async dispatch => {
+  const response = await csrfFetch(`/api/spots/current`);
+
+  if (response.ok) {
+    const data = await response.json();
+    const normalize = normalizeAllSpots(data.Spots)
+    dispatch(allSpots(normalize));
+    return normalize
+  }
+}
+
 export const createNewSpot = (spot, previewImage, imgArray) => async dispatch => {
   const response = await csrfFetch('/api/spots',
     {
@@ -90,6 +106,7 @@ const initialState = {
 
 // ! REDUCER
 const spotsReducer = (state = initialState, action) => {
+  console.log({action})
   switch (action.type) {
     case ALL_SPOTS:
       return { ...state, allSpots: action.spots };
@@ -102,7 +119,7 @@ const spotsReducer = (state = initialState, action) => {
           Owner: { ...action.spotId.Owner }
         }
       }
-    default: return state
+    default: return { ...state }
   }
 };
 

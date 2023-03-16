@@ -6,17 +6,13 @@ import './Spots.css';
 
 function Spots() {
   const dispatch = useDispatch();
-  // * STEP 2: Grab the state slice from the redux store and
-  // * convert it into an array
   const spots = Object.values(useSelector(state => state.spots.allSpots));
 
-  // * STEP 1: On mount this will grab all of our spot data and store it in
-  // * the redux store
   useEffect(() => {
     dispatch(getAllSpots());
   }, [dispatch]);
 
-  
+
   return (
     <div className="all-spots">
       {/* STEP 3 Do whatever you need with the data! */}
