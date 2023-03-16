@@ -1,0 +1,10 @@
+.delete-modal {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans JP', sans-serif;
+  align-items: center;
+}
+
+#modal-content {
+  width: 400px;
+}

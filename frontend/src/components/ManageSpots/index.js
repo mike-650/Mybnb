@@ -2,9 +2,9 @@ import { getUserSpots } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-// import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
-// import DeleteFormModal from "../DeleteFormModal";
-import "../Spots/Spots.css";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteFormModal from "../DeleteFormModal";
+import "./ManageSpots.css";
 
 function ManageSpots() {
   const dispatch = useDispatch();
@@ -25,24 +25,30 @@ function ManageSpots() {
       <div className="all-spots">
         {spots.map(spot =>
           <div key={spot.id}>
-            <NavLink to={`/spots/${spot.id}`} className='nav-link'>
-              <div className='all-spots-container'>
-                <img title={`${spot.name}`} src={spot.previewImage} alt='Not Available' className='all-spots-images' />
-                <div className="spot-label">
-                  <p className='all-spots-desc'><strong>{spot.city}, {spot.state}</strong></p>
-                  <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating : `${spot.avgRating}.0`}</> : 'New'}</p>
-                </div>
-                <p className='all-spots-desc'><strong>${spot.price}</strong> night</p>
-                <div>
-                  <NavLink to={`/spots/${spot.id}/edit`}>
-                    <button>Update</button>
-                  </NavLink>
-                  <button>Delete</button>
-                </div>
+            {/* <NavLink to={`/spots/${spot.id}`} className='nav-link'> */}
+            <div className='all-spots-container'>
+              <img title={`${spot.name}`} src={spot.previewImage} alt='Not Available' className='all-spots-images' />
+              <div className="spot-label">
+                <p className='all-spots-desc'><strong>{spot.city}, {spot.state}</strong></p>
+                <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating : `${spot.avgRating}.0`}</> : 'New'}</p>
               </div>
-            </NavLink>
+              <p className='all-spots-desc'><strong>${spot.price}</strong> night</p>
+
+              <div className="update-delete-buttons">
+                <NavLink to={`/spots/${spot.id}/edit`}>
+                  <button>Update</button>
+                </NavLink>
+                <div></div>
+                <OpenModalMenuItem
+                  itemText="Delete a Spot"
+                  modalComponent={<DeleteFormModal spotId={spot.id}/>}
+                />
+              </div>
+            </div>
+            {/* </NavLink> */}
           </div>
         )}
+
       </div>
     </div>
   )

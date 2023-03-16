@@ -228,7 +228,7 @@ function UpdateSpotForm() {
           </div>
         </div>
         <div className='update-button'>
-          <button type="submit" className='submit-button'>Create Spot</button>
+          <button type="submit" className='submit-button'>Update Your Spot</button>
         </div>
       </form>
     </div>

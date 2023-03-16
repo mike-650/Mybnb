@@ -6,6 +6,7 @@ const ALL_USER_SPOTS = 'ALL_USER_SPOTS';
 const ONE_SPOT = 'ONE_SPOT';
 const CREATE_SPOT = 'CREATE_SPOT';
 const UPDATE_SPOT = 'UPDATE_SPOT';
+const DELETE_SPOT = 'DELETE_SPOT';
 
 // ! ACTION CREATORS
 export const allSpots = (spots) => {
@@ -26,6 +27,10 @@ export const userSpots = (data) => {
 
 export const editSpot = (data) => {
   return { type: UPDATE_SPOT, data }
+}
+
+export const removeSpot = (data) => {
+  return { type: DELETE_SPOT, data}
 }
 
 // ! NORMALIZE DATA
@@ -75,7 +80,7 @@ export const getUserSpots = () => async dispatch => {
     dispatch(allSpots(normalize));
     return normalize
   }
-}
+};
 
 export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch => {
   const response = await csrfFetch(`/api/spots/${spotId}`, {
@@ -97,6 +102,17 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
 
     return data;
     // TODO: NORMALIZE DATA
+  }
+}
+
+export const deleteSpot = (spotId) => async dispatch => {
+  console.log('spotID', spotId)
+  const response = await csrfFetch(`/api/spots/${spotId}`, { method: 'DELETE' })
+
+  if (response.ok) {
+    const data = await response.json();
+    console.log({data})
+    // dispatch(removeSpot());
   }
 }
 

@@ -1,0 +1,13 @@
+/* h1 {
+  text-align: center;
+  border-bottom: 1px solid lightgray;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  margin: 1px;
+} */
+
+.update-delete-buttons {
+  display: flex;
+}
