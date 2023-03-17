@@ -20,9 +20,9 @@ function LoginFormModal() {
       .then(closeModal)
       .catch(
         async (res) => {
-        const data = await res.json()
+          const data = await res.json()
           if (data.statusCode === 401) {
-            setErrors({error: 'The provided credentials were invalid'})
+            setErrors({ error: 'The provided credentials were invalid' })
           }
         }
       );
@@ -37,33 +37,41 @@ function LoginFormModal() {
 
   const demoUser = (e) => {
     e.preventDefault();
-    return dispatch(sessionActions.login({ credential : 'Demo-user', password : 'password'}))
+    return dispatch(sessionActions.login({ credential: 'Demo-user', password: 'password' }))
       .then(closeModal)
   }
 
   return (
-    <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
-        {errors.error && <p className="error">{`* ${errors.error}`}</p>}
-        <input
-          type="text"
-          value={credential}
-          onChange={(e) => setCredential(e.target.value)}
-          required
-          placeholder="Username or Email"
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          placeholder="Password"
-        />
-        <button type="submit" disabled={disableBtn()}>Log In</button>
-        <Link to='/' onClick={demoUser} style={{textAlign:'center', padding:'12px'}}>Demo User</Link>
-      </form>
-    </>
+    <div className='login-container'>
+      <h1 id='login-text'>Log In</h1>
+      <div className="login-content">
+        <form className="login-content" onSubmit={handleSubmit}>
+          <label htmlFor="login">Username or email</label>
+          {errors.error && <p className="error">{`* ${errors.error}`}</p>}
+          <input
+            className="login-input"
+            name="login"
+            type="text"
+            value={credential}
+            onChange={(e) => setCredential(e.target.value)}
+            required
+            placeholder="Username or Email"
+          />
+          <label>
+          <input
+            className="login-input"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Password"
+          />
+          </label>
+          <button id='log-in-button' type="submit" disabled={disableBtn()}>Log In</button>
+          <Link to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px' }}>Demo User</Link>
+        </form>
+      </div>
+    </div>
   );
 }
 

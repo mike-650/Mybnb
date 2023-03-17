@@ -1,13 +1,12 @@
 import { getOneSpot } from "../../store/spots";
-import { getAllReviews, getSessionUserReviews } from "../../store/reviews";
+import { getAllReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReviewModal from "../DeleteReviewModal";
 import ReviewFormModal from "../ReviewFormModal";
 import './SpotDetails.css';
-import LoginFormModal from "../LoginFormModal";
 
 
 const months = [
@@ -27,13 +26,11 @@ function SpotDetails() {
   // ! meaning that we dont have the user info inside our state slice
   console.log('USER REVIEW TESTING  : ', Object.values(spotReviews).map(review => review))
   const usersReviewIds = Object.values(spotReviews).map(review => review.User.id)
-  const [showReviewModal, setReviewModal] = useState(false);
   const { spotId } = useParams();
 
   useEffect(() => {
     dispatch(getOneSpot(spotId));
     dispatch(getAllReviews(spotId));
-    // dispatch(getSessionUserReviews());
   }, [dispatch, spotId]);
 
 
@@ -46,11 +43,6 @@ function SpotDetails() {
   function handleClick() {
     alert('Feature Coming Soon...');
   };
-
-  function reviewDelete() {
-    // TODO
-    // setShowMenu(true);
-  }
 
   // ! BUG 1
   /*
@@ -106,11 +98,6 @@ function SpotDetails() {
     PENDING
   */
 
-  function openReviewModal() {
-    console.log('Open review modal')
-    setReviewModal(true);
-  }
-  // console.log('I MADE IT TO JSX')
   return (
     <div className="spot-container">
       <div className="spot-details">
@@ -131,23 +118,23 @@ function SpotDetails() {
         </div>
         <div className="spot-descrip-reserve-grid">
           <div className="spot-description-area">
-            <h3>Hosted By {spot.Owner.firstName} {spot.Owner.lastName}</h3>
+            <h4>Hosted By {spot.Owner.firstName} {spot.Owner.lastName}</h4>
             <p>{spot.description}</p>
           </div>
           <div className="spot-reserve-feature">
             <div className="spot-reserve-info">
-              <p>${spot.price} night</p>
+              <p style={{fontWeight:'bold'}}>${spot.price.toFixed(2)} night</p>
               <p>
                 <i className="fa-solid fa-star"></i>
                 {spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}
               </p>
             </div>
             <div className="spot-reserve-button">
-              <button onClick={handleClick}>Reserve</button>
+              <button onClick={handleClick} id='reserve-button'>Reserve</button>
             </div>
           </div>
         </div>
-        <p><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}</p>
+        <p id='rating-review'><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}</p>
         {/* POST YOUR REVIEW CONDITIONAL RENDER */}
         {/* THIS IS THE PROBLEM AREA */}
 
