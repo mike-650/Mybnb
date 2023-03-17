@@ -19,8 +19,7 @@ function Spots() {
 
   if (!spots.length) return (
      <h1>Loading...</h1>
-  )
-
+  );
 
   return (
     <div className="all-spots">
@@ -43,7 +42,7 @@ function Spots() {
               <p className='all-spots-desc'><strong>{spot.city}, {spot.state}</strong></p>
               <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating : `${spot.avgRating}.0`}</> : 'New'}</p>
             </div>
-            <p className='all-spots-desc'><strong>${spot.price.toFixed(2)}</strong> night</p>
+            <p className='all-spots-desc'><strong>${Number(spot.price).toFixed(2)}</strong> night</p>
           </div>
         </div>) }
     </div>

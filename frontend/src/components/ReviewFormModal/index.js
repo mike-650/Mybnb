@@ -4,7 +4,6 @@ import StarRating from "./StarRating";
 import { createNewReview } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import "./ReviewForm.css";
-import { getOneSpot } from "../../store/spots";
 
 function ReviewFormModal({ spotId }) {
   const dispatch = useDispatch();
@@ -22,7 +21,6 @@ function ReviewFormModal({ spotId }) {
     };
 
     dispatch(createNewReview(newReview, spotId));
-    dispatch(getOneSpot(spotId));
     closeModal();
   };
 

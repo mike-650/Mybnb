@@ -122,7 +122,7 @@ function SpotDetails() {
               <p style={{fontWeight:'bold'}}>${spot.price.toFixed(2)} night</p>
               <p>
                 <i className="fa-solid fa-star"></i>
-                {spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}
+                {spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}
               </p>
             </div>
             <div className="spot-reserve-button">
@@ -148,7 +148,7 @@ function SpotDetails() {
             {review.User.id === sessionUser?.id ?
               <OpenModalMenuItem
                 itemText='Delete'
-                modalComponent={<DeleteReviewModal reviewId={review.id} />}
+                modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
               /> : null}
           </div>
         )}

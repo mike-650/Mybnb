@@ -2,13 +2,13 @@ import { useDispatch } from "react-redux";
 import { deleteUserReview } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 
-function DeleteReviewModal({ reviewId }) {
+function DeleteReviewModal({ reviewId, spotId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
   const confirmDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteUserReview(reviewId))
+    dispatch(deleteUserReview(reviewId, spotId))
     closeModal()
   };
 
