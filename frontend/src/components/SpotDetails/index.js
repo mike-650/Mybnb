@@ -119,7 +119,7 @@ function SpotDetails() {
           </div>
           <div className="spot-reserve-feature">
             <div className="spot-reserve-info">
-              <p style={{fontWeight:'bold'}}>${spot.price.toFixed(2)} night</p>
+              <p style={{fontWeight:'bold'}}>${Number(spot.price).toFixed(2)} night</p>
               <p>
                 <i className="fa-solid fa-star"></i>
                 {spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}
