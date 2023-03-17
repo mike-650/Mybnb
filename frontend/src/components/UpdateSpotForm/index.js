@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { updateSpot } from '../../store/spots';
 import './UpdateSpot.css';
@@ -9,13 +9,15 @@ function UpdateSpotForm() {
   const history = useHistory();
   const { spotId } = useParams();
 
-  const [country, setCountry] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [description, setDescription] = useState('');
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
+  const spot = useSelector(state => state.spots.singleSpot)
+
+  const [country, setCountry] = useState(spot.country);
+  const [address, setAddress] = useState(spot.address);
+  const [city, setCity] = useState(spot.city);
+  const [state, setState] = useState(spot.state);
+  const [description, setDescription] = useState(spot.description);
+  const [name, setName] = useState(spot.name);
+  const [price, setPrice] = useState(spot.price);
   const [previewImg, setPreviewImg] = useState('');
   const [img1, setImg1] = useState('');
   const [img2, setImg2] = useState('');

@@ -15,7 +15,7 @@ function Spots() {
 
   useEffect(() => {
     dispatch(resetAllReviews());
-  }, [])
+  }, [dispatch])
 
   if (!spots.length) return (
      <h1>Loading...</h1>
