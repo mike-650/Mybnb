@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import StarRating from "./StarRating";
 import { createNewReview } from "../../store/reviews";
+import { useModal } from "../../context/Modal";
 import "./ReviewForm.css";
 
 function ReviewFormModal({spotId}) {
@@ -10,7 +11,7 @@ function ReviewFormModal({spotId}) {
   const [ rating, setRating ] = useState(null);
   const [ hover, setHover] = useState(null);
   const [ error, setError ] = useState(null);
-
+  const { closeModal } = useModal();
 
 
   const handleSubmit = async (e) => {
@@ -21,7 +22,11 @@ function ReviewFormModal({spotId}) {
     };
 
     const data = await dispatch(createNewReview(newReview, spotId));
-    if (data.error) setError(data.error);
+    if (data.error) {
+      setError(data.error);
+    } else {
+      closeModal()
+    }
   };
 
   const disabled = () => {
@@ -29,6 +34,7 @@ function ReviewFormModal({spotId}) {
     if (!rating) return true;
     return false;
   }
+
 
   return (
     <div className="review-modal">

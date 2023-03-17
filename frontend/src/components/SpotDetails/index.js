@@ -2,10 +2,13 @@ import { getOneSpot } from "../../store/spots";
 import { getAllReviews, getSessionUserReviews } from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteReviewModal from "../DeleteReviewModal";
 import ReviewFormModal from "../ReviewFormModal";
 import './SpotDetails.css';
+import LoginFormModal from "../LoginFormModal";
+
 
 const months = [
   "January", "February", "March", "April", "May", "June",
@@ -18,7 +21,8 @@ function SpotDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const spotReviews = useSelector(state => state.reviews.spot);
   const userReviews = useSelector(state => Object.values(state.reviews.user).map(review => review.spotId));
-  // const [showMenu, setShowMenu] = useState(false);
+  const userReviewsSTATE = useSelector(state => state.reviews);
+  const [showReviewModal, setReviewModal] = useState(false);
   const { spotId } = useParams();
 
 
@@ -28,7 +32,6 @@ function SpotDetails() {
     dispatch(getSessionUserReviews());
   }, [dispatch, spotId]);
 
-  // const closeMenu = () => setShowMenu(false);
 
   // * Conditionally render this until the data is loaded from the redux store
   if (Object.keys(spot).length === 0) {
@@ -38,6 +41,16 @@ function SpotDetails() {
   function handleClick() {
     alert('Feature Coming Soon...');
   };
+
+  function reviewDelete() {
+    // TODO
+    // setShowMenu(true);
+  }
+
+  function openReviewModal() {
+    console.log('Open review modal')
+    setReviewModal(true);
+  }
 
   return (
     <div className="spot-container">
@@ -78,20 +91,28 @@ function SpotDetails() {
         <p><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} reviews` : " New"}</p>
         {/* POST YOUR REVIEW CONDITIONAL RENDER */}
         {sessionUser && spot.Owner.id !== sessionUser.id && !userReviews.includes(spotId) ?
+        <div className="post-review-button">
           <OpenModalMenuItem
-            itemText="Post Your Review"
+            itemText='Post Your Review'
             // onItemClick={closeMenu}
             modalComponent={<ReviewFormModal spotId={spotId}
             />}
-          /> :
+          />
+          </div> :
           null
         }
 
+
         {Object.values(spotReviews).map(review =>
-          <div key={review.id}>
+          <div key={review.id} className='user-review'>
             <p>{review.User.firstName}</p>
             <p>{months[review.createdAt.substring(5, 7) - 1]} {review.createdAt.substr(0, 4)}</p>
             <p>{review.review}</p>
+            { review.User.id === sessionUser.id ?
+            <OpenModalMenuItem
+            itemText='Delete'
+            modalComponent={<DeleteReviewModal reviewId={review.id}/>}
+            /> : null }
           </div>
         )}
       </div>

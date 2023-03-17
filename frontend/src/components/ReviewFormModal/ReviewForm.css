@@ -2,6 +2,10 @@
   width: 60%;
 }
 
+.hidden {
+  display: none;
+}
+
 .review {
   resize: none;
 }

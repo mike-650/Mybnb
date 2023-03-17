@@ -27,14 +27,22 @@
 .update-button {
   display: flex;
   justify-content: center;
+  padding-bottom: 20px;
 }
-.submit-button {
-  width: 200px;
+
+.actual-button {
+  align-items: center;
 }
 
 
-#update-text-area {
+.update-text-area {
   resize: none;
   width: 500px;
   height: 150px
+}
+
+.section-break {
+  border-bottom: 2px solid black;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

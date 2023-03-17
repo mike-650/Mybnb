@@ -105,14 +105,9 @@ function UpdateSpotForm() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <div>
-            <div className='errors'>
-              <label htmlFor='city'>City </label>
-              {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
-            </div>
-            <div>
-
-            </div>
+          <div className='errors'>
+            <label htmlFor='city'>City </label>
+            {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
             <input
               className='input-fields'
               type='text'
@@ -132,8 +127,9 @@ function UpdateSpotForm() {
               id='state'
               value={state}
               onChange={(e) => setState(e.target.value)}
-            />
-          </div>
+              />
+              </div>
+              <div className='section-break'></div>
         </div>
         <div className='describe-place'>
           <h3>Describe your place to guests</h3>
@@ -141,13 +137,14 @@ function UpdateSpotForm() {
             or parking, and what you love about the neighborhood.
           </p>
           <textarea
-            id='update-text-area'
+            className='update-text-area'
             placeholder='Please write at least 30 characters'
             minLength='30'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
           {errors.includes('Description') ? <p style={{ color: 'red' }}>Description needs a minimum of 30 characters</p> : null}
+          <div className='section-break'></div>
         </div>
         <div>
           <h3>Create a title for your spot</h3>
@@ -160,6 +157,8 @@ function UpdateSpotForm() {
             onChange={(e) => setName(e.target.value)}
           />
           {errors.includes('Name') ? <p style={{ color: 'red' }}>Name is required</p> : null}
+        <div className='section-break'></div>
+
         </div>
         <div>
           <h3>Set a base price for your spots</h3>
@@ -173,6 +172,7 @@ function UpdateSpotForm() {
             onChange={(e) => setPrice(e.target.value)}
           />
           {errors.includes('Price') ? <p style={{ color: 'red' }}>Price is required</p> : null}
+        <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
           <h3>Liven up your spot with photos</h3>
@@ -227,6 +227,7 @@ function UpdateSpotForm() {
             {errors.includes('img4') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
         </div>
+        <div className='section-break'></div>
         <div className='update-button'>
           <button type="submit" className='submit-button'>Update Your Spot</button>
         </div>

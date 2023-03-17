@@ -1,14 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { deleteSpot } from '../../store/spots';
-import './DeleteFormModal.css';
+import { useModal } from '../../context/Modal'
+import { useState } from 'react';
+import './DeleteSpotModal.css';
 
 function DeleteFormModal({spotId}) {
-  console.log('HERE : ',spotId)
+  const { closeModal } = useModal();
   const dispatch = useDispatch();
 
   const confirmDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteSpot(spotId));
+    dispatch(deleteSpot(spotId)).then(closeModal)
   }
 
   return (
@@ -17,7 +19,7 @@ function DeleteFormModal({spotId}) {
     <h2>Confirm Delete</h2>
     <h3>Are you sure you want to remove this spot from the listings?</h3>
     <button onClick={confirmDelete}>Yes(Delete Spot)</button>
-    <button>No(Keep Spot)</button>
+    <button onClick={closeModal}>No(Keep Spot)</button>
     </div>
   </>
   )

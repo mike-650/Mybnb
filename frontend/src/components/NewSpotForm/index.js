@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createNewSpot } from '../../store/spots';
-import './NewSpot.css';
+import '../UpdateSpotForm/UpdateSpot.css';
 
 function NewSpotForm() {
   const dispatch = useDispatch();
@@ -75,54 +75,66 @@ function NewSpotForm() {
 
 
   return (
-    <div className="new-spot-form">
+    <div className="update-spot-container">
       <form onSubmit={handleSubmit}>
         <div className='form-location-section'>
           <h2>Create a new Spot</h2>
           <h3>Where's your place located?</h3>
           <p>Guests will only get your exact address once they booked a reservation.</p>
-          <div>
+          <div className='errors'>
             <label htmlFor='country'>Country</label>
-            {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
-            <input
-              type='text'
-              placeholder="Country"
-              id='country'
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
-            />
+            {errors.includes('Country') ? <p style={{ color: 'red', fontSize: '12px' }}>Country is required</p> : null}
           </div>
-          <div>
+          <input
+            className='input-fields'
+            type='text'
+            placeholder="Country"
+            id='country'
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+          />
+          <div className='errors'>
             <label htmlFor='street-address'>Steet Address </label>
-            {errors.includes('Address') ? <p style={{ color: 'red' }}>Address is required</p> : null}
-            <input
-              type='text'
-              placeholder='Address'
-              id='street-address'
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
-            />
+            {errors.includes('Address') ? <p style={{ color: 'red', fontSize: '12px' }}>Address is required</p> : null}
           </div>
-          <div>
-            <label htmlFor='city'>City </label>
-            {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
-            <input
-              type='text'
-              placeholder='City'
-              id='city'
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <label htmlFor='state'>State </label>
-            {errors.includes('State') ? <p style={{ color: 'red' }}>State is required</p> : null}
-            <input
-              type='text'
-              placeholder='STATE'
-              id='state'
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
+          <input
+            className='input-fields'
+            type='text'
+            placeholder='Address'
+            id='street-address'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+          <div className='errors'>
+            <div>
+              <label htmlFor='city'>City </label>
+              {errors.includes('City') ? <p style={{ color: 'red', fontSize: '12px' }}>City is required</p> : null}
+              <input
+                className='input-fields'
+                type='text'
+                placeholder='City'
+                id='city'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+            <div style={{ paddingTop: '50px' }}>,</div>
+            <div className='errors'>
+              <div>
+                <label htmlFor='state'>State </label>
+                {errors.includes('State') ? <p style={{ color: 'red', fontSize: '12px' }}>State is required</p> : null}
+                <input
+                  className='input-fields'
+                  type='text'
+                  placeholder='STATE'
+                  id='state'
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                />
+              </div>
+            </div>
           </div>
+          <div className='section-break'></div>
         </div>
         <div className='describe-place'>
           <h3>Describe your place to guests</h3>
@@ -130,85 +142,100 @@ function NewSpotForm() {
             or parking, and what you love about the neighborhood.
           </p>
           <textarea
+            className='update-text-area'
             placeholder='Please write at least 30 characters'
             minLength='30'
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {errors.includes('Description') ? <p style={{ color: 'red' }}>Description needs a minimum of 30 characters</p> : null}
+          {errors.includes('Description') ? <p style={{ color: 'red', fontSize: '12px' }}>Description needs a minimum of 30 characters</p> : null}
+          <div className='section-break'></div>
         </div>
         <div>
           <h3>Create a title for your spot</h3>
           <p>Catch guests' attention with a spot title that highlights what makes your place special.</p>
           <input
+            className='input-fields'
             type='text'
             placeholder='Name of your spot'
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errors.includes('Name') ? <p style={{ color: 'red' }}>Name is required</p> : null}
+          {errors.includes('Name') ? <p style={{ color: 'red', fontSize: '12px' }}>Name is required</p> : null}
+          <div className='section-break'></div>
         </div>
         <div>
           <h3>Set a base price for your spots</h3>
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-          <label htmlFor='price'>$ </label>
-          <input
-            type='number'
-            placeholder='Price per night (USD)'
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
-          {errors.includes('Price') ? <p style={{ color: 'red' }}>Price is required</p> : null}
+          <div>
+            <label htmlFor='price'>$ </label>
+            <input
+              type='number'
+              placeholder='Price per night (USD)'
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          {errors.includes('Price') ? <p style={{ color: 'red', fontSize: '12px' }}>Price is required</p> : null}
+          <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
           <h3>Liven up your spot with photos</h3>
           <p>Submit a link to at least one photo to publish your spot.</p>
           <input
+            className='input-fields'
             type='text'
             placeholder='Preview Image URL'
             value={previewImg}
             onChange={(e) => setPreviewImg(e.target.value)}
           />
-          {errors.includes('previewImgLength') ? <p style={{ color: 'red' }}>Preview image is required</p> : null}
-          {errors.includes('previewImgInvalid') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+          {errors.includes('previewImgLength') ? <p style={{ color: 'red', fontSize: '12px' }}>Preview image is required</p> : null}
+          {errors.includes('previewImgInvalid') ? <p style={{ color: 'red', fontSize: '12px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img1}
               onChange={(e) => setImg1(e.target.value)}
             />
-            {errors.includes('img1') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img1') ? <p style={{ color: 'red', fontSize: '12px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img2}
               onChange={(e) => setImg2(e.target.value)}
             />
-            {errors.includes('img2') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img2') ? <p style={{ color: 'red', fontSize: '12px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img3}
               onChange={(e) => setImg3(e.target.value)}
             />
-            {errors.includes('img3') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img3') ? <p style={{ color: 'red', fontSize: '12px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
+              className='input-fields'
               type='text'
               placeholder='Image URL'
               value={img4}
               onChange={(e) => setImg4(e.target.value)}
             />
-            {errors.includes('img4') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img4') ? <p style={{ color: 'red', fontSize: '12px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
         </div>
-        <button type="submit">Create Spot</button>
+        <div className='section-break'></div>
+        <div className='update-button'>
+          <button type="submit" className='actual-button'>Create Spot</button>
+        </div>
       </form>
     </div>
   )

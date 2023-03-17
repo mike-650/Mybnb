@@ -30,7 +30,7 @@ export const editSpot = (data) => {
 }
 
 export const removeSpot = (data) => {
-  return { type: DELETE_SPOT, data}
+  return { type: DELETE_SPOT, data }
 }
 
 // ! NORMALIZE DATA
@@ -72,20 +72,30 @@ export const getOneSpot = (spot) => async dispatch => {
 };
 
 export const getUserSpots = () => async dispatch => {
-  const response = await csrfFetch(`/api/spots/current`);
 
-  if (response.ok) {
+  try {
+    const response = await csrfFetch(`/api/spots/current`);
+
     const data = await response.json();
     const normalize = normalizeAllSpots(data.Spots)
-    dispatch(allSpots(normalize));
+    console.log('here')
+    console.log({ normalize })
+    dispatch(userSpots(normalize));
     return normalize
+
+  } catch (err) {
+    const data = await err.json()
+    return data;
   }
+
+
+
 };
 
 export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch => {
   const response = await csrfFetch(`/api/spots/${spotId}`, {
     method: 'PUT',
-    header: {'Content-Type': 'application/json'},
+    header: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedSpot)
   });
 
@@ -95,7 +105,7 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
     for (let image of imageArray) {
       await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
-        header: {'Content-Type': 'application/json'},
+        header: { 'Content-Type': 'application/json' },
         body: JSON.stringify(image)
       });
     };
@@ -111,7 +121,7 @@ export const deleteSpot = (spotId) => async dispatch => {
 
   if (response.ok) {
     const data = await response.json();
-    console.log({data})
+    console.log({ data })
     // dispatch(removeSpot());
   }
 }
@@ -148,9 +158,10 @@ const initialState = {
   singleSpot: {}
 };
 
+
 // ! REDUCER
 const spotsReducer = (state = initialState, action) => {
-  console.log({action})
+  console.log('USER SPOTS:   ', { action })
   switch (action.type) {
     case ALL_SPOTS:
       return { ...state, allSpots: action.spots };
@@ -163,6 +174,8 @@ const spotsReducer = (state = initialState, action) => {
           Owner: { ...action.spotId.Owner }
         }
       }
+    case ALL_USER_SPOTS:
+      return { ...state, allSpots: { ...action.data } }
     default: return { ...state }
   }
 };

@@ -3,7 +3,7 @@ function StarRating({rating, setRating, hover, setHover}) {
 
   return (
     <div className="stars">
-      {[...Array(5)].map((star, i) => {
+      {[...Array(5)].map((_star, i) => {
         const ratingValue = i + 1
 
         return <label key={i}>
@@ -14,6 +14,7 @@ function StarRating({rating, setRating, hover, setHover}) {
           className='star-input'
           onClick={() => setRating(ratingValue)}
           />
+
           <div
           className={ratingValue <= ( hover || rating ) ? 'filled' : 'empty'}
           onMouseEnter={() => setHover(ratingValue)}
