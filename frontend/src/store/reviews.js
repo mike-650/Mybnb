@@ -66,20 +66,15 @@ export const getSessionUserReviews = () => async dispatch => {
 }
 
 export const createNewReview = (newReview, spotId) => async dispatch => {
-  try {
     const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newReview)
     });
-
-    const data = await response.json();
-    dispatch(addReview(data));
-    return { data, error: null };
-  } catch (error) {
-    const data = await error.json();
-    return { data, error: data.message }
-  }
+    if (response.ok) {
+      dispatch(getAllReviews(spotId));
+      return;
+    };
 };
 
 export const deleteUserReview = (reviewId) => async dispatch => {
@@ -110,6 +105,7 @@ const reviewReducer = (state = initialState, action) => {
       return { ...state, user: { ...action.reviews } }
     case ADD_REVIEW:
       return {
+        // TODO
         ...state,
         spot: { ...state.spot, [action.review.id]: action.review },
         user: { ...state.user, [action.review.id]: action.review }

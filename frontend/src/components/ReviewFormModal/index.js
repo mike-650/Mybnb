@@ -5,12 +5,12 @@ import { createNewReview } from "../../store/reviews";
 import { useModal } from "../../context/Modal";
 import "./ReviewForm.css";
 
-function ReviewFormModal({spotId}) {
+function ReviewFormModal({ spotId }) {
   const dispatch = useDispatch();
-  const [ review, setReview ] = useState("");
-  const [ rating, setRating ] = useState(null);
-  const [ hover, setHover] = useState(null);
-  const [ error, setError ] = useState(null);
+  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(null);
+  const [hover, setHover] = useState(null);
+  const [error, setError] = useState(null);
   const { closeModal } = useModal();
 
 
@@ -21,12 +21,8 @@ function ReviewFormModal({spotId}) {
       stars: rating
     };
 
-    const data = await dispatch(createNewReview(newReview, spotId));
-    if (data.error) {
-      setError(data.error);
-    } else {
-      closeModal()
-    }
+    dispatch(createNewReview(newReview, spotId));
+    closeModal();
   };
 
   const disabled = () => {
@@ -39,12 +35,12 @@ function ReviewFormModal({spotId}) {
   return (
     <div className="review-modal">
       <h1>How was your stay?</h1>
-      { error ? <p className="error">{error}</p> : null }
+      {error ? <p className="error">{error}</p> : null}
       <form onSubmit={handleSubmit}>
         <textarea className="review" value={review} onChange={(e) => setReview(e.target.value)} rows="8" cols="50" placeholder="Leave your review here..."></textarea>
         <div className="stars-component">
-        <StarRating rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
-        <p>Stars</p>
+          <StarRating rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
+          <p>Stars</p>
         </div>
         <button type="submit" disabled={disabled()}>Submit Your Review</button>
       </form>
