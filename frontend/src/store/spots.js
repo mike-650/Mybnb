@@ -72,7 +72,6 @@ export const getOneSpot = (spot) => async dispatch => {
 };
 
 export const getUserSpots = () => async dispatch => {
-
   try {
     const response = await csrfFetch(`/api/spots/current`);
 
@@ -98,7 +97,6 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
 
   if (response.ok) {
     const data = await response.json();
-    // console.log('HERE   :    ', data)
     for (let image of imageArray) {
       await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
@@ -108,7 +106,6 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
     };
 
     return data;
-    // TODO: NORMALIZE DATA
   }
 }
 

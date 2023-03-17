@@ -15,16 +15,12 @@ const months = [
 ];
 
 function SpotDetails() {
-
   const dispatch = useDispatch();
   const spot = useSelector(state => state.spots.singleSpot);
   const sessionUser = useSelector(state => state.session.user);
   const spotReviews = useSelector(state => state.reviews.spot);
 
-  // ! PROBLEM LOCATED
-  // ! Creating a review only returns the data of the review
-  // ! meaning that we dont have the user info inside our state slice
-  console.log('USER REVIEW TESTING  : ', Object.values(spotReviews).map(review => review))
+
   const usersReviewIds = Object.values(spotReviews).map(review => review.User.id)
   const { spotId } = useParams();
 
@@ -135,10 +131,6 @@ function SpotDetails() {
           </div>
         </div>
         <p id='rating-review'><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}</p>
-        {/* POST YOUR REVIEW CONDITIONAL RENDER */}
-        {/* THIS IS THE PROBLEM AREA */}
-
-
 
         {sessionUser && spot.Owner.id !== sessionUser.id && !usersReviewIds.includes(sessionUser.id) && (
           <div className="post-review-button">

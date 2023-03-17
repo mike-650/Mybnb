@@ -5,6 +5,7 @@ const ALL_REVIEWS = 'ALL_REVIEWS';
 const USER_REVIEWS = 'USER_REVIEWS';
 const ADD_REVIEW = 'CREATE_REVIEW';
 const DELETE_REVIEW = 'DELETE_REVIEW';
+const RESET_REVIEWS = 'RESET_REVIEWS';
 
 
 // ! ACTION CREATORS
@@ -23,6 +24,10 @@ export const addReview = (review) => {
 export const deleteReview = (reviewId) => {
   return { type: DELETE_REVIEW, reviewId }
 }
+
+export const resetReviews = (reset) => {
+  return { type: RESET_REVIEWS, reset }
+};
 
 
 // ! NORMALIZE DATA
@@ -66,15 +71,15 @@ export const getSessionUserReviews = () => async dispatch => {
 }
 
 export const createNewReview = (newReview, spotId) => async dispatch => {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newReview)
-    });
-    if (response.ok) {
-      dispatch(getAllReviews(spotId));
-      return;
-    };
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(newReview)
+  });
+  if (response.ok) {
+    dispatch(getAllReviews(spotId));
+    return;
+  };
 };
 
 export const deleteUserReview = (reviewId) => async dispatch => {
@@ -87,7 +92,13 @@ export const deleteUserReview = (reviewId) => async dispatch => {
     dispatch(deleteReview(reviewId));
     return data;
   }
-}
+};
+
+export const resetAllReviews = () => async dispatch => {
+  dispatch(resetReviews(initialState));
+  return;
+};
+
 
 // ! INITIAL SLICE STATE
 const initialState = {
@@ -97,7 +108,6 @@ const initialState = {
 
 // ! REDUCER
 const reviewReducer = (state = initialState, action) => {
-  console.log('ADD_REVIEW   :  ', action)
   switch (action.type) {
     case ALL_REVIEWS:
       return { ...state, spot: action.reviews }
@@ -111,17 +121,12 @@ const reviewReducer = (state = initialState, action) => {
         user: { ...state.user, [action.review.id]: action.review }
       }
     case DELETE_REVIEW:
-      // * PERFECT
-      const newState = {
-        ...state,
-        spot: {
-          ...state.spot,
-          ...state.user
-        }
-      };
+      const newState = { ...state, spot: { ...state.spot, ...state.user }};
       delete newState.spot[action.reviewId]
       delete newState.user[action.reviewId]
       return newState;
+    case RESET_REVIEWS:
+      return action.reset
     default: return { ...state }
   };
 };

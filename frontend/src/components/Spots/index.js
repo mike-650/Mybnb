@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { resetAllReviews } from "../../store/reviews";
 import { getAllSpots } from "../../store/spots";
 import './Spots.css';
 
@@ -12,7 +13,13 @@ function Spots() {
     dispatch(getAllSpots());
   }, [dispatch]);
 
-  if (!spots.length) (<h1>Loading...</h1>)
+  useEffect(() => {
+    dispatch(resetAllReviews());
+  }, [])
+
+  if (!spots.length) return (
+     <h1>Loading...</h1>
+  )
 
 
   return (
