@@ -78,7 +78,6 @@ export const getUserSpots = () => async dispatch => {
 
     const data = await response.json();
     const normalize = normalizeAllSpots(data.Spots)
-    console.log('here')
     console.log({ normalize })
     dispatch(userSpots(normalize));
     return normalize
@@ -87,8 +86,6 @@ export const getUserSpots = () => async dispatch => {
     const data = await err.json()
     return data;
   }
-
-
 
 };
 
@@ -116,13 +113,11 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
 }
 
 export const deleteSpot = (spotId) => async dispatch => {
-  console.log('spotID', spotId)
   const response = await csrfFetch(`/api/spots/${spotId}`, { method: 'DELETE' })
 
   if (response.ok) {
-    const data = await response.json();
-    console.log({ data })
-    // dispatch(removeSpot());
+    dispatch(removeSpot(spotId));
+    return;
   }
 }
 
@@ -161,7 +156,6 @@ const initialState = {
 
 // ! REDUCER
 const spotsReducer = (state = initialState, action) => {
-  console.log('USER SPOTS:   ', { action })
   switch (action.type) {
     case ALL_SPOTS:
       return { ...state, allSpots: action.spots };
@@ -176,6 +170,10 @@ const spotsReducer = (state = initialState, action) => {
       }
     case ALL_USER_SPOTS:
       return { ...state, allSpots: { ...action.data } }
+    case DELETE_SPOT:
+      const newState = { ...state, allSpots: { ...state.allSpots }}
+      delete newState.allSpots[action.data]
+      return newState;
     default: return { ...state }
   }
 };

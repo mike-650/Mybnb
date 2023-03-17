@@ -10,7 +10,8 @@ function DeleteFormModal({spotId}) {
 
   const confirmDelete = (e) => {
     e.preventDefault();
-    dispatch(deleteSpot(spotId)).then(closeModal)
+    dispatch(deleteSpot(spotId))
+    closeModal()
   }
 
   return (
