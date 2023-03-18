@@ -1,24 +1,53 @@
 .delete-review-modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
 }
 
-.delete-review-background {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+.delete-review-buttons {
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
 
-.delete-review-content {
-  position: absolute;
-  background-color:white;
+.delete-review-buttons button:nth-child(1) {
+  cursor: pointer;
+  height: 50px;
+  width: 400px;
+}
+
+
+#confirm-delete {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: cornflowerblue;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#confirm-delete:hover {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+}
+
+#cancel-delete {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 4px;
+  background-color: #7C8A9E;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+#cancel-delete:hover {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
 }

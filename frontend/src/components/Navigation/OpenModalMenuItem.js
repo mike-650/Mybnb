@@ -17,7 +17,9 @@ function OpenModalMenuItem({
   };
 
   return (
-      <li onClick={onClick} className='dropdown-li delete-review-button'>{itemText}</li>
+    <div style={{display:'flex', flexDirection:'column'}}>
+      <li onClick={onClick} className='dropdown-li'>{itemText}</li>
+    </div>
     );
 };
 

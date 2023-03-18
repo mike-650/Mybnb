@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
@@ -10,12 +10,11 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [login, setLogin] = useState('log-in-button-disabled');
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // ? Do we need to re-render?
-    // setErrors({});
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(
@@ -41,12 +40,20 @@ function LoginFormModal() {
       .then(closeModal)
   }
 
+  useEffect(() => {
+    if (credential.length >= 4 && password.length >= 6) {
+      setLogin('submit-review-button-enabled');
+    } else {
+      setLogin('submit-review-button-disabled');  
+    }
+  }, [credential, password]);
+
   return (
     <div className='login-container'>
       <h1 id='login-text'>Log In</h1>
       <div className="login-content">
         <form className="login-content" onSubmit={handleSubmit}>
-          <label htmlFor="username">Username or email</label>
+          {/* <label htmlFor="username">Username or email</label> */}
           {errors.error && <p className="error">{`* ${errors.error}`}</p>}
           <input
             className="login-input"
@@ -57,7 +64,7 @@ function LoginFormModal() {
             required
             placeholder="Username or Email"
           />
-          <label htmlFor="password">Password</label>
+          {/* <label htmlFor="password">Password</label> */}
           <input
             className="login-input"
             name='password'
@@ -67,8 +74,10 @@ function LoginFormModal() {
             required
             placeholder="Password"
           />
-          <button id='log-in-button' type="submit" disabled={disableBtn()}>Log In</button>
+          <button id={login} type="submit" disabled={disableBtn()}>Log In</button>
+          <div style={{display:'flex', justifyContent:'center'}}>
           <Link to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px' }}>Demo User</Link>
+          </div>
         </form>
       </div>
     </div>

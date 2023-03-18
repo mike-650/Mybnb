@@ -60,7 +60,7 @@ p {
 
 .spot-descrip-reserve-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.5fr 1fr;
   margin-top: 7px;
   margin-bottom: 10px;
   border-bottom: 2px solid black;
@@ -69,15 +69,22 @@ p {
 
 .spot-description-area {
   width: 100%;
+
 }
+
+.spot-reserve-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
 
 .spot-reserve-feature {
   border: 2px solid black;
   border-radius: 25px;
   background-color: white;
   height: 100px;
-  width: 70%;
-  margin-left: 15%;
+  width: stretch;
+  margin-left: 0%;
   padding-bottom: 12px;
 }
 
@@ -166,5 +173,3 @@ li::marker {
 .user-review p:nth-child(3) {
   margin-top: 4px;
 }
-
-

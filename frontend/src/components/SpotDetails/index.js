@@ -117,9 +117,10 @@ function SpotDetails() {
             <h4>Hosted By {spot.Owner.firstName} {spot.Owner.lastName}</h4>
             <p>{spot.description}</p>
           </div>
+          <div className="spot-reserve-container">
           <div className="spot-reserve-feature">
             <div className="spot-reserve-info">
-              <p style={{fontWeight:'bold'}}>${Number(spot.price).toFixed(2)} night</p>
+              <p style={{ fontWeight: 'bold' }}>${Number(spot.price).toFixed(2)} night</p>
               <p>
                 <i className="fa-solid fa-star"></i>
                 {spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}
@@ -128,6 +129,7 @@ function SpotDetails() {
             <div className="spot-reserve-button">
               <button onClick={handleClick} id='reserve-button'>Reserve</button>
             </div>
+          </div>
           </div>
         </div>
         <p id='rating-review'><i className="fa-solid fa-star"></i>{spot.numReviews ? ` ${parseFloat(spot.avgStarRating).toFixed(1)} · ${spot.numReviews} review(s)` : " New"}</p>
@@ -144,12 +146,15 @@ function SpotDetails() {
             <p>{review.User.firstName}</p>
             <p>{months[review.createdAt.substring(5, 7) - 1]} {review.createdAt.substr(0, 4)}</p>
             <p>{review.review}</p>
-            {/* FIXED WITH OPTIONAL CHAINING, HOOORAY! */}
+
             {review.User.id === sessionUser?.id ?
-              <OpenModalMenuItem
-                itemText='Delete'
-                modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}/>
-                : null}
+              <>
+                <div className="delete-review-button">
+                  <OpenModalMenuItem
+                    itemText='Delete'
+                    modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />} /></div></>
+              : null}
+            <div style={{ borderBottom: '1px solid black', marginBottom: '4px' }}></div>
           </div>
         )}
       </div>

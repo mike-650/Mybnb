@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import StarRating from "./StarRating";
 import { createNewReview } from "../../store/reviews";
@@ -10,6 +10,7 @@ function ReviewFormModal({ spotId }) {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [reviewButton, setReviewButton] = useState('submit-review-button-disabled');
   const { closeModal } = useModal();
 
 
@@ -30,6 +31,11 @@ function ReviewFormModal({ spotId }) {
     return false;
   }
 
+  useEffect(() => {
+    if (review.length >= 10 && rating) {
+      setReviewButton('submit-review-button-enabled');
+    }
+  }, [rating, review])
 
   return (
     <div className="review-modal">
@@ -41,7 +47,7 @@ function ReviewFormModal({ spotId }) {
           <p style={{paddingTop:'3px'}}>Stars</p>
         </div>
         <div id="submit-review-container">
-        <button id="submit-review-button" type="submit" disabled={disabled()}>Submit Your Review</button>
+        <button id={reviewButton} type="submit" disabled={disabled()}>Submit Your Review</button>
         </div>
       </form>
     </div>

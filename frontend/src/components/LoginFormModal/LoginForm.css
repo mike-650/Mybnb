@@ -22,6 +22,10 @@
 
 .login-input {
   width: stretch;
+  margin: 4px;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black;
 }
 
 input {
@@ -32,25 +36,40 @@ input {
   border: 1px solid black;
 }
 
-#log-in-button {
+#log-in-button-disabled {
   display: inline-block;
-  border: 1px solid black;
   border-radius: 4px;
-  background-color: #7C8A9E;
-  color: white;
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
   text-align: center;
   cursor: pointer;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 12px;
   margin-bottom: 10px;
   height: 2.5rem;
   width: 400px;
 }
 
-#log-in-button:hover {
+#log-in-button-enabled {
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 2.5rem;
+  width: 400px;
+}
+
+#log-in-button-enabled:hover {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background-color: cornflowerblue;
+  color: white;
 }
 
 #modal-content {

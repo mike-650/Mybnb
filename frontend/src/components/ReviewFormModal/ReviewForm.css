@@ -4,6 +4,7 @@
 
 .review {
   resize: none;
+  width: 400px;
 }
 
 .review-modal {
@@ -47,9 +48,8 @@
   justify-content: center;
 }
 
-#submit-review-button {
+#submit-review-button-disabled {
   font-size: 14px;
-  font-weight: bold;
   text-align: center;
   cursor: pointer;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
@@ -58,6 +58,18 @@
   width: 400px;
 }
 
-#submit-review-button:hover {
+#submit-review-button-enabled {
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  height: 2.5rem;
+  width: 400px;
+  color: white;
+  background-color: cornflowerblue;
+}
+
+#submit-review-button-enabled:hover {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }

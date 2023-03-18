@@ -90,7 +90,7 @@ export const deleteUserReview = (reviewId, spotId) => async dispatch => {
   if (response.ok) {
     const data = await response.json();
     dispatch(deleteReview(reviewId));
-    dispatch(getOneSpot(spotId))
+    dispatch(getOneSpot(spotId));
     return data;
   }
 };

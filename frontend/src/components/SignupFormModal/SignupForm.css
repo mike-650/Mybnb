@@ -1,4 +1,67 @@
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  font-family: 'Noto Sans JP', sans-serif;
+  align-items: center;
+}
+
+.sign-up-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.signup-input {
+  width: stretch;
+  padding-bottom: 0px;
+  margin: 5px;
+}
+
+#sign-up-button-disabled {
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 2.5rem;
+  width: 400px;
+}
+
+#sign-up-button-enabled {
+  display: inline-block;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  margin-bottom: 10px;
+  height: 2.5rem;
+  width: 400px;
+  background-color: cornflowerblue;
+  color: white;
+}
+
+#sign-up-button-enabled:hover {
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+
 .errors > li {
   color: red;
   text-decoration: none;
+}
+
+.errors {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+
 }
