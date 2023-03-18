@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { getAllSpots, getOneSpot, getUserSpots, updateSpot } from '../../store/spots';
+import { getUserSpots, updateSpot } from '../../store/spots';
 import './UpdateSpot.css';
 
 function UpdateSpotForm() {
@@ -9,30 +9,41 @@ function UpdateSpotForm() {
   const history = useHistory();
   const { spotId } = useParams();
 
-  const spot = useSelector(state => state.spots.allSpots[spotId])
+  const spot = useSelector(state => state.spots.allSpots[spotId] || {});
 
-  // ! BUG, WHEN HARD REFRESH WE LOSE STATE SLICE DATA D;
-
-  const [country, setCountry] = useState(spot.country);
-  const [address, setAddress] = useState(spot.address);
-  const [city, setCity] = useState(spot.city);
-  const [state, setState] = useState(spot.state);
-  const [description, setDescription] = useState(spot.description);
-  const [name, setName] = useState(spot.name);
-  const [price, setPrice] = useState(Number(spot.price).toFixed(2));
-  const [previewImg, setPreviewImg] = useState(spot.previewImage);
+  const [country, setCountry] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [description, setDescription] = useState('');
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState('');
+  const [previewImg, setPreviewImg] = useState('');
   const [img1, setImg1] = useState('');
   const [img2, setImg2] = useState('');
   const [img3, setImg3] = useState('');
   const [img4, setImg4] = useState('');
-
-
-
   const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    if (spot) {
+      setCountry(spot.country || '');
+      setAddress(spot.address || '');
+      setCity(spot.city || '');
+      setState(spot.state || '');
+      setDescription(spot.description || '');
+      setName(spot.name || '');
+      setPrice(Number(spot.price).toFixed(2) || '');
+      setPreviewImg(spot.previewImage || '');
+    }
+  }, [spot]);
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validations = [];
+
     if (!country.length) validations.push('Country');
     if (!address.length) validations.push('Address');
     if (!city.length) validations.push('City');
@@ -62,7 +73,6 @@ function UpdateSpotForm() {
 
     if (validations.length) return setErrors(validations);
 
-    // ! Format the data for a post request to /api/spots
     const newSpot = {
       address, city, state, country,
       name, description, price
@@ -89,8 +99,6 @@ function UpdateSpotForm() {
   if (!spot) {
     return <h1>Loading...</h1>
   }
-
-
 
   return (
     <div className="update-spot-container">

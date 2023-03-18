@@ -93,8 +93,8 @@ export const getUserSpots = () => async dispatch => {
 
 };
 
-export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${spotId}`, {
+export const updateSpot = (updatedSpot, id, imageArray) => async dispatch => {
+  const response = await csrfFetch(`/api/spots/${id}`, {
     method: 'PUT',
     header: { 'Content-Type': 'application/json' },
     body: JSON.stringify(updatedSpot)
@@ -103,13 +103,12 @@ export const updateSpot = (updatedSpot, spotId, imageArray) => async dispatch =>
   if (response.ok) {
     const data = await response.json();
     for (let image of imageArray) {
-      await csrfFetch(`/api/spots/${spotId}/images`, {
+      await csrfFetch(`/api/spots/${id}/images`, {
         method: 'POST',
         header: { 'Content-Type': 'application/json' },
         body: JSON.stringify(image)
       });
     };
-
     return data;
   }
 }
@@ -165,7 +164,7 @@ const initialState = {
 const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case ALL_SPOTS:
-      return { ...state, allSpots: action.spots };
+      return { ...state, allSpots: { ...action.spots } };
     case ONE_SPOT:
       return {
         ...state,

@@ -148,8 +148,8 @@ function SpotDetails() {
             {review.User.id === sessionUser?.id ?
               <OpenModalMenuItem
                 itemText='Delete'
-                modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}
-              /> : null}
+                modalComponent={<DeleteReviewModal reviewId={review.id} spotId={spotId} />}/>
+                : null}
           </div>
         )}
       </div>
