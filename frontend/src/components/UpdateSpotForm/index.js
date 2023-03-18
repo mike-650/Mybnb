@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import { updateSpot } from '../../store/spots';
+import { getAllSpots, getOneSpot, getUserSpots, updateSpot } from '../../store/spots';
 import './UpdateSpot.css';
 
 function UpdateSpotForm() {
@@ -9,7 +9,9 @@ function UpdateSpotForm() {
   const history = useHistory();
   const { spotId } = useParams();
 
-  const spot = useSelector(state => state.spots.singleSpot)
+  const spot = useSelector(state => state.spots.allSpots[spotId])
+
+  // ! BUG, WHEN HARD REFRESH WE LOSE STATE SLICE DATA D;
 
   const [country, setCountry] = useState(spot.country);
   const [address, setAddress] = useState(spot.address);
@@ -17,12 +19,15 @@ function UpdateSpotForm() {
   const [state, setState] = useState(spot.state);
   const [description, setDescription] = useState(spot.description);
   const [name, setName] = useState(spot.name);
-  const [price, setPrice] = useState(spot.price);
-  const [previewImg, setPreviewImg] = useState('');
+  const [price, setPrice] = useState(Number(spot.price).toFixed(2));
+  const [previewImg, setPreviewImg] = useState(spot.previewImage);
   const [img1, setImg1] = useState('');
   const [img2, setImg2] = useState('');
   const [img3, setImg3] = useState('');
   const [img4, setImg4] = useState('');
+
+
+
   const [errors, setErrors] = useState([]);
 
   const handleSubmit = async (e) => {
@@ -75,6 +80,17 @@ function UpdateSpotForm() {
     await dispatch(updateSpot(newSpot, spotId, ImgArray));
     history.push(`/spots/${spotId}`);
   };
+
+  useEffect(() => {
+    dispatch(getUserSpots());
+  }, [dispatch])
+
+
+  if (!spot) {
+    return <h1>Loading...</h1>
+  }
+
+
 
   return (
     <div className="update-spot-container">
@@ -129,9 +145,9 @@ function UpdateSpotForm() {
               id='state'
               value={state}
               onChange={(e) => setState(e.target.value)}
-              />
-              </div>
-              <div className='section-break'></div>
+            />
+          </div>
+          <div className='section-break'></div>
         </div>
         <div className='describe-place'>
           <h3>Describe your place to guests</h3>
@@ -159,7 +175,7 @@ function UpdateSpotForm() {
             onChange={(e) => setName(e.target.value)}
           />
           {errors.includes('Name') ? <p style={{ color: 'red' }}>Name is required</p> : null}
-        <div className='section-break'></div>
+          <div className='section-break'></div>
 
         </div>
         <div>
@@ -174,7 +190,7 @@ function UpdateSpotForm() {
             onChange={(e) => setPrice(e.target.value)}
           />
           {errors.includes('Price') ? <p style={{ color: 'red' }}>Price is required</p> : null}
-        <div className='section-break'></div>
+          <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
           <h3>Liven up your spot with photos</h3>
@@ -237,5 +253,7 @@ function UpdateSpotForm() {
     </div>
   )
 }
+
+
 
 export default UpdateSpotForm;

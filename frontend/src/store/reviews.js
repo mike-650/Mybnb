@@ -78,8 +78,7 @@ export const createNewReview = (newReview, spotId) => async dispatch => {
     body: JSON.stringify(newReview)
   });
   if (response.ok) {
-    dispatch(getAllReviews(spotId));
-    dispatch(getOneSpot(spotId));
+    dispatch(getAllReviews(spotId)).then(dispatch(getOneSpot(spotId)));
     return;
   };
 };

@@ -7,6 +7,7 @@ const ONE_SPOT = 'ONE_SPOT';
 const CREATE_SPOT = 'CREATE_SPOT';
 const UPDATE_SPOT = 'UPDATE_SPOT';
 const DELETE_SPOT = 'DELETE_SPOT';
+const RESET_SPOT = 'RESET_SPOT';
 
 // ! ACTION CREATORS
 export const allSpots = (spots) => {
@@ -31,6 +32,10 @@ export const editSpot = (data) => {
 
 export const removeSpot = (data) => {
   return { type: DELETE_SPOT, data }
+}
+
+export const resetSpot = (reset) => {
+  return { type: RESET_SPOT, reset }
 }
 
 // ! NORMALIZE DATA
@@ -61,8 +66,8 @@ export const getAllSpots = () => async dispatch => {
   };
 };
 
-export const getOneSpot = (spot) => async dispatch => {
-  const response = await csrfFetch(`/api/spots/${spot}`);
+export const getOneSpot = (spotId) => async dispatch => {
+  const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spotData = await response.json();
     const normalize = normalizeOneSpot(spotData);
@@ -143,6 +148,11 @@ export const createNewSpot = (spot, previewImage, imgArray) => async dispatch =>
   };
 };
 
+export const resetSingleSpot = () => async dispatch => {
+  dispatch(resetSpot(initialState));
+  return;
+}
+
 
 // ! INITIAL SLICE STATE
 const initialState = {
@@ -168,9 +178,11 @@ const spotsReducer = (state = initialState, action) => {
     case ALL_USER_SPOTS:
       return { ...state, allSpots: { ...action.data } }
     case DELETE_SPOT:
-      const newState = { ...state, allSpots: { ...state.allSpots }}
+      const newState = { ...state, allSpots: { ...state.allSpots } }
       delete newState.allSpots[action.data]
       return newState;
+    case RESET_SPOT:
+      return action.reset
     default: return { ...state }
   }
 };
