@@ -39,7 +39,7 @@ function ManageSpots() {
             </NavLink>
             <div className="spot-label">
               <p className='all-spots-desc'><strong>{spot.city}, {spot.state}</strong></p>
-              <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating ? spot.avgRating : 'New'}</> : 'New'}</p>
+              <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating ? spot.avgRating?.toFixed(1) : 'New'}</> : 'New'}</p>
             </div>
             <p className='all-spots-desc'><strong>${spot.price}</strong> night</p>
             <div className="update-delete-buttons">

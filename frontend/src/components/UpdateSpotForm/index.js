@@ -50,8 +50,8 @@ function UpdateSpotForm() {
     if (!state.length) validations.push('State');
     if (description.length < 30) validations.push('Description');
     if (!name.length) validations.push('Name');
-    if (!price || parseInt(price) === 0) validations.push('Price');
-
+    if (!price) validations.push('Price');
+    if (price <= 0) validations.push('Negative');
     if (!previewImg.length) {
       validations.push('previewImgLength')
     } else if (!previewImg.endsWith('.jpg') && !previewImg.endsWith('.jpeg') && !previewImg.endsWith('.png')) {
@@ -104,8 +104,8 @@ function UpdateSpotForm() {
     <div className="update-spot-container">
       <form onSubmit={handleSubmit}>
         <div className='form-location-section'>
-          <h2>Update your Spot</h2>
-          <h3>Where's your place located?</h3>
+          <h1>Update your Spot</h1>
+          <h2>Where's your place located?</h2>
           <p>Guests will only get your exact address once they booked a reservation.</p>
           <div className='errors'>
             <label htmlFor='country'>Country
@@ -134,7 +134,7 @@ function UpdateSpotForm() {
             onChange={(e) => setAddress(e.target.value)}
           />
           <div className='city-state'>
-            <div style={{display:'flex', flexDirection:'column'}}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <label htmlFor='city'>City
                 {errors.includes('City') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>City is required</p> : null}
               </label>
@@ -147,7 +147,7 @@ function UpdateSpotForm() {
                 onChange={(e) => setCity(e.target.value)}
               />
             </div>
-            <div style={{display:'flex', flexDirection:'column'}}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
               <label htmlFor='state'>State
                 {errors.includes('State') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>State is required</p> : null}
               </label>
@@ -190,23 +190,23 @@ function UpdateSpotForm() {
           />
           {errors.includes('Name') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Name is required</p> : null}
           <div className='section-break'></div>
-
         </div>
         <div>
           <h3>Set a base price for your spots</h3>
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-          <div style={{display:'flex'}}>
-          <label htmlFor='price' style={{fontSize:'25px', justifyContent:'center', paddingTop:'15px', paddingRight:'5px'}}>$ </label>
-          <input
-            className='input-fields'
-            name='price'
-            type='number'
-            placeholder='Price per night (USD)'
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+          <div style={{ display: 'flex' }}>
+            <label htmlFor='price' style={{ fontSize: '25px', justifyContent: 'center', paddingTop: '10px', paddingRight: '5px' }}>$ </label>
+            <input
+              className='input-fields'
+              name='price'
+              type='number'
+              placeholder='Price per night (USD)'
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
           </div>
           {errors.includes('Price') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price is required</p> : null}
+          {errors.includes('Negative') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price must be greater than $0</p> : null}
           <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
