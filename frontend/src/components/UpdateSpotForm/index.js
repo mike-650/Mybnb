@@ -195,14 +195,17 @@ function UpdateSpotForm() {
         <div>
           <h3>Set a base price for your spots</h3>
           <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-          <label htmlFor='price'>$ </label>
+          <div style={{display:'flex'}}>
+          <label htmlFor='price' style={{fontSize:'25px', justifyContent:'center', paddingTop:'15px', paddingRight:'5px'}}>$ </label>
           <input
             className='input-fields'
+            name='price'
             type='number'
             placeholder='Price per night (USD)'
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          </div>
           {errors.includes('Price') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price is required</p> : null}
           <div className='section-break'></div>
         </div>

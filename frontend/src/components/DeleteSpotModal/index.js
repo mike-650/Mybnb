@@ -15,14 +15,20 @@ function DeleteFormModal({spotId}) {
   }
 
   return (
-    <>
-    <div className="delete-modal">
-    <h2>Confirm Delete</h2>
-    <h3>Are you sure you want to remove this spot from the listings?</h3>
-    <button onClick={confirmDelete}>Yes(Delete Spot)</button>
-    <button onClick={closeModal}>No(Keep Spot)</button>
+      <div>
+      <div className="delete-review-modal">
+        <div>
+        <h2 style={{margin:'5px'}}>Confirm Delete</h2>
+        </div>
+        <h4 style={{fontSize:'18px'}}>Are you sure you want to remove this spot from the listings?</h4>
+        <div className="delete-review-buttons">
+        <button id='confirm-delete' onClick={confirmDelete}>Yes (Delete Spot)</button>
+        </div>
+        <div className="delete-review-buttons">
+        <button id='cancel-delete' onClick={closeModal}>No (Keep Spot)</button>
+        </div>
+      </div>
     </div>
-  </>
   )
 }
 

@@ -95,7 +95,7 @@ function NewSpotForm() {
             onChange={(e) => setCountry(e.target.value)}
           />
           <div className='errors'>
-            <label htmlFor='street-address'>Steet Address
+            <label htmlFor='street-address'>Street Address
             {errors.includes('Address') ? <p style={{ color: 'red', fontSize: '16px', display:'inline', paddingLeft:'5px' }}>Address is required</p> : null}
             </label>
           </div>

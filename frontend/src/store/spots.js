@@ -7,6 +7,7 @@ const ONE_SPOT = 'ONE_SPOT';
 const CREATE_SPOT = 'CREATE_SPOT';
 const UPDATE_SPOT = 'UPDATE_SPOT';
 const DELETE_SPOT = 'DELETE_SPOT';
+const RESET_ALL_SPOTS = 'RESET_ALL_SPOTS';
 const RESET_SPOT = 'RESET_SPOT';
 
 // ! ACTION CREATORS
@@ -32,6 +33,10 @@ export const editSpot = (data) => {
 
 export const removeSpot = (data) => {
   return { type: DELETE_SPOT, data }
+}
+
+export const removeAllSpots = (reset) => {
+  return { type: RESET_ALL_SPOTS, reset }
 }
 
 export const resetSpot = (reset) => {
@@ -82,7 +87,6 @@ export const getUserSpots = () => async dispatch => {
 
     const data = await response.json();
     const normalize = normalizeAllSpots(data.Spots)
-    console.log({ normalize })
     dispatch(userSpots(normalize));
     return normalize
 
@@ -147,6 +151,11 @@ export const createNewSpot = (spot, previewImage, imgArray) => async dispatch =>
   };
 };
 
+export const resetAllSpots = () => async dispatch => {
+  dispatch(removeAllSpots(initialState));
+  return;
+}
+
 export const resetSingleSpot = () => async dispatch => {
   dispatch(resetSpot(initialState));
   return;
@@ -181,7 +190,9 @@ const spotsReducer = (state = initialState, action) => {
       delete newState.allSpots[action.data]
       return newState;
     case RESET_SPOT:
-      return action.reset
+      return action.reset;
+    case RESET_ALL_SPOTS:
+      return action.reset;
     default: return { ...state }
   }
 };

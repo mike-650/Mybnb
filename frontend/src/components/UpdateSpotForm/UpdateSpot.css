@@ -43,6 +43,9 @@
   margin-bottom: 20px;
 }
 
+.submit-button {
+  color: red;
+}
 
 #city {
   width: 285px;

@@ -1,4 +1,4 @@
-import { getUserSpots } from "../../store/spots";
+import { getUserSpots, resetAllSpots } from "../../store/spots";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
@@ -11,6 +11,7 @@ function ManageSpots() {
   const spots = Object.values(useSelector(state => state.spots.allSpots))
 
   useEffect(() => {
+    dispatch(resetAllSpots());
     dispatch(getUserSpots());
   }, [dispatch]);
 
@@ -22,7 +23,7 @@ function ManageSpots() {
           <button id='create-spot-btn'>Create a New Spot</button>
         </NavLink>
       </div>
-      <div className="all-spots">
+      <div className="all-spots manage-spots">
         {spots.map(spot =>
           <div key={spot.id} className='all-spots-container'>
             <NavLink to={`/spots/${spot.id}`} className='nav-link'>
@@ -43,10 +44,10 @@ function ManageSpots() {
             <p className='all-spots-desc'><strong>${spot.price}</strong> night</p>
             <div className="update-delete-buttons">
               <NavLink to={`/spots/${spot.id}/edit`}>
-                <button>Update</button>
+                <button id='update-spot-button'>Update</button>
               </NavLink>
               <div></div>
-              <div className="testing">
+              <div id='delete-spot-button'>
                 <OpenModalMenuItem
                   itemText="Delete a Spot"
                   modalComponent={<DeleteFormModal spotId={spot.id}
