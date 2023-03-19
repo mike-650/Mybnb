@@ -31,8 +31,8 @@ function NewSpotForm() {
     if (!state.length) validations.push('State');
     if (description.length < 30) validations.push('Description');
     if (!name.length) validations.push('Name');
-    if (!price || parseInt(price) === 0) validations.push('Price');
-
+    if (!price) validations.push('Price');
+    if (price <= 0) validations.push('Negative');
     if (!previewImg.length) {
       validations.push('previewImgLength')
     } else if (!previewImg.endsWith('.jpg') && !previewImg.endsWith('.jpeg') && !previewImg.endsWith('.png')) {
@@ -178,6 +178,7 @@ function NewSpotForm() {
             />
           </div>
           {errors.includes('Price') ? <p style={{ color: 'red', fontSize: '16px' }}>Price is required</p> : null}
+          {errors.includes('Negative') ? <p style={{ color: 'red', fontSize: '16px' }}>Price must be greater than $0</p> : null}
           <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>

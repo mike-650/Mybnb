@@ -9,13 +9,17 @@ function Spots() {
   const dispatch = useDispatch();
   const spots = Object.values(useSelector(state => state.spots.allSpots));
 
-  useEffect(() => {
-    dispatch(getAllSpots());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllSpots());
+  // }, [dispatch]);
 
   useEffect(() => {
-    dispatch(resetAllReviews());
-    dispatch(resetSingleSpot());
+    dispatch(getAllSpots());
+
+    return () => {
+      dispatch(resetSingleSpot());
+      dispatch(resetAllReviews());
+    }
   }, [dispatch])
 
   if (!spots.length) return (
@@ -41,7 +45,7 @@ function Spots() {
         </NavLink>
             <div className="spot-label">
               <p className='all-spots-desc'><strong>{spot.city}, {spot.state}</strong></p>
-              <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating : `${spot.avgRating?.toFixed(1)}`}</> : 'New'}</p>
+              <p>{spot.avgRating !== 'no rating available' ? <><i className="fa-solid fa-star"></i> {spot.avgRating % 1 !== 0 ? spot.avgRating.toFixed(1) : `${spot.avgRating?.toFixed(1)}`}</> : 'New'}</p>
             </div>
             <p className='all-spots-desc'><strong>${Number(spot.price).toFixed(2)}</strong> night</p>
           </div>

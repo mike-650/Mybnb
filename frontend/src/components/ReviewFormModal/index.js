@@ -10,12 +10,20 @@ function ReviewFormModal({ spotId }) {
   const [review, setReview] = useState("");
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+  const [error, setError] = useState({});
   const [reviewButton, setReviewButton] = useState('submit-review-button-disabled');
   const { closeModal } = useModal();
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const errorValidation = {};
+    if (review.length > 255) {
+      errorValidation.review = "Review must be less than 255 characters"
+      setError(errorValidation);
+      return;
+    }
+
     const newReview = {
       review,
       stars: rating
@@ -41,6 +49,7 @@ function ReviewFormModal({ spotId }) {
     <div className="review-modal">
       <h1>How was your stay?</h1>
       <form onSubmit={handleSubmit}>
+        { error.review ? <div style={{color:'#db1709', display:'flex', justifyContent:'center', paddingBottom:'10px'}}>{error.review}</div> : null }
         <textarea className="review" value={review} onChange={(e) => setReview(e.target.value)} rows="8" cols="50" placeholder="Leave your review here..."></textarea>
         <div className="stars-component">
           <StarRating rating={rating} setRating={setRating} hover={hover} setHover={setHover} />
