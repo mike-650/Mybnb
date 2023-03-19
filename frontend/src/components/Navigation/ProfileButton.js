@@ -54,6 +54,7 @@ function ProfileButton({ user }) {
             {user ? (
               <>
                 <li>Hello, {user.firstName}</li>
+                <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
                 {/* TODO: */}
                 <Link to='/spots/current' className="manage-spot">Manage Spot</Link>

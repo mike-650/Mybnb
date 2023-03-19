@@ -15,9 +15,7 @@ function Spots() {
 
   useEffect(() => {
     dispatch(resetAllReviews());
-    console.log('I RAN RESET ALL REVIEWS');
     dispatch(resetSingleSpot());
-    console.log('I RAN RESET SINGLE SPOT');
   }, [dispatch])
 
   if (!spots.length) return (

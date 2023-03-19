@@ -264,7 +264,7 @@ function UpdateSpotForm() {
         </div>
         <div className='section-break'></div>
         <div className='update-button'>
-          <button type="submit" className='submit-button'>Update Your Spot</button>
+          <button type="submit" className='update-spot-button'>Update Your Spot</button>
         </div>
       </form>
     </div>
