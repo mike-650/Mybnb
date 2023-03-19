@@ -307,7 +307,8 @@ router.get('/:spotId/reviews', async (req, res) => {
           exclude: ['reviewId', 'createdAt', 'updatedAt']
         }
       }
-    ]
+    ],
+    order: [['updatedAt', 'DESC']]
   })
 
   // if the spot isnt found check

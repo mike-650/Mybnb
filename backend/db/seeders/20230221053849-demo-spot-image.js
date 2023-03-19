@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         spotId: 1,
-        url: "https://images1.apartments.com/i2/Om8qArFMM4jl0rMwiu_o3DjsmWj6qNDUC6SZnLvl9i0/111/8500-burton-luxury-apartments-los-angeles-ca-primary-photo.jpg",
+        url: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1",
         preview: false
       },
       {
@@ -52,7 +52,7 @@ module.exports = {
       },
       {
         spotId: 2,
-        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        url: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1",
         preview: false
       },
       {
@@ -91,22 +91,22 @@ module.exports = {
         preview: true
       },
       {
-        spotId:4,
+        spotId: 4,
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },
       {
-        spotId:4,
+        spotId: 4,
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },
       {
-        spotId:4,
+        spotId: 4,
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },
       {
-        spotId:4,
+        spotId: 4,
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },
@@ -157,6 +157,81 @@ module.exports = {
       },
       {
         spotId: 6,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: "https://www.bhg.com/thmb/H9VV9JNnKl-H1faFXnPlQfNprYw=/1799x0/filters:no_upscale():strip_icc()/white-modern-house-curved-patio-archway-c0a4a3b3-aa51b24d14d0464ea15d36e05aa85ac9.jpg",
+        preview: true
+      },
+      {
+        spotId: 7,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 7,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: "https://liveatlakeandwells.com/wp-content/uploads/2020/08/Lake_and_Wells_Apartments_Interior.jpg",
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: "https://images1.apartments.com/i2/Om8qArFMM4jl0rMwiu_o3DjsmWj6qNDUC6SZnLvl9i0/111/8500-burton-luxury-apartments-los-angeles-ca-primary-photo.jpg",
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 8,
+        url: "https://charlotte.axios.com/wp-content/uploads/2022/11/1216-Pinecrest-Dr-feature-image.jpg",
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 9,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: true
+      },
+      {
+        spotId: 9,
+        url: "https://www.apartments.com/images/librariesprovider2/blank-images/parkline-apartment-in-miami-flba486679-f59b-475d-885a-ae52659d1e51.jpg?sfvrsn=264e5d72_1",
+        preview: false
+      },
+      {
+        spotId: 9,
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },

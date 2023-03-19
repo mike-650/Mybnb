@@ -60,9 +60,6 @@ router.get('/current', requireAuthentication, async (req, res) => {
       delete review.Spot.SpotImages;
     };
 
-    if (!review.ReviewImages.length) {
-      review.ReviewImages = 'no review images available'
-    };
   });
   return res.json({ 'Reviews': reviewsList });
 });
