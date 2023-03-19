@@ -108,8 +108,9 @@ function UpdateSpotForm() {
           <h3>Where's your place located?</h3>
           <p>Guests will only get your exact address once they booked a reservation.</p>
           <div className='errors'>
-            <label htmlFor='country'>Country</label>
-            {errors.includes('Country') ? <p style={{ color: 'red' }}>Country is required</p> : null}
+            <label htmlFor='country'>Country
+              {errors.includes('Country') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>Country is required</p> : null}
+            </label>
           </div>
           <input
             className='input-fields'
@@ -120,8 +121,9 @@ function UpdateSpotForm() {
             onChange={(e) => setCountry(e.target.value)}
           />
           <div className='errors'>
-            <label htmlFor='street-address'>Steet Address </label>
-            {errors.includes('Address') ? <p style={{ color: 'red' }}>Address is required</p> : null}
+            <label htmlFor='street-address'>Steet Address
+              {errors.includes('Address') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>Address is required</p> : null}
+            </label>
           </div>
           <input
             className='input-fields'
@@ -131,29 +133,33 @@ function UpdateSpotForm() {
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
-          <div className='errors'>
-            <label htmlFor='city'>City </label>
-            {errors.includes('City') ? <p style={{ color: 'red' }}>City is required</p> : null}
-            <input
-              className='input-fields'
-              type='text'
-              placeholder='City'
-              id='city'
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <div className='errors'>
-              <label htmlFor='state'>State </label>
-              {errors.includes('State') ? <p style={{ color: 'red' }}>State is required</p> : null}
+          <div className='city-state'>
+            <div style={{display:'flex', flexDirection:'column'}}>
+              <label htmlFor='city'>City
+                {errors.includes('City') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>City is required</p> : null}
+              </label>
+              <input
+                className='input-fields'
+                type='text'
+                placeholder='City'
+                id='city'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
             </div>
-            <input
-              className='input-fields'
-              type='text'
-              placeholder='STATE'
-              id='state'
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
+            <div style={{display:'flex', flexDirection:'column'}}>
+              <label htmlFor='state'>State
+                {errors.includes('State') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>State is required</p> : null}
+              </label>
+              <input
+                className='input-fields'
+                type='text'
+                placeholder='STATE'
+                id='state'
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </div>
           </div>
           <div className='section-break'></div>
         </div>
@@ -169,7 +175,7 @@ function UpdateSpotForm() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {errors.includes('Description') ? <p style={{ color: 'red' }}>Description needs a minimum of 30 characters</p> : null}
+          {errors.includes('Description') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Description needs a minimum of 30 characters</p> : null}
           <div className='section-break'></div>
         </div>
         <div>
@@ -182,7 +188,7 @@ function UpdateSpotForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errors.includes('Name') ? <p style={{ color: 'red' }}>Name is required</p> : null}
+          {errors.includes('Name') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Name is required</p> : null}
           <div className='section-break'></div>
 
         </div>
@@ -197,7 +203,7 @@ function UpdateSpotForm() {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-          {errors.includes('Price') ? <p style={{ color: 'red' }}>Price is required</p> : null}
+          {errors.includes('Price') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price is required</p> : null}
           <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
@@ -210,8 +216,8 @@ function UpdateSpotForm() {
             value={previewImg}
             onChange={(e) => setPreviewImg(e.target.value)}
           />
-          {errors.includes('previewImgLength') ? <p style={{ color: 'red' }}>Preview image is required</p> : null}
-          {errors.includes('previewImgInvalid') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+          {errors.includes('previewImgLength') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Preview image is required</p> : null}
+          {errors.includes('previewImgInvalid') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           <div>
             <input
               className='input-fields'
@@ -220,7 +226,7 @@ function UpdateSpotForm() {
               value={img1}
               onChange={(e) => setImg1(e.target.value)}
             />
-            {errors.includes('img1') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img1') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -230,7 +236,7 @@ function UpdateSpotForm() {
               value={img2}
               onChange={(e) => setImg2(e.target.value)}
             />
-            {errors.includes('img2') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img2') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -240,7 +246,7 @@ function UpdateSpotForm() {
               value={img3}
               onChange={(e) => setImg3(e.target.value)}
             />
-            {errors.includes('img3') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img3') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -250,7 +256,7 @@ function UpdateSpotForm() {
               value={img4}
               onChange={(e) => setImg4(e.target.value)}
             />
-            {errors.includes('img4') ? <p style={{ color: 'red' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img4') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
         </div>
         <div className='section-break'></div>

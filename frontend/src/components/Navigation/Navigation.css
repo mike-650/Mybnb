@@ -47,6 +47,7 @@
 
 #home-icon:hover {
   animation: bounce 1.5s ease-in-out infinite;
+  color: cornflowerblue;
 }
 
 @keyframes bounce {

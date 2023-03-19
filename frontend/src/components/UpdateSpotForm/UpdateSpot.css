@@ -14,14 +14,10 @@
   border: 1px solid #ccc;
 }
 
-.errors {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .city-state {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .update-button {
@@ -45,4 +41,16 @@
   border-bottom: 2px solid black;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+
+#city {
+  width: 285px;
+  padding-right: 4px;
+}
+
+
+#state {
+  width: 175px;
+  padding-left: 4px;
 }
