@@ -23,9 +23,9 @@ function ManageSpots() {
     <div className="manage-spot-container">
       <div className="manage-spot-header">
         <h2 style={{ marginBottom: '4px' }}>Manage Your Spots</h2>
-        <NavLink to='/spots/new'>
+       { !spots.length ? <NavLink to='/spots/new'>
           <button id='create-spot-btn'>Create a New Spot</button>
-        </NavLink>
+        </NavLink> : null }
       </div>
       <div className="all-spots manage-spots">
         {spots.map(spot =>
