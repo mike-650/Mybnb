@@ -78,7 +78,7 @@ function NewSpotForm() {
     <div className="update-spot-container">
       <form onSubmit={handleSubmit}>
         <div className='form-location-section'>
-          <h2>Create a new Spot</h2>
+          <h1>Create a new Spot</h1>
           <h3>Where's your place located?</h3>
           <p>Guests will only get your exact address once they booked a reservation.</p>
           <div className='errors'>
