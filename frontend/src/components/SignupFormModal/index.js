@@ -34,7 +34,7 @@ function SignupFormModal() {
   const disabled = () => {
     if (!email || !username || !firstName || !lastName || !password || !confirmPassword) {
       return true;
-    } else if (username.length < 4 || password.length < 6) {
+    } else if (username.length < 4 || password.length < 6 || password !== confirmPassword) {
       return true;
     }
     return false;
@@ -43,7 +43,7 @@ function SignupFormModal() {
   useEffect(() => {
     if (!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
       setSignUp('submit-review-button-disabled');
-    } else if (username.length < 4 || password.length < 6) {
+    } else if (username.length < 4 || password.length < 6 || password !== confirmPassword) {
       setSignUp('submit-review-button-disabled');
     } else {
       setSignUp('submit-review-button-enabled');

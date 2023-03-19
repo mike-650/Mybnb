@@ -30,6 +30,7 @@ function NewSpotForm() {
     if (!city.length) validations.push('City');
     if (!state.length) validations.push('State');
     if (description.length < 30) validations.push('Description');
+    if (description.length > 255) validations.push('CharExceeded');
     if (!name.length) validations.push('Name');
     if (!price) validations.push('Price');
     if (price <= 0) validations.push('Negative');
@@ -150,6 +151,7 @@ function NewSpotForm() {
             onChange={(e) => setDescription(e.target.value)}
           />
           {errors.includes('Description') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Description needs a minimum of 30 characters</p> : null}
+          {errors.includes('CharExceeded') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Description has a maximum of 255 characters</p> : null}
           <div className='section-break'></div>
         </div>
         <div>

@@ -36,7 +36,7 @@ function SpotDetails() {
   };
 
   function handleClick() {
-    alert('Feature Coming Soon...');
+    alert('Feature Coming Soon');
   };
 
   return (
@@ -94,7 +94,7 @@ function SpotDetails() {
               modalComponent={<ReviewFormModal spotId={spotId}
               />}
             /></div>)}
-        {array.map(review =>
+        {array.length ? array.map(review =>
           <div key={review.id} className='user-review'>
             <p>{review.User.firstName}</p>
             <p>{months[review.createdAt.substring(5, 7) - 1]} {review.createdAt.substr(0, 4)}</p>
@@ -109,7 +109,8 @@ function SpotDetails() {
               : null}
             <div style={{ borderBottom: '1px solid black', marginBottom: '4px' }}></div>
           </div>
-        )}
+
+        ): <h2>Be the first the post a review!</h2>}
       </div>
     </div>
   );

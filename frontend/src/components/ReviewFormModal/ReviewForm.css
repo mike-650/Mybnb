@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+.star {
+  cursor: pointer;
+}
+
 .stars {
   display: flex;
   justify-content: center;

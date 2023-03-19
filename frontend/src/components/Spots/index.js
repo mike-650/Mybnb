@@ -9,10 +9,6 @@ function Spots() {
   const dispatch = useDispatch();
   const spots = Object.values(useSelector(state => state.spots.allSpots));
 
-  // useEffect(() => {
-  //   dispatch(getAllSpots());
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch(getAllSpots());
 
@@ -34,7 +30,7 @@ function Spots() {
           <div className='all-spots-container'>
         <NavLink to={`/spots/${spot.id}`} className='nav-link'>
             <img
-            title={`${spot.name}`}
+            title={spot.name}
             src={spot.previewImage}
             onError={(e) => {
               e.target.onerror = null;
