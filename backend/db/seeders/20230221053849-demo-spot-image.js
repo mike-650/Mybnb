@@ -235,6 +235,56 @@ module.exports = {
         url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
         preview: false
       },
+      {
+        spotId: 10,
+        url: 'https://media.california.com/media/_versions/articles/san_jose_neighborhood_guide__2479x1428___v1222x580.jpg',
+        preview: true
+      },
+      {
+        spotId: 10,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/2-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: "https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img/https://www.glenwoodnyc.com/wp-content/uploads/2022/05/5-JSP-LOBBY-01-02-1280.jpg",
+        preview: false
+      },
+      {
+        spotId: 10,
+        url: 'https://media.california.com/media/_versions/articles/san_jose_neighborhood_guide__2479x1428___v1222x580.jpg',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://cf.bstatic.com/xdata/images/hotel/max1024x768/345613052.jpg?k=2386564524e57ff238ebd70931ff9988d0d86cb39548ab15a3bc08600a2efcea&o=&hp=1',
+        preview: false
+      },
+      {
+        spotId: 11,
+        url: 'https://media.california.com/media/_versions/articles/san_jose_neighborhood_guide__2479x1428___v1222x580.jpg',
+        preview: false
+      },
     ], {})
   },
 

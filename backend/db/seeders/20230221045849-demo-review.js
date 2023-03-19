@@ -55,7 +55,7 @@ module.exports = {
       },
       {
         spotId: 4,
-        userId: 1,
+        userId: 3,
         review: 'Awesome spot I enjoyed it very much..',
         stars: 4
       },
@@ -67,7 +67,7 @@ module.exports = {
       },
       {
         spotId: 5,
-        userId: 2,
+        userId: 1,
         review: 'Very cool spot!',
         stars: 5
       },
@@ -79,8 +79,20 @@ module.exports = {
       },
       {
         spotId: 6,
-        userId: 3,
+        userId: 2,
         review: 'Very cool spot!',
+        stars: 5
+      },
+      {
+        spotId: 7,
+        userId: 2,
+        review: 'It was aaaaamaaaaaazing!',
+        stars: 5
+      },
+      {
+        spotId: 7,
+        userId: 3,
+        review: 'Super sick like wth!',
         stars: 5
       },
     ]
