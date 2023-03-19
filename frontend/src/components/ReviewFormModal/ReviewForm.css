@@ -72,4 +72,6 @@
 
 #submit-review-button-enabled:hover {
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  background-image: url('../../../public/images/totoro-114.png');
+  background-position: 27px -1px;
 }

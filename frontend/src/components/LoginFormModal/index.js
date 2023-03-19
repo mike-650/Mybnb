@@ -10,7 +10,7 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [login, setLogin] = useState('log-in-button-disabled');
+  const [login, setLogin] = useState('submit-review-button-disabled');
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -44,7 +44,7 @@ function LoginFormModal() {
     if (credential.length >= 4 && password.length >= 6) {
       setLogin('submit-review-button-enabled');
     } else {
-      setLogin('submit-review-button-disabled');  
+      setLogin('submit-review-button-disabled');
     }
   }, [credential, password]);
 

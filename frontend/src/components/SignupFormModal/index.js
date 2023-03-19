@@ -31,8 +31,8 @@ function SignupFormModal() {
     return setErrors(['Confirm Password field must be the same as the Password field']);
   };
 
-  const disabled = () => () => {
-    if (!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
+  const disabled = () => {
+    if (!email || !username || !firstName || !lastName || !password || !confirmPassword) {
       return true;
     } else if (username.length < 4 || password.length < 6) {
       return true;
@@ -41,12 +41,14 @@ function SignupFormModal() {
   }
 
   useEffect(() => {
-    if (!disabled()) {
-      setSignUp('sign-up-button-enabled')
+    if (!email.length || !username.length || !firstName.length || !lastName.length || !password.length || !confirmPassword.length) {
+      setSignUp('submit-review-button-disabled');
+    } else if (username.length < 4 || password.length < 6) {
+      setSignUp('submit-review-button-disabled');
     } else {
-      setSignUp('sign-up-button-disabled')
+      setSignUp('submit-review-button-enabled');
     }
-  },[email, username, firstName, lastName, password, confirmPassword, disabled])
+  },[email, username, firstName, lastName, password, confirmPassword])
 
   return (
     <div className="sign-up-container">
