@@ -13,6 +13,10 @@ function ManageSpots() {
   useEffect(() => {
     dispatch(resetAllSpots());
     dispatch(getUserSpots());
+
+    return () => {
+      dispatch(resetAllSpots());
+    }
   }, [dispatch]);
 
   return (
