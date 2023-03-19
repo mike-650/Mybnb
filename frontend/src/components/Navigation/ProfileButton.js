@@ -21,7 +21,7 @@ function ProfileButton({ user }) {
 
   useEffect(() => {
     const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
+      if (!ulRef.current?.contains(e.target)) {
         setShowMenu(false);
       }
     };
@@ -56,7 +56,6 @@ function ProfileButton({ user }) {
                 <li>Hello, {user.firstName}</li>
                 <li>{user.firstName} {user.lastName}</li>
                 <li>{user.email}</li>
-                {/* TODO: */}
                 <Link to='/spots/current' className="manage-spot">Manage Spot</Link>
                 <li>
                   <button onClick={logout} className='logout-button'>Log Out</button>

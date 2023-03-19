@@ -107,11 +107,13 @@ export const updateSpot = (updatedSpot, id, imageArray) => async dispatch => {
   if (response.ok) {
     const data = await response.json();
     for (let image of imageArray) {
-      await csrfFetch(`/api/spots/${id}/images`, {
-        method: 'POST',
-        header: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(image)
-      });
+      if (image.url) {
+        await csrfFetch(`/api/spots/${id}/images`, {
+          method: 'POST',
+          header: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(image)
+        });
+      }
     };
     return data;
   }
