@@ -1,76 +1,32 @@
 
-# Create React App Template
+# Mybnb
 
-A no-frills template from which to create React applications with
-[Create React App](https://github.com/facebook/create-react-app).
+Mybnb is an Airbnb clone that was made using the following technologies:
 
-```sh
-npx create-react-app my-app --template @appacademy/simple --use-npm
-```
+![Code-React logo](https://camo.githubusercontent.com/25caf37c80ad19ff23ec96a855c2cebcca7c985a30f1c72a6516b0ac334c6b51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f64652d52656163742d696e666f726d6174696f6e616c3f7374796c653d666c6174266c6f676f3d726561637426636f6c6f723d363144414642)
+![Code-Redux logo](https://camo.githubusercontent.com/11e138b7035520431a91f7dc5fd3f6d2b5c984c3f9972ad9f0ea11a212612c5a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f64652d52656475782d696e666f726d6174696f6e616c3f7374796c653d666c6174266c6f676f3d526564757826636f6c6f723d373634414243)
+![Code-Javascript logo](https://camo.githubusercontent.com/f2b32770600db9a6a162df026752e3bd0fd802428e331128a6d220e904eea63a/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f64652d4a6176615363726970742d696e666f726d6174696f6e616c3f7374796c653d666c6174266c6f676f3d4a61766153637269707426636f6c6f723d463744463145)
+![Code-HTML5 logo](https://camo.githubusercontent.com/cbb6736e559930d06fe63a42581a5d3f913122ecea66347939ce792812c59960/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f436f64652d48544d4c352d696e666f726d6174696f6e616c3f7374796c653d666c6174266c6f676f3d48544d4c3526636f6c6f723d453334463236)
+![Code-React logo](https://camo.githubusercontent.com/ab998c8801b6c20d5bcc7691e6de757a5cbf1faf01f661c0c34f492c22842c04/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f5374796c652d435353332d696e666f726d6174696f6e616c3f7374796c653d666c6174266c6f676f3d4353533326636f6c6f723d313537324236)
 
-## Available Scripts
+<img width="1440" alt="Screen Shot 2023-03-19 at 10 57 49 PM" src="https://user-images.githubusercontent.com/113942124/226258969-6847f9e9-e02f-4902-b4f1-6c579c38861c.png">
 
-In the project directory, you can run:
+## Setup
 
-### `npm start`
+Clone the repo accessible from the `Code` button at the
+main page of this repository.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. In the terminal, `cd` in the __backend__ directory of the starter.
+2. Install dependencies with `npm install`
+3. Run
+   * `npm start` - start the backend server
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In a different terminal, `cd` into the __frontend__ directory of the starter.
 
-### `npm test`
+1. Run `npm install` in the __frontend__ directory.
+2. Run `npm start` in the __frontend__ directory to start the server.
+   * Note that the __package.json__ now defines a proxy of
+     `http://localhost:8000`. This will effectively forward any unrecognized
+     requests to the port (`8000`) on which your backend is listening.
+3. Open `http://localhost:3000` to see the frontend
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
