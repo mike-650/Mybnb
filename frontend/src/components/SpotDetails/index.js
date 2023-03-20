@@ -20,9 +20,8 @@ function SpotDetails() {
   const sessionUser = useSelector(state => state.session.user);
   const spotReviews = useSelector(state => state.reviews.spot);
   const array = Object.values(spotReviews).reverse();
-
-
   const usersReviewIds = Object.values(spotReviews).map(review => review.User.id)
+
   const { spotId } = useParams();
 
   useEffect(() => {

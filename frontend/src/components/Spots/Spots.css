@@ -40,3 +40,16 @@
   align-items: center;
   height: 30px;
 }
+
+
+.tool-tip-enabled {
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.tool-tip-disabled {
+  display: none;
+}
