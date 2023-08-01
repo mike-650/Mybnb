@@ -20,7 +20,7 @@ function Spots() {
   }, [dispatch])
 
   if (!spots.length) return (
-     <h1>Loading...</h1>
+    <h1>Loading...</h1>
   );
 
   return (

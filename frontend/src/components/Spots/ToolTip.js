@@ -5,7 +5,7 @@ function ToolTip({name, previewImage}) {
   return (
     <div className="tool-tip-container">
     <h4 className={showToolTip}>{name}</h4>
-       <img
+      <img
             title={name}
             src={previewImage}
             onError={(e) => {

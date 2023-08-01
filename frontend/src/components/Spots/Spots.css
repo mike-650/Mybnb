@@ -47,6 +47,9 @@
   position: absolute;
   background-color: white;
   border-radius: 10px;
+  margin-left: 5px;
+  font-size: 20px;
+  padding: 2px;
 }
 
 .tool-tip-disabled {
