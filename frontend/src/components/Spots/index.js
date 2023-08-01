@@ -30,16 +30,6 @@ function Spots() {
       <div key={spot.id}>
           <div className='all-spots-container'>
         <NavLink to={`/spots/${spot.id}`} className='nav-link'>
-            {/* <img
-            title={spot.name}
-            src={spot.previewImage}
-            onError={(e) => {
-              e.target.onerror = null;
-              e.target.src = 'https://www.clipartmax.com/png/middle/155-1550474_image-is-not-available-home-button-transparent-background.png';
-            }}
-            alt='Not Available'
-            className='all-spots-images'
-            /> */}
             <ToolTip name={spot.name} previewImage={spot.previewImage} />
         </NavLink>
             <div className="spot-label">
