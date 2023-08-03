@@ -81,7 +81,8 @@ function LoginFormModal() {
           // disabled={disableBtn()}
           >Log In</button>
           <div style={{display:'flex', justifyContent:'center'}}>
-          <Link to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px' }}>Demo User</Link>
+          {/* <Link to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px' }}>Demo User</Link> */}
+          <button to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px', cursor: 'pointer' }}>Demo User</button>
           </div>
         </form>
       </div>
