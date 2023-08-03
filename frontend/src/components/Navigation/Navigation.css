@@ -24,6 +24,9 @@
 #create-spot {
   text-decoration: none;
   color: black;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 #create-spot:hover {
