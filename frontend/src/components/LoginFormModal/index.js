@@ -10,7 +10,7 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [login, setLogin] = useState('submit-review-button-disabled');
+  // const [login, setLogin] = useState('submit-review-button-disabled');
   const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
@@ -27,12 +27,12 @@ function LoginFormModal() {
       );
   };
 
-  const disableBtn = () => {
-    if (credential.length < 4 || password.length < 6) {
-      return true;
-    };
-    return false;
-  }
+  // const disableBtn = () => {
+  //   if (credential.length < 4 || password.length < 6) {
+  //     return true;
+  //   };
+  //   return false;
+  // }
 
   const demoUser = (e) => {
     e.preventDefault();
@@ -40,13 +40,13 @@ function LoginFormModal() {
       .then(closeModal)
   }
 
-  useEffect(() => {
-    if (credential.length >= 4 && password.length >= 6) {
-      setLogin('submit-review-button-enabled');
-    } else {
-      setLogin('submit-review-button-disabled');
-    }
-  }, [credential, password]);
+  // useEffect(() => {
+  //   if (credential.length >= 4 && password.length >= 6) {
+  //     setLogin('submit-review-button-enabled');
+  //   } else {
+  //     setLogin('submit-review-button-disabled');
+  //   }
+  // }, [credential, password]);
 
   return (
     <div className='login-container'>
@@ -74,7 +74,12 @@ function LoginFormModal() {
             required
             placeholder="Password"
           />
-          <button id={login} type="submit" disabled={disableBtn()}>Log In</button>
+          <button
+          // id={login}
+          id='submit-review-button-enabled'
+          type="submit"
+          // disabled={disableBtn()}
+          >Log In</button>
           <div style={{display:'flex', justifyContent:'center'}}>
           <Link to='/' onClick={demoUser} style={{ textAlign: 'center', padding: '12px' }}>Demo User</Link>
           </div>
