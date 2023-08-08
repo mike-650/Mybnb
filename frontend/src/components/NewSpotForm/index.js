@@ -33,6 +33,12 @@ function NewSpotForm() {
     if (!state.length) validations.push('State');
     if (!name.length) validations.push('Name');
 
+    // * Validations for long strings
+    if (country.length >= 56) validations.push('CountryLength');
+    if (address.length >= 40) validations.push('AddressLength');
+    if (city.length >= 27) validations.push('CityLength');
+    if (state.length >= 30) validations.push('StateLength');
+    if (name.length >= 40) validations.push('NameLength');
 
     if (description.length < 30) validations.push('Description');
     if (description.length > 255) validations.push('CharExceeded');
@@ -89,7 +95,8 @@ function NewSpotForm() {
           <p>Guests will only get your exact address once they booked a reservation.</p>
           <div className='errors'>
             <label htmlFor='country'>Country
-              {errors.includes('Country') ? <p style={{ color: 'red', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>Country is required</p> : null}
+              {errors.includes('Country') ? <p style={{ color: 'red', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>Country is required</p> : null}
+              {errors.includes('CountryLength') ? <p style={{ color: 'red', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>Country must be less than 56 characters</p> : null}
             </label>
           </div>
           <input
@@ -102,7 +109,8 @@ function NewSpotForm() {
           />
           <div className='errors'>
             <label htmlFor='street-address'>Street Address
-              {errors.includes('Address') ? <p style={{ color: 'red', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>Address is required</p> : null}
+              {errors.includes('Address') ? <p style={{ color: 'red', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>Address is required</p> : null}
+              {errors.includes('AddressLength') ? <p style={{ color: 'red', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>Address must be less than 40 characters</p> : null}
             </label>
           </div>
           <input
@@ -116,7 +124,8 @@ function NewSpotForm() {
           <div className='city-state'>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
               <label htmlFor='city'>City
-                {errors.includes('City') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>City is required</p> : null}
+                {errors.includes('City') ? <p style={{ color: '#db1709', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>City is required</p> : null}
+                {errors.includes('CityLength') ? <p style={{ color: '#db1709', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>City must be less than 27 characters</p> : null}
               </label>
               <input
                 className='input-fields'
@@ -129,7 +138,8 @@ function NewSpotForm() {
             </div>
             <div style={{ display: 'flex', flexDirection: 'column' }}>
             <label htmlFor='state'>State
-              {errors.includes('State') ? <p style={{ color: '#db1709', fontSize: '16px', display: 'inline', paddingLeft: '5px' }}>State is required</p> : null}
+              {errors.includes('State') ? <p style={{ color: '#db1709', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>State is required</p> : null}
+              {errors.includes('StateLength') ? <p style={{ color: '#db1709', fontSize: '14px', display: 'inline', paddingLeft: '5px' }}>State must be less than 30 characters</p> : null}
             </label>
             <input
               className='input-fields'
@@ -155,8 +165,8 @@ function NewSpotForm() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          {errors.includes('Description') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Description needs a minimum of 30 characters</p> : null}
-          {errors.includes('CharExceeded') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Description has a maximum of 255 characters</p> : null}
+          {errors.includes('Description') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Description needs a minimum of 30 characters</p> : null}
+          {errors.includes('CharExceeded') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Description has a maximum of 255 characters</p> : null}
           <div className='section-break'></div>
         </div>
         <div>
@@ -169,7 +179,8 @@ function NewSpotForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          {errors.includes('Name') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Name is required</p> : null}
+          {errors.includes('Name') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Name is required</p> : null}
+          {errors.includes('NameLength') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Name must be less than 40 characters</p> : null}
           <div className='section-break'></div>
         </div>
         <div>
@@ -185,8 +196,8 @@ function NewSpotForm() {
               onChange={(e) => setPrice(e.target.value)}
             />
           </div>
-          {errors.includes('Price') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price is required</p> : null}
-          {errors.includes('Negative') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Price must be greater than $0</p> : null}
+          {errors.includes('Price') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Price is required</p> : null}
+          {errors.includes('Negative') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Price must be greater than $0</p> : null}
           <div className='section-break'></div>
         </div>
         <div className='spot-photo-urls'>
@@ -199,8 +210,8 @@ function NewSpotForm() {
             value={previewImg}
             onChange={(e) => setPreviewImg(e.target.value)}
           />
-          {errors.includes('previewImgLength') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Preview image is required</p> : null}
-          {errors.includes('previewImgInvalid') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+          {errors.includes('previewImgLength') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Preview image is required</p> : null}
+          {errors.includes('previewImgInvalid') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           <div>
             <input
               className='input-fields'
@@ -209,7 +220,7 @@ function NewSpotForm() {
               value={img1}
               onChange={(e) => setImg1(e.target.value)}
             />
-            {errors.includes('img1') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img1') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -219,7 +230,7 @@ function NewSpotForm() {
               value={img2}
               onChange={(e) => setImg2(e.target.value)}
             />
-            {errors.includes('img2') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img2') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -229,7 +240,7 @@ function NewSpotForm() {
               value={img3}
               onChange={(e) => setImg3(e.target.value)}
             />
-            {errors.includes('img3') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img3') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
           <div>
             <input
@@ -239,7 +250,7 @@ function NewSpotForm() {
               value={img4}
               onChange={(e) => setImg4(e.target.value)}
             />
-            {errors.includes('img4') ? <p style={{ color: '#db1709', fontSize: '16px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
+            {errors.includes('img4') ? <p style={{ color: '#db1709', fontSize: '14px' }}>Image URL must end in .png, .jpg, or .jpeg</p> : null}
           </div>
         </div>
         <div className='section-break'></div>
