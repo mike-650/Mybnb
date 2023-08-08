@@ -25,15 +25,20 @@ function NewSpotForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validations = [];
+
+    // * Validations for empty strings
     if (!country.length) validations.push('Country');
     if (!address.length) validations.push('Address');
     if (!city.length) validations.push('City');
     if (!state.length) validations.push('State');
+    if (!name.length) validations.push('Name');
+
+
     if (description.length < 30) validations.push('Description');
     if (description.length > 255) validations.push('CharExceeded');
-    if (!name.length) validations.push('Name');
-    if (!price) validations.push('Price');
     if (price <= 0) validations.push('Negative');
+    if (!price) validations.push('Price');
+
     if (!previewImg.length) {
       validations.push('previewImgLength')
     } else if (!previewImg.endsWith('.jpg') && !previewImg.endsWith('.jpeg') && !previewImg.endsWith('.png')) {
