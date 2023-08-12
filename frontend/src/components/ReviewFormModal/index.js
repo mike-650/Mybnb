@@ -18,8 +18,13 @@ function ReviewFormModal({ spotId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     const errorValidation = {};
+
     if (review.length > 255) {
       errorValidation.review = "Review must be less than 255 characters"
+      setError(errorValidation);
+      return;
+    } else if (!review.trim().length) {
+      errorValidation.review = "Review must be at least 10 characters"
       setError(errorValidation);
       return;
     }
